@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\phenix\Delegate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Size.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Stopwatch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Predef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\Entry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\OpenGLApp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\detail\wgl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\WindowApp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\log\Log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\log\LogWrap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\detail\utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\detail\wglext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\phenix\entry\source\EntryManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\phenix\entry\source\EntryObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\phenix\entry\source\EntryUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_cd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_clear.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_cwd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_exit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_help.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_list.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_new.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_tree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\opengl\gl_ex01_create_window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\opengl\glapp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\phenix\app\source\WindowApp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\phenix\log\source\LogWrap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\experiment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="external\fmt-3.0.1\fmt\format.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="external\termcolor-0.1.0\include\termcolor\termcolor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\phenix\app\detail\source\wgl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
