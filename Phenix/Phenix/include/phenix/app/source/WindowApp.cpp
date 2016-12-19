@@ -80,7 +80,10 @@ namespace fnx
             autox app = reinterpret_cast<WindowApp * const>(window_handle);
             {
                 autox duration = high_resolution_clock::now().time_since_epoch();
+#pragma warning(push)
+#pragma warning(disable: 4552)
                 autox micros   = duration_cast<microseconds>(duration).count() % microseconds::period::den;
+#pragma warning(pop)
                 autox time     = std::time(nullptr);
                 autox tm       = std::tm();
                 localtime_s(&tm, &time);
@@ -162,7 +165,7 @@ namespace fnx
                     running = (evtarg.message != WM_QUIT);
                     if (running)
                     {
-                        TranslateMessage(&evtarg);
+                        // TranslateMessage(&evtarg);
                         DispatchMessage(&evtarg);
                     }
                 }

@@ -86,9 +86,6 @@
     <ClCompile Include="entry\global\entry_clear.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="entry\global\entry_cwd.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\global\entry_exit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="include\phenix\app\detail\source\wgl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\global\entry_env.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

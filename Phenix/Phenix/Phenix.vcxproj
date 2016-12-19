@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="entry\global\entry_cd.cpp" />
     <ClCompile Include="entry\global\entry_clear.cpp" />
-    <ClCompile Include="entry\global\entry_cwd.cpp" />
+    <ClCompile Include="entry\global\entry_env.cpp" />
     <ClCompile Include="entry\global\entry_exit.cpp" />
     <ClCompile Include="entry\global\entry_help.cpp" />
     <ClCompile Include="entry\global\entry_list.cpp" />
@@ -82,7 +82,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
