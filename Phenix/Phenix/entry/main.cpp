@@ -13,13 +13,18 @@ int main(int argc, char ** argv)
 
     mgr.SetWorkspace(__FILE__);
     mgr.SetBootPath(argv[0]);
-    mgr.SetCurrent(get<0>(ExtractPathInfo(__FILE__)));
 
     _putenv((string("PWD=") + get<0>(path)).c_str());
 
-    if (argc > 1)
+    switch (argc)
     {
+    default:
+    case 1:
+        mgr.SetCurrent(get<0>(ExtractPathInfo(__FILE__)));
+        break;
+    case 2:
         mgr.SetCurrent(argv[1]);
+        break;
     }
 
     mgr.Run();

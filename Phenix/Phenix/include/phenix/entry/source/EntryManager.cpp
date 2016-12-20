@@ -1,6 +1,5 @@
 #include "phenix/entry/Entry.h"
 
-#include <regex>
 #include <iostream>
 
 using namespace std;
@@ -126,37 +125,19 @@ namespace fnx
                 return nullptr;
             }
 
-            regex const _CreateRegExpr(StringType const & name)
-            {
-                autox pattern = StringType();
-                pattern.reserve(name.length() * 3 + 3);
-                pattern.push_back('^');
-                for (autox c : name)
-                {
-                    switch (c)
-                    {
-                    case '*':
-                    case '+':
-                    case '?':
-                    case '.':
-                    case '^':
-                    case '$':
-                    case '|':
-                    case '\\':
-                        pattern.push_back('\\');
-                        break;
-                    }
-                    pattern.push_back(c);
-                    pattern.push_back('.');
-                    pattern.push_back('*');
-                }
-                pattern.push_back('$');
-                return regex(pattern);
-            }
-
             static bool const _FuzzyMatch(StringType const & name, StringType const & input)
             {
-                return false;
+                if (name.size() < input.size())
+                    return false;
+                autox p = name.c_str();
+                autox q = input.c_str();
+                while (*q != 0)
+                {
+                    while ((*p != 0) && (*p != *q)) { ++p; }
+                    if ((*p == 0) && (*q != 0)) { return false; }
+                    ++q;
+                }
+                return true;
             }
 
             static vector<SharedType const *> _FuzzyFindObject(
@@ -174,15 +155,11 @@ namespace fnx
                 else
                 {
                     autox children = node->GetChidren();
-                    if (children.size() > 0)
+                    for (autox child : children)
                     {
-                        autox regexpr = _CreateRegExpr(name);
-                        for (autox child : children)
-                        {
-                            autox s = child->GetName();
-                            if (regex_match(s, regexpr))
-                                retval.push_back(&child);
-                        }
+                        autox s = child->GetName();
+                        if (_FuzzyMatch(s, name))
+                            retval.push_back(&child);
                     }
                 }
 
@@ -193,16 +170,16 @@ namespace fnx
                 SharedType const & node,
                 StringType const & name)
             {
-                autox retval = vector<SharedType const *>();
-                autox nodes  = vector<SharedType const *>();
+                autox retval  = vector<SharedType const *>();
+                autox nodes   = vector<SharedType const *>();
                 nodes.push_back(&node);
+
                 while (nodes.size() > 0)
                 {
                     autox p = *nodes.back();
                     autox s = p->GetName();
-                    autox regexpr = _CreateRegExpr(name);
                     nodes.pop_back();
-                    if ((p != node) && regex_match(s, regexpr))
+                    if ((p != node) && _FuzzyMatch(s, name))
                     {
                         retval.push_back(&p);
                     }
@@ -213,6 +190,7 @@ namespace fnx
                             nodes.push_back(&child);
                     }
                 }
+
                 return retval;
             }
 
@@ -240,11 +218,10 @@ namespace fnx
                 VectorArgs const & args)
             {
                 autox command = args[0];
-                autox pEntry = _FindObject(node, command);
+                autox pEntry  = _FindObject(node, command);
                 if (pEntry == nullptr)
                     return false;
-                autox entry = *pEntry;
-                _ExecuteCommand(entry, args);
+                _ExecuteCommand(*pEntry, args);
                 return true;
             }
 

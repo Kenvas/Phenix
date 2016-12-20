@@ -165,7 +165,7 @@ namespace fnx
                     running = (evtarg.message != WM_QUIT);
                     if (running)
                     {
-                        // TranslateMessage(&evtarg);
+                        TranslateMessage(&evtarg);
                         DispatchMessage(&evtarg);
                     }
                 }

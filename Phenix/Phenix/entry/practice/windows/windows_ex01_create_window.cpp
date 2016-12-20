@@ -55,7 +55,7 @@ LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam
     auto micros = duration_cast<std::chrono::microseconds>(duration).count() % 1000000;
     auto t = std::time(nullptr);
     auto tm = std::tm();
-    ::localtime_s(&tm, &t);
+    localtime_s(&tm, &t);
     std::cout << fmt::format("{0:%T}.{1:06d} ", tm, micros)
     //std::cout << "message: "
         << termcolor::cyan      << fmt::format("{0:^20}", fnx::app::utils::GetWindowMessageName(message))

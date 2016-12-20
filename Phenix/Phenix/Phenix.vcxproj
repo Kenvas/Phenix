@@ -29,8 +29,10 @@
     <ClCompile Include="entry\global\entry_tree.cpp" />
     <ClCompile Include="entry\main.cpp" />
     <ClCompile Include="entry\practice\experiment.cpp" />
+    <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_client.cpp" />
+    <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_server.cpp" />
     <ClCompile Include="entry\practice\opengl\glapp.cpp" />
-    <ClCompile Include="entry\practice\opengl\gl_ex01_create_window.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
     <ClCompile Include="external\fmt-3.0.1\fmt\format.cc" />
     <ClCompile Include="external\termcolor-0.1.0\include\termcolor\termcolor.cpp" />
     <ClCompile Include="include\phenix\app\detail\source\wgl.cpp" />
