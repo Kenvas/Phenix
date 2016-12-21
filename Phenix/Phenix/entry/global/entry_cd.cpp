@@ -11,6 +11,7 @@ FNX_AddGlobalEntry("cd")
         if (path == "#")
         {
             Manager.SetCurrent(Manager.GetRoot());
+            Manager.SetCurrent(Manager.GetWorkspace());
             return;
         }
 

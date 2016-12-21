@@ -310,7 +310,7 @@ namespace fnx
             {
                 autox length = objects.size();
                 for (autox o : objects)
-                    length += o->GetName().length();
+                    length += o->GetName().length() + 1;
                 autox retval = StringType();
                 retval.reserve(length);
                 retval.append("#/");
@@ -397,7 +397,7 @@ namespace fnx
 
         void EntryManager::SetWorkspace(StringType const & path)
         {
-            autox info = ExtractPathInfo(__FILE__);
+            autox info = ExtractPathInfo(path);
             Workspace_ = get<0>(info);
         }
 
