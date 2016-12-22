@@ -8,7 +8,7 @@ namespace fnx
     {
         namespace wgl
         {
-            BOOL   WINAPI LoadExtenedFunctions();
+            BOOL   WINAPI LoadExtensions();
             BOOL   WINAPI IsExtensionSupported(HDC hdc, LPCSTR extName);
             LPCSTR WINAPI GetExtensionsString (HDC hdc);
             HGLRC  WINAPI CreateContextAttribs(HDC hdc, HGLRC hShareContext, const int *attribList);

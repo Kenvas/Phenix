@@ -20,7 +20,7 @@ namespace fnx
             static PFNWGLSWAPINTERVALEXTPROC         __wglSwapIntervalEXT         = nullptr;
             static PFNWGLGETSWAPINTERVALEXTPROC      __wglGetSwapIntervalEXT      = nullptr;
 
-            BOOL WINAPI _LoadExtenedFunctions()
+            BOOL WINAPI _LoadExtensions()
             {
                 autox retval = TRUE;
                 cout << termcolor::green << "load wgl extended functions:" << endl;
@@ -46,7 +46,7 @@ namespace fnx
                 return retval;
             }
 
-            BOOL WINAPI LoadExtenedFunctions()
+            BOOL WINAPI LoadExtensions()
             {
                 static autox init = false;
 
@@ -127,7 +127,7 @@ namespace fnx
                     dispsose(4, class_name, instance, hwnd, hdc, hglrc);
                 }
 
-                _LoadExtenedFunctions();
+                _LoadExtensions();
                 dispsose(5, class_name, instance, hwnd, hdc, hglrc);
 
                 init = true;
