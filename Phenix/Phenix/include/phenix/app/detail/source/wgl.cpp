@@ -1,7 +1,7 @@
-#include "phenix/app/detail/wgl.h"
+#include "phenix/app/detail/wgl.hpp"
 
-#include "phenix/Predef.h"
-#include "phenix/log/Log.h"
+#include "phenix/Predef.hpp"
+#include "phenix/log/Log.hpp"
 
 #include "termcolor/termcolor.hpp"
 #include "fmt/format.h"

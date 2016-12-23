@@ -1,5 +1,5 @@
-#include "phenix/entry/Entry.h"
-#include "phenix/app/detail/utils.h"
+#include "phenix/entry/Entry.hpp"
+#include "phenix/app/detail/utils.hpp"
 
 #include "fmt/format.h"
 #include "fmt/time.h"

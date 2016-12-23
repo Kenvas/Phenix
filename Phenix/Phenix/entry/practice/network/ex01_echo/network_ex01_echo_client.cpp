@@ -5,7 +5,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-#include "phenix/entry/Entry.h"
+#include "phenix/entry/Entry.hpp"
 
 static void error_handler(char * message)
 {

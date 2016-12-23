@@ -1,6 +1,6 @@
-#include "phenix/app/WindowApp.h"
-#include "phenix/app/detail/utils.h"
-#include "phenix/log/Log.h"
+#include "phenix/app/WindowApp.hpp"
+#include "phenix/app/detail/utils.hpp"
+#include "phenix/log/Log.hpp"
 
 #include "termcolor/termcolor.hpp"
 #include "fmt/time.h"
@@ -11,10 +11,12 @@
 #include <unordered_map>
 
 #pragma comment(lib, "opengl32.lib")
+#include <windowsx.h>
 #include <gl/GL.h>
 
 using namespace std;
 using namespace std::chrono;
+
 
 //#include "asmjit/asmjit.h"
 //using namespace asmjit;
@@ -42,7 +44,7 @@ namespace fnx
         namespace
         {
 #pragma pack(push,1)
-            struct Thunk
+            struct alignas(1) Thunk
             {
                 struct mov_reg_imm
                 {
@@ -267,7 +269,7 @@ namespace fnx
                 OnDestroy();
                 break;
             case WM_SIZE:
-                OnResize(LOWORD(lparam), HIWORD(lparam));
+                OnResize(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
                 break;
             case WM_CLOSE:
                 OnClose();

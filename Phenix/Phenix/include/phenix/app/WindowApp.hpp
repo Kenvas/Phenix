@@ -6,8 +6,8 @@
 
 #include <chrono>
 
-#include "phenix/Predef.h"
-#include "phenix/Size.h"
+#include "phenix/Predef.hpp"
+#include "phenix/Size.hpp"
 
 namespace fnx
 {

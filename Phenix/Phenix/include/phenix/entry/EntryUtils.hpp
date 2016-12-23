@@ -7,7 +7,7 @@
 
 #include "termcolor/termcolor.hpp"
 
-#include "phenix/Predef.h"
+#include "phenix/Predef.hpp"
 
 #define FNX_Entry_UsingNamespace \
     using namespace std; \

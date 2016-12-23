@@ -1,4 +1,4 @@
-#include "phenix/log/LogWrap.h"
+#include "phenix/log/LogWrap.hpp"
 
 namespace fnx
 {

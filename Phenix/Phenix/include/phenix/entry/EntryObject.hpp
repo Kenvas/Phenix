@@ -1,7 +1,7 @@
 #pragma once
 
-#include "EntryUtils.h"
-#include "EntryType.h"
+#include "EntryUtils.hpp"
+#include "EntryType.hpp"
 
 namespace fnx
 {

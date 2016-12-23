@@ -1,6 +1,6 @@
 #pragma once
 
-#include "phenix/entry/EntryUtils.h"
+#include "phenix/entry/EntryUtils.hpp"
 
 namespace fnx
 {

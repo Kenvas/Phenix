@@ -1,4 +1,4 @@
-#include "phenix/entry/Entry.h"
+#include "phenix/entry/Entry.hpp"
 
 // show available commands
 FNX_AddGlobalEntry("help")

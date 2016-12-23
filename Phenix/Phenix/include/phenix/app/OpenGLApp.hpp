@@ -6,10 +6,10 @@
 //#include "glbinding/gl/gl.h"
 //#include "glbinding/Binding.h"
 
-#include "WindowApp.h"
+#include "WindowApp.hpp"
 
-#include "detail/wgl.h"
-#include "phenix/log/Log.h"
+#include "detail/wgl.hpp"
+#include "phenix/log/Log.hpp"
 
 
 using namespace std;

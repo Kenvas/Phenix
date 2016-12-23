@@ -1,4 +1,4 @@
-#include "phenix/entry/Entry.h"
+#include "phenix/entry/Entry.hpp"
 
 // change directory
 FNX_AddGlobalEntry("cd")

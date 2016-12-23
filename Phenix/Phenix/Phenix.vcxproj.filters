@@ -101,9 +101,6 @@
     <ClCompile Include="entry\global\entry_tree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="entry\practice\opengl\gl_ex01_create_window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\practice\opengl\glapp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -126,6 +123,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="entry\global\entry_env.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_server.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

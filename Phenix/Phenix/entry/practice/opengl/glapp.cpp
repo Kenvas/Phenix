@@ -1,6 +1,6 @@
-#include "phenix/entry/Entry.h"
+#include "phenix/entry/Entry.hpp"
 
-#include "phenix/app/OpenGLApp.h"
+#include "phenix/app/OpenGLApp.hpp"
 
 using namespace std;
 using namespace fnx::app;

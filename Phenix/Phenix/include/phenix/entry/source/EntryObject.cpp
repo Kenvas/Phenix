@@ -1,4 +1,4 @@
-#include "phenix/entry/EntryObject.h"
+#include "phenix/entry/EntryObject.hpp"
 
 using namespace std;
 

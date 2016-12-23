@@ -1,4 +1,4 @@
-#include "phenix/entry/Entry.h"
+#include "phenix/entry/Entry.hpp"
 
 // list current directory's entries
 FNX_AddGlobalEntry("ls")
