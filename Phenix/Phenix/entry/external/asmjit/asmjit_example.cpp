@@ -1,4 +1,5 @@
-#include "phenix/entry/Entry.h"
+#include "PrecompiledHeader.hpp"
+#include "phenix/entry/Entry.hpp"
 
 #include "asmjit/asmjit.h"
 
