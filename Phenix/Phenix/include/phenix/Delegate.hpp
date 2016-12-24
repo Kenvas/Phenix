@@ -2,8 +2,7 @@
 
 #include <cstdint>
 
-#include <phenix/Thunk.h>
-#include <phenix/Util.h>
+#include "phenix/Utility.hpp"
 
 namespace fnx
 {

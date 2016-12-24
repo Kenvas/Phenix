@@ -12,7 +12,6 @@
 #include <iostream>
 #include <unordered_map>
 
-
 #pragma comment(lib, "opengl32.lib")
 #include <windowsx.h>
 #include <gl/GL.h>
@@ -20,25 +19,8 @@
 using namespace std;
 using namespace std::chrono;
 
-
 //#include "asmjit/asmjit.h"
 //using namespace asmjit;
-
-//#define FNX_PRINT_MESSAGE_TEMPLATE(name, value, prefix, wparam, lparam) \
-//    do { \
-//        auto duration = high_resolution_clock::now().time_since_epoch(); \
-//        auto micros = duration_cast<std::chrono::microseconds>(duration).count() % 1000000; \
-//        auto t = std::time(nullptr); \
-//        auto tm = std::tm(); \
-//        ::localtime_s(&tm, &t); \
-//        std::cout << fmt::format("{0:%T}.{1:06d} ", tm, micros) \
-//        << termcolor::cyan << fmt::format("{0:^18}", prefix##name) \
-//        << termcolor::green << fmt::format("(0x{0:04x}) ", value) \
-//        << termcolor::magenta << fmt::format("wp:0x{0:016x} lp: 0x{1:016x} ", wparam, lparam) \
-//        << termcolor::reset << std::endl; \
-//    } while (0)
-//#define FNX_PRINT_MESSAGE(name, code, wparam, lparam) FNX_PRINT_MESSAGE_TEMPLATE(name, code, "", wparam, lparam)
-//#define FNX_PRINT_MESSAGE_STATIC(name, code, wparam, lparam) FNX_PRINT_MESSAGE_TEMPLATE(name, code, "$", wparam, lparam)
 
 namespace fnx
 {
@@ -47,7 +29,6 @@ namespace fnx
         namespace
         {
 #pragma pack(push,1)
-#if defined(_WIN64)
             struct alignas(1) Thunk
             {
                 struct mov_reg_imm
@@ -66,53 +47,6 @@ namespace fnx
                     jmp_rax     = { 0xE0FF };
                 }
             };
-#else
-#if !defined(__clang__)
-            struct alignas(1) Thunk
-            {
-                struct mov_esp_imm
-                {
-                    size_t opcode;
-                    size_t value;
-                };
-                struct jmp_rel_imm
-                {
-                    uint8_t opcode;
-                    size_t  value;
-                };
-                mov_esp_imm mov_esp4_imm;
-                jmp_rel_imm jmp_imm;
-
-                void Build(size_t this_ptr, size_t func_ptr)
-                {
-                    mov_esp4_imm = { 0x042444C7, this_ptr };
-                    jmp_imm      = { 0xE9      , func_ptr - reinterpret_cast<size_t>(this + 1) };
-                }
-            };
-#else
-            struct alignas(1) Thunk
-            {
-                struct mov_reg_imm
-                {
-                    uint8_t opcode;
-                    size_t  value;
-                };
-                struct jmp_rel_imm
-                {
-                    uint8_t opcode;
-                    size_t  value;
-                };
-                mov_reg_imm mov_ecx_imm;
-                jmp_rel_imm jmp_imm;
-
-                void Build(size_t this_ptr, size_t func_ptr)
-                {
-                    mov_ecx_imm = { 0xB9, this_ptr };
-                    jmp_imm     = { 0xE9, func_ptr - reinterpret_cast<size_t>(this + 1) };
-                }
-            };
-#endif
-#endif
 #pragma pack(pop)
         }
 
@@ -392,7 +326,3 @@ namespace fnx
 
     }
 }
-
-//#undef FNX_PRINT_MESSAGE_TEMPLATE
-//#undef FNX_PRINT_MESSAGE
-//#undef FNX_PRINT_MESSAGE_STATIC

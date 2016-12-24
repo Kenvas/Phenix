@@ -1,13 +1,13 @@
 #pragma once
 
+#include "phenix/Predef.hpp"
+
+#include "termcolor/termcolor.hpp"
+
 #include <memory>
 #include <string>
 #include <vector>
 #include <functional>
-
-#include "termcolor/termcolor.hpp"
-
-#include "phenix/Predef.hpp"
 
 #define FNX_Entry_UsingNamespace \
     using namespace std; \

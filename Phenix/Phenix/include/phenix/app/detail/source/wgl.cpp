@@ -1,7 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
 #include "phenix/app/detail/wgl.hpp"
-
 #include "phenix/Predef.hpp"
 #include "phenix/log/Log.hpp"
 
