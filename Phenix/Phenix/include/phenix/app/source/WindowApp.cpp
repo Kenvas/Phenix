@@ -45,6 +45,7 @@ namespace fnx
                     mov_rcx_imm = { 0xB948, this_ptr };
                     mov_rax_imm = { 0xB848, func_ptr };
                     jmp_rax     = { 0xE0FF };
+                    FlushInstructionCache(GetCurrentProcess(), this, sizeof(*this));
                 }
             };
 #pragma pack(pop)
