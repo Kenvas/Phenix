@@ -1,3 +1,5 @@
+#include "PrecompiledHeader.hpp"
+
 #include "phenix/app/detail/wgl.hpp"
 
 #include "phenix/Predef.hpp"
@@ -23,7 +25,7 @@ namespace fnx
             BOOL WINAPI _LoadExtensions()
             {
                 autox retval = TRUE;
-                cout << termcolor::green << "load wgl extended functions:" << endl;
+                cout << termcolor::green << "info: load wgl extensions" << endl;
             #define FNX_GET_PROC_ADDR(func_proto, ext_name) __##ext_name = (func_proto)wglGetProcAddress(#ext_name); \
                 do { \
                     if (__##ext_name == nullptr) { \
@@ -46,16 +48,16 @@ namespace fnx
                 return retval;
             }
 
+            static LRESULT WINAPI WindowProcedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
+            {
+                return DefWindowProc(hwnd, message, wparam, lparam);
+            }
+
             BOOL WINAPI LoadExtensions()
             {
                 static autox init = false;
 
                 if (init) return TRUE;
-
-                autox proc = [](HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
-                {
-                    return DefWindowProc(hwnd, message, wparam, lparam);
-                };
 
                 autox dispsose = [](int step, LPCTSTR class_name, HINSTANCE instance, HWND hwnd, HDC hdc, HGLRC hglrc)
                 {
@@ -77,7 +79,7 @@ namespace fnx
                 autox wcex         = WNDCLASSEX{ 0 };
                 wcex.cbSize        = sizeof(wcex);
                 wcex.hInstance     = instance;
-                wcex.lpfnWndProc   = proc;
+                wcex.lpfnWndProc   = &WindowProcedure;
                 wcex.lpszClassName = class_name;
 
                 if (!RegisterClassEx(&wcex))

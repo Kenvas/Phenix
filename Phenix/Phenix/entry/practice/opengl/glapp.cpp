@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/Entry.hpp"
 
 #include "phenix/app/OpenGLApp.hpp"

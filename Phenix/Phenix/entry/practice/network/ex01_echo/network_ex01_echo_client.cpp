@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +8,7 @@
 
 #include "phenix/entry/Entry.hpp"
 
-static void error_handler(char * message)
+static void error_handler(char const * const message)
 {
     fputs(message, stderr);
     fputc('\n', stderr);

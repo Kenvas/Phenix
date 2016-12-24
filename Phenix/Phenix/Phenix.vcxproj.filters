@@ -15,59 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\phenix\Delegate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\Size.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\Utility.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\Stopwatch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\Predef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\entry\EntryObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\entry\EntryType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\entry\EntryManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\entry\EntryUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\entry\Entry.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\app\OpenGLApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\app\detail\wgl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\app\WindowApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\log\Log.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\log\LogWrap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\app\detail\utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\app\detail\wglext.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="include\phenix\entry\source\EntryManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -134,5 +81,73 @@
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="entry\global\entry_cpuid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\PrecompiledHeader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\phenix\app\detail\utils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\detail\wgl.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\detail\wglext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\OpenGLApp.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\app\WindowApp.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\Entry.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryManager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryObject.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryType.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\entry\EntryUtils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\log\Log.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\log\LogWrap.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\macro\compiler\Compiler.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Delegate.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Predef.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Size.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Stopwatch.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\Utility.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\PrecompiledHeader.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\phenix\_precompiled\PrecompiledHeader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/Entry.hpp"
 
 #pragma comment(lib, "opengl32.lib")

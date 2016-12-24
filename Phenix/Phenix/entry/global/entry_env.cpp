@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/Entry.hpp"
 
 // environment
@@ -11,7 +12,7 @@ FNX_AddGlobalEntry("env")
         autox name = args[1];
         autox reqsz = size_t(0);
         char buffer[2048];
-        autox err = getenv_s(&reqsz, buffer, name.c_str());
+        getenv_s(&reqsz, buffer, name.c_str());
         cout << cyan << buffer << reset << endl;
         break;
     }

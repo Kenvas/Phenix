@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/Entry.hpp"
 
 // show available commands

@@ -95,7 +95,7 @@ namespace fnx
             {
                 autox window_handle = CreateWindowInstance(GetWindowClassName(), TEXT("opengl"));
                 autox error = GetLastError();
-                if (!wgl::LoadExtenedFunctions())
+                if (!wgl::LoadExtensions())
                 {
                     return false;
                 }

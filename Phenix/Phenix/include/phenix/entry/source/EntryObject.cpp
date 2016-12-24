@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/EntryObject.hpp"
 
 using namespace std;

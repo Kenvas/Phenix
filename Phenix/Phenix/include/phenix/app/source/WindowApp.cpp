@@ -1,3 +1,5 @@
+#include "PrecompiledHeader.hpp"
+
 #include "phenix/app/WindowApp.hpp"
 #include "phenix/app/detail/utils.hpp"
 #include "phenix/log/Log.hpp"
@@ -9,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include <unordered_map>
+
 
 #pragma comment(lib, "opengl32.lib")
 #include <windowsx.h>
@@ -44,19 +47,75 @@ namespace fnx
         namespace
         {
 #pragma pack(push,1)
+#if defined(_WIN64)
             struct alignas(1) Thunk
             {
                 struct mov_reg_imm
                 {
                     uint16_t opcode;
-                    uint64_t value;
+                    size_t   value;
                 };
                 mov_reg_imm mov_rcx_imm;
                 mov_reg_imm mov_rax_imm;
                 uint16_t    jmp_rax;
+
+                void Build(size_t this_ptr, size_t func_ptr)
+                {
+                    mov_rcx_imm = { 0xB948, this_ptr };
+                    mov_rax_imm = { 0xB848, func_ptr };
+                    jmp_rax     = { 0xE0FF };
+                }
             };
+#else
+#if !defined(__clang__)
+            struct alignas(1) Thunk
+            {
+                struct mov_esp_imm
+                {
+                    size_t opcode;
+                    size_t value;
+                };
+                struct jmp_rel_imm
+                {
+                    uint8_t opcode;
+                    size_t  value;
+                };
+                mov_esp_imm mov_esp4_imm;
+                jmp_rel_imm jmp_imm;
+
+                void Build(size_t this_ptr, size_t func_ptr)
+                {
+                    mov_esp4_imm = { 0x042444C7, this_ptr };
+                    jmp_imm      = { 0xE9      , func_ptr - reinterpret_cast<size_t>(this + 1) };
+                }
+            };
+#else
+            struct alignas(1) Thunk
+            {
+                struct mov_reg_imm
+                {
+                    uint8_t opcode;
+                    size_t  value;
+                };
+                struct jmp_rel_imm
+                {
+                    uint8_t opcode;
+                    size_t  value;
+                };
+                mov_reg_imm mov_ecx_imm;
+                jmp_rel_imm jmp_imm;
+
+                void Build(size_t this_ptr, size_t func_ptr)
+                {
+                    mov_ecx_imm = { 0xB9, this_ptr };
+                    jmp_imm     = { 0xE9, func_ptr - reinterpret_cast<size_t>(this + 1) };
+                }
+            };
+#endif
+#endif
 #pragma pack(pop)
         }
+
 
         LRESULT CALLBACK WindowApp::TempWindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
         {
@@ -66,9 +125,7 @@ namespace fnx
                 autox app   = static_cast<WindowApp * const>(pcs->lpCreateParams);
                 autox thunk = static_cast<Thunk * const>(VirtualAlloc(nullptr, sizeof(Thunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE));
                 autox proc  = reinterpret_cast<WNDPROC>(thunk);
-                thunk->mov_rcx_imm = { 0xB948, reinterpret_cast<uint64_t>(app) };
-                thunk->mov_rax_imm = { 0xB848, reinterpret_cast<uint64_t>(&WindowApp::AuxWindowProcedure) };
-                thunk->jmp_rax     = { 0xE0FF };
+                thunk->Build(reinterpret_cast<size_t>(app), reinterpret_cast<size_t>(&WindowApp::AuxWindowProcedure));
                 if (app->WindowHandle_ == nullptr)
                     app->WindowHandle_ = window_handle;
                 SetWindowLongPtr(window_handle, -4/*GWL_WNDPROC*/, (LONG_PTR)proc);

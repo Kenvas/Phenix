@@ -10,9 +10,15 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Debug-llvm|Any CPU = Debug-llvm|Any CPU
+		Debug-llvm|x64 = Debug-llvm|x64
+		Debug-llvm|x86 = Debug-llvm|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Release-llvm|Any CPU = Release-llvm|Any CPU
+		Release-llvm|x64 = Release-llvm|x64
+		Release-llvm|x86 = Release-llvm|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug|Any CPU.ActiveCfg = Debug|Win32
@@ -20,11 +26,21 @@ Global
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug|x64.Build.0 = Debug|x64
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug|x86.ActiveCfg = Debug|Win32
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug|x86.Build.0 = Debug|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug-llvm|Any CPU.ActiveCfg = Debug-llvm|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug-llvm|x64.ActiveCfg = Debug-llvm|x64
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug-llvm|x64.Build.0 = Debug-llvm|x64
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug-llvm|x86.ActiveCfg = Debug-llvm|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Debug-llvm|x86.Build.0 = Debug-llvm|Win32
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release|Any CPU.ActiveCfg = Release|Win32
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release|x64.ActiveCfg = Release|x64
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release|x64.Build.0 = Release|x64
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release|x86.ActiveCfg = Release|Win32
 		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release|x86.Build.0 = Release|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release-llvm|Any CPU.ActiveCfg = Release-llvm|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release-llvm|x64.ActiveCfg = Release-llvm|x64
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release-llvm|x64.Build.0 = Release-llvm|x64
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release-llvm|x86.ActiveCfg = Release-llvm|Win32
+		{B53BB9E6-286B-4897-9866-6395682C4D50}.Release-llvm|x86.Build.0 = Release-llvm|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/entry/Entry.hpp"
 
 FNX_Entry_UsingNamespace;
@@ -22,7 +23,7 @@ static void Build(int depth, int trunk, SharedType const & node)
 
     autox children = node->GetChidren();
     autox count    = children.size();
-    for (autox i = 0; i < count; i++)
+    for (autox i = size_t(0); i < count; i++)
     {
         autox child = children[i];
         autox flag  = (i < (count - 1)) ? (1 << depth) : 0;

@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.hpp"
 #include "phenix/log/LogWrap.hpp"
 
 namespace fnx
