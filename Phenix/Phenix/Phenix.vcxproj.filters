@@ -149,5 +149,8 @@
     <ClInclude Include="include\phenix\_precompiled\PrecompiledHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\PrecompiledHeader.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
