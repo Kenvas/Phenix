@@ -87,6 +87,9 @@
     <ClCompile Include="include\PrecompiledHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_console.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\phenix\app\detail\utils.hpp">
@@ -144,9 +147,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\phenix\PrecompiledHeader.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\phenix\_precompiled\PrecompiledHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\PrecompiledHeader.hpp">
