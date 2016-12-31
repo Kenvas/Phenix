@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug-llvm|Win32">
       <Configuration>Debug-llvm</Configuration>
@@ -69,7 +69,8 @@
     <ClInclude Include="include\phenix\app\detail\wglext.h" />
     <ClInclude Include="include\phenix\app\OpenGLApp.hpp" />
     <ClInclude Include="include\phenix\app\WindowApp.hpp" />
-    <ClInclude Include="include\phenix\Delegate.hpp" />
+    <ClInclude Include="include\phenix\common\Delegate.hpp" />
+    <ClInclude Include="include\phenix\predef\Keyword.hpp" />
     <ClInclude Include="include\phenix\entry\Entry.hpp" />
     <ClInclude Include="include\phenix\entry\EntryManager.hpp" />
     <ClInclude Include="include\phenix\entry\EntryObject.hpp" />
@@ -79,10 +80,10 @@
     <ClInclude Include="include\phenix\log\LogWrap.hpp" />
     <ClInclude Include="include\phenix\macro\compiler\Compiler.hpp" />
     <ClInclude Include="include\phenix\PrecompiledHeader.hpp" />
-    <ClInclude Include="include\phenix\Predef.hpp" />
-    <ClInclude Include="include\phenix\Size.hpp" />
-    <ClInclude Include="include\phenix\Stopwatch.hpp" />
-    <ClInclude Include="include\phenix\Utility.hpp" />
+    <ClInclude Include="include\phenix\common\Predef.hpp" />
+    <ClInclude Include="include\phenix\common\Size.hpp" />
+    <ClInclude Include="include\phenix\common\Stopwatch.hpp" />
+    <ClInclude Include="include\phenix\common\Utility.hpp" />
     <ClInclude Include="include\PrecompiledHeader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -95,7 +96,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|Win32'" Label="Configuration">
@@ -107,7 +108,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -133,7 +134,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -177,56 +178,56 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-llvm|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-llvm|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
-    <IntDir>$(ProjectDir)output\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)intermediate\$(PlatformTarget)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName).$(PlatformTarget).$(Configuration)</TargetName>
     <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>

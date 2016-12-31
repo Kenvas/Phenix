@@ -35,6 +35,6 @@ extern "C" {
 // third party end
 
 
-#include "phenix/Predef.hpp"
+#include "phenix/predef/Keyword.hpp"
 #include "phenix/entry/Entry.hpp"
 #include "phenix/log/Log.hpp"

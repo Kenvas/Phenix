@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.hpp"
 
 #include "phenix/app/detail/wgl.hpp"
-#include "phenix/Predef.hpp"
+#include "phenix/predef/Keyword.hpp"
 #include "phenix/log/Log.hpp"
 
 #include "termcolor/termcolor.hpp"
