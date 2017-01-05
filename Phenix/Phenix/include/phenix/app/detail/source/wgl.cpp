@@ -54,7 +54,7 @@ namespace fnx
 
             BOOL WINAPI LoadExtensions()
             {
-                static autox init = false;
+                static autox init = FALSE;
 
                 if (init) return TRUE;
 
@@ -71,8 +71,6 @@ namespace fnx
                     }
                 };
 
-                autox retval = TRUE;
-
                 TCHAR class_name[] = TEXT("PhenixTemporaryWindowWGL");
                 autox instance     = GetModuleHandle(nullptr);
                 autox wcex         = WNDCLASSEX{ 0 };
@@ -84,8 +82,8 @@ namespace fnx
                 if (!RegisterClassEx(&wcex))
                 {
                     log::simple->error("error: register window class failed.");
-                    retval = FALSE;
                     dispsose(0, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    return FALSE;
                 }
 
                 autox hwnd = CreateWindowEx(WS_EX_APPWINDOW, class_name, nullptr, WS_OVERLAPPEDWINDOW,
@@ -93,47 +91,47 @@ namespace fnx
                 if (hwnd == nullptr)
                 {
                     log::simple->error("error: create window instance failed");
-                    retval = FALSE;
                     dispsose(1, class_name, instance, nullptr, nullptr, nullptr);
+                    return FALSE;
                 }
 
                 autox hdc = GetDC(hwnd);
                 if (hdc == nullptr)
                 {
                     log::simple->error("error: get device handle failed.");
-                    retval = FALSE;
                     dispsose(2, class_name, instance, hwnd, nullptr, nullptr);
+                    return FALSE;
                 }
 
                 autox pfd = PIXELFORMATDESCRIPTOR{ 0 };
                 if (!SetPixelFormat(hdc, 1, &pfd))
                 {
                     log::simple->error("error: set pixel format failed.");
-                    retval = FALSE;
                     dispsose(3, class_name, instance, hwnd, hdc, nullptr);
+                    return FALSE;
                 }
 
                 autox hglrc = wgl::CreateContext(hdc);
                 if (hglrc == nullptr)
                 {
                     log::simple->error("error: create rendering context failed.");
-                    retval = FALSE;
                     dispsose(3, class_name, instance, hwnd, hdc, nullptr);
+                    return FALSE;
                 }
 
                 if (!wgl::MakeCurrent(hdc, hglrc))
                 {
                     log::simple->error("error: make current context failed.");
-                    retval = FALSE;
                     dispsose(4, class_name, instance, hwnd, hdc, hglrc);
+                    return FALSE;
                 }
 
                 _LoadExtensions();
                 dispsose(5, class_name, instance, hwnd, hdc, hglrc);
 
-                init = true;
+                init = TRUE;
 
-                return retval;
+                return init;
             }
 
             BOOL WINAPI IsExtensionSupported(HDC hdc, LPCSTR extName)

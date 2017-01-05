@@ -43,7 +43,7 @@ namespace fnx
                 if (object == nullptr)
                     names.pop_back();
             }
-            autox count = names.size();
+            autox count  = names.size();
             autox retval = StringType();
             retval.reserve(length + count + 1);
             for (autox i = (int)(count - 1); i >= 0; i--)
@@ -74,9 +74,10 @@ namespace fnx
 
         SharedType EntryObject::AddChild(SharedType & child)
         {
-            child->SetParent(shared_from_this());
+            autox retval = shared_from_this();
+            child->SetParent(retval);
             Children_.push_back(child);
-            return shared_from_this();
+            return retval;
         }
 
         SharedType EntryObject::AddChildren(initializer_list<SharedType> list)

@@ -41,8 +41,10 @@ namespace fnx
 
         EntryManager & GetManager()
         {
-            static auto Manager = EntryManager();
-            return Manager;
+            static autox ManagerPtr = std::shared_ptr<EntryManager>(nullptr);
+            if (ManagerPtr == nullptr)
+                ManagerPtr = std::make_shared<EntryManager>();
+            return *ManagerPtr;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace fnx
                 {
                     WGL_CONTEXT_MAJOR_VERSION_ARB, major,
                     WGL_CONTEXT_MINOR_VERSION_ARB, minor,
-#ifdef _DEBUG
+#if defined(_DEBUG)
                     WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB | WGL_CONTEXT_DEBUG_BIT_ARB,
 #else
                     WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
@@ -81,6 +81,7 @@ namespace fnx
                 };
 
                 RenderingContextHandle_ = wgl::CreateContextAttribs(DeviceContextHandle_, nullptr, iContextAttributes);
+                auto errcode = glGetError();
                 if (RenderingContextHandle_ == nullptr)
                 {
                     log::simple->error("error: create rendering context (version {0}.{1}) failed.", major, minor);
@@ -93,14 +94,10 @@ namespace fnx
 
             virtual bool InitializeDetail() override
             {
-                autox window_handle = CreateWindowInstance(GetWindowClassName(), TEXT("opengl"));
-                autox error = GetLastError();
                 if (!wgl::LoadExtensions())
                 {
                     return false;
                 }
-                //PostMessage(window_handle, WM_CLOSE, 0, 0);
-                //DestroyWindow(window_handle);
 
                 window_handle = GetWindowHandle();
                 DeviceContextHandle_ = GetDC(window_handle);
@@ -116,7 +113,27 @@ namespace fnx
                     return false;
                 }
 
-                if (!CreateRenderingContext(4, 0))
+                autox list = vector<pair<int, int>>
+                {
+                    make_pair(4, 5),
+                    make_pair(4, 4),
+                    make_pair(4, 3),
+                    make_pair(4, 2),
+                    make_pair(4, 1),
+                    make_pair(4, 0),
+                    make_pair(3, 3),
+                    make_pair(3, 2),
+                    make_pair(3, 1),
+                    make_pair(3, 0),
+                };
+
+                autox found = false;
+                for (autox v : list)
+                {
+                    found = CreateRenderingContext(v.first, v.second);
+                    if (found) break;
+                }
+                if (!found)
                 {
                     return false;
                 }

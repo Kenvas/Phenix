@@ -29,7 +29,7 @@ namespace fnx
         namespace
         {
 #pragma pack(push,1)
-            struct alignas(1) Thunk
+            struct Thunk
             {
                 struct mov_reg_imm
                 {

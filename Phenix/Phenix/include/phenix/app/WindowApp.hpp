@@ -32,7 +32,6 @@ namespace fnx
             Size const & GetSize() const noexcept;
             void SetSize(int width, int height);
 
-
             int Run() const;
             bool Initialize();
 
