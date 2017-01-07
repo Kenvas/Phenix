@@ -1,10 +1,12 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 
-
-
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
+
+
     return 0;
 };
+
+

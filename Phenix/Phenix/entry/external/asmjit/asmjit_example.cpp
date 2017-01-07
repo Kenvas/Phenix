@@ -1,11 +1,11 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 #include "asmjit/asmjit.h"
 
 using namespace asmjit;
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     // Create JitRuntime and X86 Assembler/Compiler.
     JitRuntime runtime;

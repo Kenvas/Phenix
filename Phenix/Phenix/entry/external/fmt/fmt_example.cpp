@@ -1,9 +1,9 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 #include "fmt/format.h"
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     fmt::print("Hello, {}!\n", "world");  // uses Python-like format string syntax
     fmt::print_colored(fmt::Color::CYAN , "Hello, {}!\n", "world"); // uses printf format string syntax

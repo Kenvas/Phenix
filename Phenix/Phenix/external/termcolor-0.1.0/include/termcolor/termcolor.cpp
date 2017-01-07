@@ -1,4 +1,3 @@
-#include "PrecompiledHeader.hpp"
 //!
 //! termcolor
 //! ~~~~~~~~~

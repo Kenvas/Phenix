@@ -1,5 +1,5 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 #include <windows.h>
 
@@ -7,7 +7,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 #define BUFFER(x, y) *(pBuffer + y * cxBuffer + x)
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     TCHAR szAppName[] = TEXT("Typer");
 

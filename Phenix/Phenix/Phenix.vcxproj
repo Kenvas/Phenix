@@ -35,15 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="entry\global\entry_cd.cpp" />
-    <ClCompile Include="entry\global\entry_clear.cpp" />
-    <ClCompile Include="entry\global\entry_cpuid.cpp" />
-    <ClCompile Include="entry\global\entry_env.cpp" />
-    <ClCompile Include="entry\global\entry_exit.cpp" />
-    <ClCompile Include="entry\global\entry_help.cpp" />
-    <ClCompile Include="entry\global\entry_list.cpp" />
-    <ClCompile Include="entry\global\entry_new.cpp" />
-    <ClCompile Include="entry\global\entry_tree.cpp" />
     <ClCompile Include="entry\main.cpp" />
     <ClCompile Include="entry\practice\experiment.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
@@ -51,39 +42,49 @@
     <ClCompile Include="entry\practice\opengl\glapp.cpp" />
     <ClCompile Include="entry\practice\windows\windows_console.cpp" />
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
-    <ClCompile Include="external\fmt-3.0.1\fmt\format.cc" />
-    <ClCompile Include="external\termcolor-0.1.0\include\termcolor\termcolor.cpp" />
-    <ClCompile Include="include\phenix\app\detail\source\wgl.cpp" />
-    <ClCompile Include="include\phenix\app\source\WindowApp.cpp" />
-    <ClCompile Include="include\phenix\entry\source\EntryUtils.cpp" />
-    <ClCompile Include="include\phenix\entry\source\EntryManager.cpp" />
-    <ClCompile Include="include\phenix\entry\source\EntryObject.cpp" />
-    <ClCompile Include="include\phenix\log\source\LogWrap.cpp" />
+    <ClCompile Include="include\kv\entry\source\EntryManager.cpp" />
+    <ClCompile Include="include\kv\entry\source\EntryObject.cpp" />
+    <ClCompile Include="include\kv\entry\source\EntryUtils.cpp" />
+    <ClCompile Include="include\kv\gui\detail\source\wgl.cpp" />
+    <ClCompile Include="include\kv\gui\source\Window.cpp" />
+    <ClCompile Include="include\kv\log\source\LogWrap.cpp" />
     <ClCompile Include="include\PrecompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-llvm|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-llvm|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\phenix\app\detail\utils.hpp" />
-    <ClInclude Include="include\phenix\app\detail\wgl.hpp" />
-    <ClInclude Include="include\phenix\app\detail\wglext.h" />
-    <ClInclude Include="include\phenix\app\OpenGLApp.hpp" />
-    <ClInclude Include="include\phenix\app\WindowApp.hpp" />
-    <ClInclude Include="include\phenix\common\Delegate.hpp" />
-    <ClInclude Include="include\phenix\predef\Keyword.hpp" />
-    <ClInclude Include="include\phenix\entry\Entry.hpp" />
-    <ClInclude Include="include\phenix\entry\EntryManager.hpp" />
-    <ClInclude Include="include\phenix\entry\EntryObject.hpp" />
-    <ClInclude Include="include\phenix\entry\EntryType.hpp" />
-    <ClInclude Include="include\phenix\entry\EntryUtils.hpp" />
-    <ClInclude Include="include\phenix\log\Log.hpp" />
-    <ClInclude Include="include\phenix\log\LogWrap.hpp" />
-    <ClInclude Include="include\phenix\macro\compiler\Compiler.hpp" />
-    <ClInclude Include="include\phenix\PrecompiledHeader.hpp" />
-    <ClInclude Include="include\phenix\common\Predef.hpp" />
-    <ClInclude Include="include\phenix\common\Size.hpp" />
-    <ClInclude Include="include\phenix\common\Stopwatch.hpp" />
-    <ClInclude Include="include\phenix\common\Utility.hpp" />
+    <ClInclude Include="include\kv\common\ArrayView.hpp" />
+    <ClInclude Include="include\kv\common\Delegate.hpp" />
+    <ClInclude Include="include\kv\common\Size.hpp" />
+    <ClInclude Include="include\kv\common\Stopwatch.hpp" />
+    <ClInclude Include="include\kv\common\Utility.hpp" />
+    <ClInclude Include="include\kv\entry\Entry.hpp" />
+    <ClInclude Include="include\kv\entry\EntryManager.hpp" />
+    <ClInclude Include="include\kv\entry\EntryObject.hpp" />
+    <ClInclude Include="include\kv\entry\EntryType.hpp" />
+    <ClInclude Include="include\kv\entry\EntryUtils.hpp" />
+    <ClInclude Include="include\kv\gui\detail\utils.hpp" />
+    <ClInclude Include="include\kv\gui\detail\wgl.hpp" />
+    <ClInclude Include="include\kv\gui\detail\wglext.h" />
+    <ClInclude Include="include\kv\gui\OpenGLWindow.hpp" />
+    <ClInclude Include="include\kv\gui\Window.hpp" />
+    <ClInclude Include="include\kv\log\Log.hpp" />
+    <ClInclude Include="include\kv\log\LogWrap.hpp" />
+    <ClInclude Include="include\kv\predef\Compiler.hpp" />
+    <ClInclude Include="include\kv\predef\compiler\clang.hpp" />
+    <ClInclude Include="include\kv\predef\compiler\Compiler.hpp" />
+    <ClInclude Include="include\kv\predef\compiler\gcc.hpp" />
+    <ClInclude Include="include\kv\predef\compiler\msvc.hpp" />
+    <ClInclude Include="include\kv\predef\Keyword.hpp" />
+    <ClInclude Include="include\kv\predef\Type.hpp" />
+    <ClInclude Include="include\kv\predef\Version.hpp" />
     <ClInclude Include="include\PrecompiledHeader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -236,7 +237,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -253,15 +254,15 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src/;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -270,11 +271,13 @@
       <MSExtensions>true</MSExtensions>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -282,7 +285,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -301,16 +304,15 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -323,23 +325,24 @@
       <CppLanguageStandard>gnu++1y</CppLanguageStandard>
       <CompileAs>CompileAsCpp</CompileAs>
       <MinimalRebuild>true</MinimalRebuild>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
@@ -349,6 +352,7 @@
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -356,17 +360,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-llvm|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
@@ -376,6 +380,7 @@
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -383,17 +388,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
@@ -403,6 +408,7 @@
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -410,18 +416,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-llvm|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
@@ -431,6 +436,7 @@
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <PrecompiledHeaderFile>PrecompiledHeader.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -438,7 +444,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

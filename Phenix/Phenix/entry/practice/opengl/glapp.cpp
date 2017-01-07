@@ -1,14 +1,14 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
-#include "phenix/app/OpenGLApp.hpp"
+#include "kv/gui/OpenGLWindow.hpp"
 
 using namespace std;
-using namespace fnx::app;
+using namespace kv::gui;
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
-    autox app = make_shared<OpenGLApp>(800,600);
+    autox app = make_shared<OpenGLWindow>(800,600);
     if (app->Initialize())
     {
         app->Run();

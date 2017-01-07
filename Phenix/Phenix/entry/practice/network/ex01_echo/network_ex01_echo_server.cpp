@@ -6,7 +6,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 static void error_handler(char const * const message)
 {
@@ -15,8 +15,7 @@ static void error_handler(char const * const message)
     return;
 }
 
-//int main(int argc, char ** argv)
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     WSAData     wsa_data;
     SOCKET      server_socket;

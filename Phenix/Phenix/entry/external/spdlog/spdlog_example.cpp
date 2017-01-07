@@ -1,5 +1,5 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
+#include "kv/entry/IncludeAll.hpp"
 
 #include "spdlog/spdlog.h"
 
@@ -11,7 +11,7 @@ void err_handler_example();
 
 namespace spd = spdlog;
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     try
     {

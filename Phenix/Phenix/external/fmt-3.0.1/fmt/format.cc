@@ -1,4 +1,3 @@
-#include "PrecompiledHeader.hpp"
 /*
  Formatting library for C++
 

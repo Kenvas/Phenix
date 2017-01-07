@@ -1,6 +1,6 @@
 #include "PrecompiledHeader.hpp"
-#include "phenix/entry/Entry.hpp"
-#include "phenix/app/detail/utils.hpp"
+#include "kv/entry/IncludeAll.hpp"
+#include "kv/gui/detail/utils.hpp"
 
 #include "fmt/format.h"
 #include "fmt/time.h"
@@ -25,7 +25,7 @@ bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure);
 void UnregisterWindowClass(PCTSTR const class_name);
 HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_name);
 
-FNX_QuickAddEntry
+KV_QuickAddEntry
 {
     PCTSTR const class_name = TEXT("PhenixAppExample");
 
@@ -52,14 +52,13 @@ FNX_QuickAddEntry
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
 {
-    auto duration = high_resolution_clock::now().time_since_epoch();
-    auto micros = duration_cast<std::chrono::microseconds>(duration).count() % 1000000;
-    auto t = std::time(nullptr);
-    auto tm = std::tm();
-    localtime_s(&tm, &t);
-    std::cout << fmt::format("{0:%T}.{1:06d} ", tm, micros)
+    autox duration = high_resolution_clock::now().time_since_epoch();
+    autox micros   = (duration_cast<std::chrono::microseconds>(duration).count() % 1000000);
+    autox t        = std::time(nullptr);
+    autox tm       = std::localtime(&t);
+    std::cout << fmt::format("{0:%T}.{1:06d} ", *tm, micros)
     //std::cout << "message: "
-        << termcolor::cyan      << fmt::format("{0:^20}", fnx::app::utils::GetWindowMessageName(message))
+        << termcolor::cyan      << fmt::format("{0:^20}", kv::gui::utils::GetWindowMessageName(message))
         << termcolor::green     << fmt::format("(0x{0:04x}) ", message)
         << termcolor::magenta   << fmt::format("wp: 0x{0:016x} lp: 0x{1:016x} ", wparam, lparam)
         << termcolor::reset     << std::endl;
