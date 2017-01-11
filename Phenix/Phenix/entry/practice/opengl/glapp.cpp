@@ -8,7 +8,10 @@ using namespace kv::gui;
 
 KV_QuickAddEntry
 {
-    autox app = make_shared<OpenGLWindow>(800,600);
+    autox app = make_shared<OpenGLWindow>();
+
+    app->SetSize(800, 600);
+
     if (app->Initialize())
     {
         app->Run();

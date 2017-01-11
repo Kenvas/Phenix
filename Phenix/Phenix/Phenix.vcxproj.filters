@@ -18,9 +18,6 @@
     <ClCompile Include="entry\practice\opengl\glapp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="entry\practice\experiment.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -34,6 +31,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="entry\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\experiment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\test\macro\test_macro.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="include\kv\entry\source\EntryManager.cpp">
@@ -59,9 +62,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kv\predef\compiler\Compiler.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\kv\common\ArrayView.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -77,9 +77,6 @@
     <ClInclude Include="include\kv\common\Utility.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\kv\entry\Entry.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\kv\entry\EntryManager.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -90,6 +87,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\kv\entry\EntryUtils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\entry\IncludeAll.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\kv\gui\detail\utils.hpp">
@@ -107,10 +107,25 @@
     <ClInclude Include="include\kv\gui\Window.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\kv\log\Log.hpp">
+    <ClInclude Include="include\kv\log\IncludeAll.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\kv\log\LogWrap.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\architecture\arm.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\architecture\x86.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\architecture\x86_32.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\architecture\x86_64.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\compiler\_detected.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\kv\predef\compiler\clang.hpp">
@@ -122,10 +137,49 @@
     <ClInclude Include="include\kv\predef\compiler\msvc.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\kv\predef\keyword\auto.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\keyword\warning.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\os\_detected.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\os\android.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\os\ios.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\os\linux.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\os\windows.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\simd\arm.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\simd\x86.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\Architecture.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\kv\predef\Compiler.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\kv\predef\IncludeAll.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\kv\predef\Keyword.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\OS.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kv\predef\SIMD.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\kv\predef\Type.hpp">

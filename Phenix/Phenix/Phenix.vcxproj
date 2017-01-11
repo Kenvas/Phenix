@@ -36,19 +36,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entry\main.cpp" />
-    <ClCompile Include="entry\practice\experiment.cpp" />
+    <ClCompile Include="entry\experiment.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_server.cpp" />
     <ClCompile Include="entry\practice\opengl\glapp.cpp" />
     <ClCompile Include="entry\practice\windows\windows_console.cpp" />
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
-    <ClCompile Include="include\kv\entry\source\EntryManager.cpp" />
-    <ClCompile Include="include\kv\entry\source\EntryObject.cpp" />
-    <ClCompile Include="include\kv\entry\source\EntryUtils.cpp" />
-    <ClCompile Include="include\kv\gui\detail\source\wgl.cpp" />
-    <ClCompile Include="include\kv\gui\source\Window.cpp" />
-    <ClCompile Include="include\kv\log\source\LogWrap.cpp" />
-    <ClCompile Include="include\PrecompiledHeader.cpp">
+    <ClCompile Include="entry\test\macro\test_macro.cpp" />
+    <ClCompile Include="code\kv\entry\source\EntryManager.cpp" />
+    <ClCompile Include="code\kv\entry\source\EntryObject.cpp" />
+    <ClCompile Include="code\kv\entry\source\EntryUtils.cpp" />
+    <ClCompile Include="code\kv\gui\detail\source\wgl.cpp" />
+    <ClCompile Include="code\kv\gui\source\Window.cpp" />
+    <ClCompile Include="code\kv\log\source\LogWrap.cpp" />
+    <ClCompile Include="code\PrecompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-llvm|Win32'">Create</PrecompiledHeader>
@@ -60,32 +61,49 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kv\common\ArrayView.hpp" />
-    <ClInclude Include="include\kv\common\Delegate.hpp" />
-    <ClInclude Include="include\kv\common\Size.hpp" />
-    <ClInclude Include="include\kv\common\Stopwatch.hpp" />
-    <ClInclude Include="include\kv\common\Utility.hpp" />
-    <ClInclude Include="include\kv\entry\Entry.hpp" />
-    <ClInclude Include="include\kv\entry\EntryManager.hpp" />
-    <ClInclude Include="include\kv\entry\EntryObject.hpp" />
-    <ClInclude Include="include\kv\entry\EntryType.hpp" />
-    <ClInclude Include="include\kv\entry\EntryUtils.hpp" />
-    <ClInclude Include="include\kv\gui\detail\utils.hpp" />
-    <ClInclude Include="include\kv\gui\detail\wgl.hpp" />
-    <ClInclude Include="include\kv\gui\detail\wglext.h" />
-    <ClInclude Include="include\kv\gui\OpenGLWindow.hpp" />
-    <ClInclude Include="include\kv\gui\Window.hpp" />
-    <ClInclude Include="include\kv\log\Log.hpp" />
-    <ClInclude Include="include\kv\log\LogWrap.hpp" />
-    <ClInclude Include="include\kv\predef\Compiler.hpp" />
-    <ClInclude Include="include\kv\predef\compiler\clang.hpp" />
-    <ClInclude Include="include\kv\predef\compiler\Compiler.hpp" />
-    <ClInclude Include="include\kv\predef\compiler\gcc.hpp" />
-    <ClInclude Include="include\kv\predef\compiler\msvc.hpp" />
-    <ClInclude Include="include\kv\predef\Keyword.hpp" />
-    <ClInclude Include="include\kv\predef\Type.hpp" />
-    <ClInclude Include="include\kv\predef\Version.hpp" />
-    <ClInclude Include="include\PrecompiledHeader.hpp" />
+    <ClInclude Include="code\kv\common\ArrayView.hpp" />
+    <ClInclude Include="code\kv\common\Delegate.hpp" />
+    <ClInclude Include="code\kv\common\Size.hpp" />
+    <ClInclude Include="code\kv\common\Stopwatch.hpp" />
+    <ClInclude Include="code\kv\common\Utility.hpp" />
+    <ClInclude Include="code\kv\entry\EntryManager.hpp" />
+    <ClInclude Include="code\kv\entry\EntryObject.hpp" />
+    <ClInclude Include="code\kv\entry\EntryType.hpp" />
+    <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
+    <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\gui\detail\utils.hpp" />
+    <ClInclude Include="code\kv\gui\detail\wgl.hpp" />
+    <ClInclude Include="code\kv\gui\detail\wglext.h" />
+    <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />
+    <ClInclude Include="code\kv\gui\Window.hpp" />
+    <ClInclude Include="code\kv\log\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\log\LogWrap.hpp" />
+    <ClInclude Include="code\kv\predef\Architecture.hpp" />
+    <ClInclude Include="code\kv\predef\architecture\arm.hpp" />
+    <ClInclude Include="code\kv\predef\architecture\x86.hpp" />
+    <ClInclude Include="code\kv\predef\architecture\x86_32.hpp" />
+    <ClInclude Include="code\kv\predef\architecture\x86_64.hpp" />
+    <ClInclude Include="code\kv\predef\Compiler.hpp" />
+    <ClInclude Include="code\kv\predef\compiler\clang.hpp" />
+    <ClInclude Include="code\kv\predef\compiler\gcc.hpp" />
+    <ClInclude Include="code\kv\predef\compiler\msvc.hpp" />
+    <ClInclude Include="code\kv\predef\compiler\_detected.hpp" />
+    <ClInclude Include="code\kv\predef\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\predef\Keyword.hpp" />
+    <ClInclude Include="code\kv\predef\keyword\auto.hpp" />
+    <ClInclude Include="code\kv\predef\keyword\warning.hpp" />
+    <ClInclude Include="code\kv\predef\OS.hpp" />
+    <ClInclude Include="code\kv\predef\os\android.hpp" />
+    <ClInclude Include="code\kv\predef\os\ios.hpp" />
+    <ClInclude Include="code\kv\predef\os\linux.hpp" />
+    <ClInclude Include="code\kv\predef\os\windows.hpp" />
+    <ClInclude Include="code\kv\predef\os\_detected.hpp" />
+    <ClInclude Include="code\kv\predef\SIMD.hpp" />
+    <ClInclude Include="code\kv\predef\simd\arm.hpp" />
+    <ClInclude Include="code\kv\predef\simd\x86.hpp" />
+    <ClInclude Include="code\kv\predef\Type.hpp" />
+    <ClInclude Include="code\kv\predef\Version.hpp" />
+    <ClInclude Include="code\PrecompiledHeader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B53BB9E6-286B-4897-9866-6395682C4D50}</ProjectGuid>
@@ -240,7 +258,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -265,7 +283,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src/;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src/;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -287,7 +305,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -314,7 +332,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -347,7 +365,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -375,7 +393,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -403,7 +421,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -431,7 +449,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
