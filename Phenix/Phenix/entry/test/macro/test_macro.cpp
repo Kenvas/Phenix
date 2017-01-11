@@ -9,9 +9,9 @@
 #define TestVersionHexMacro(macro, input, expected) cout << ((macro((input)) == (expected)) ? termcolor::green : termcolor::red); \
     cout << fmt::format("{0:<46}: expected = {1:>10}, actual = {2:>10}\n", fmt::format("{0}(0x{1:x})", #macro, (input)), (expected), macro((input))) << termcolor::reset;
 
-#define __ModuleMacro(module, member) KV_ ## module ## _ ## member
-#define PrintModuleInfo(module, member) \
-    cout << termcolor::cyan << fmt::format("{0:<24}: {1}\n", fmt::format("{0} {1}", #module, #member), __ModuleMacro(module, member)) << termcolor::reset;
+#define __MacroInfo(module, member) KV_ ## module ## _ ## member
+#define PrintMacroInfo(module, member) \
+    cout << termcolor::cyan << fmt::format("{0:<24}: {1}\n", fmt::format("{0} {1}", #module, #member), __MacroInfo(module, member)) << termcolor::reset;
 
 KV_QuickAddEntry
 {
@@ -44,24 +44,24 @@ KV_QuickAddEntry
     TestVersionDecMacro(KV_MAKE_VERSION_FROM_YYYYMMDD, 20170108, 470100008);
 
     cout << endl;
-    PrintModuleInfo(ARCH, NAME);
-    PrintModuleInfo(ARCH, VERSION);
+    PrintMacroInfo(ARCH, NAME);
+    PrintMacroInfo(ARCH, VERSION);
 
     cout << endl;
-    PrintModuleInfo(COMPILER, NAME);
-    PrintModuleInfo(COMPILER, VERSION);
+    PrintMacroInfo(COMPILER, NAME);
+    PrintMacroInfo(COMPILER, VERSION);
 #ifdef KV_COMPILER_NAME_BACK
-    PrintModuleInfo(COMPILER, NAME_BACK);
-    PrintModuleInfo(COMPILER, VERSION_BACK);
+    PrintMacroInfo(COMPILER, NAME_BACK);
+    PrintMacroInfo(COMPILER, VERSION_BACK);
 #endif
 
     cout << endl;
-    PrintModuleInfo(OS, NAME);
-    PrintModuleInfo(OS, VERSION);
+    PrintMacroInfo(OS, NAME);
+    PrintMacroInfo(OS, VERSION);
 
     cout << endl;
-    PrintModuleInfo(SIMD, NAME);
-    PrintModuleInfo(SIMD, VERSION);
+    PrintMacroInfo(SIMD, NAME);
+    PrintMacroInfo(SIMD, VERSION);
 
     return 0;
 };

@@ -4,10 +4,11 @@
 
 #include "Window.hpp"
 
-#include "detail/wgl.hpp"
+#include "kv/native/windows/wgl.hpp"
 #include "kv/log/IncludeAll.hpp"
 
 using namespace std;
+using namespace kv::native::windows;
 
 namespace kv
 {

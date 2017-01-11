@@ -1,6 +1,7 @@
 #include "PrecompiledHeader.hpp"
 #include "kv/entry/IncludeAll.hpp"
-#include "kv/gui/detail/utils.hpp"
+#include "kv/native/windows/utils.hpp"
+
 
 #include "fmt/format.h"
 #include "fmt/time.h"
@@ -58,7 +59,7 @@ LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam
     autox tm       = std::localtime(&t);
     std::cout << fmt::format("{0:%T}.{1:06d} ", *tm, micros)
     //std::cout << "message: "
-        << termcolor::cyan      << fmt::format("{0:^20}", kv::gui::utils::GetWindowMessageName(message))
+        << termcolor::cyan      << fmt::format("{0:^20}", kv::native::windows::utils::GetWindowMessageName(message))
         << termcolor::green     << fmt::format("(0x{0:04x}) ", message)
         << termcolor::magenta   << fmt::format("wp: 0x{0:016x} lp: 0x{1:016x} ", wparam, lparam)
         << termcolor::reset     << std::endl;
