@@ -1,9 +1,8 @@
 #pragma once
 
-namespace kv { namespace native { namespace windows { namespace utils
-{
+namespace kv { namespace native { namespace windows { namespace utils {
 
-static char const * const GetWindowMessageName(size_t message)
+static char const * const GetWindowMessageName(size_t const message)
 {
     switch (message)
     {
@@ -224,11 +223,8 @@ static char const * const GetWindowMessageName(size_t message)
     case 0x038F: return "WM_PENWINLAST";
     case 0x8000: return "WM_APP";
     case 0x0400: return "WM_USER";
-    default: return "";
+    default    : return "";
     }
 }
 
-}
-}
-}
-}
+} } } }

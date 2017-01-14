@@ -1,14 +1,12 @@
 #pragma once
 
-namespace kv
+#include "_namespace/begin"
+
+enum class EntryType
 {
-    namespace entry
-    {
-        enum class EntryType
-        {
-            Unknown,
-            Item,
-            Container,
-        };
-    }
-}
+    Unknown,
+    Item,
+    Container,
+};
+
+#include "_namespace/end"

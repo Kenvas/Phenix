@@ -9,73 +9,71 @@
 #include "kv/predef/Keyword.hpp"
 #include "kv/common/Size.hpp"
 
-namespace kv
+#include "_namespace/begin"
+
+class Window
 {
-    namespace gui
-    {
-        class Window
-        {
-        private:
+private:
 
-            using ClockType = std::chrono::high_resolution_clock;
-            using TimePoint = ClockType::time_point;
+    using ClockType = std::chrono::high_resolution_clock;
+    using TimePoint = ClockType::time_point;
 
-            Size      Size_;
-            HWND      WindowHandle_;
-            TimePoint StartupTime_;
+    Size      Size_;
+    HWND      WindowHandle_;
+    TimePoint StartupTime_;
 
-        public:
+public:
 
-            Window() noexcept;
-            Window(int width, int height) noexcept;
+    Window() noexcept;
+    Window(int width, int height) noexcept;
 
-            virtual ~Window() noexcept;
+    virtual ~Window() noexcept;
 
-            Size const & GetSize() const noexcept;
-            void SetSize(int width, int height);
+    Size const & GetSize() const noexcept;
+    void SetSize(int width, int height);
 
-            int Run() const;
-            bool Initialize();
+    int Run() const;
+    bool Initialize();
 
-            virtual void OnCreate();
-            virtual void OnDestroy();
-            virtual void OnClose();
-            virtual void OnResize(int width, int height);
+    virtual void OnCreate();
+    virtual void OnDestroy();
+    virtual void OnClose();
+    virtual void OnResize(int width, int height);
 
-        protected:
+protected:
 
-            HWND const GetWindowHandle() const noexcept;
+    HWND const GetWindowHandle() const noexcept;
 
-            virtual PCTSTR const GetWindowClassName() const noexcept;
-            virtual PCTSTR const GetWindowTitle() const noexcept;
+    virtual PCTSTR const GetWindowClassName() const noexcept;
+    virtual PCTSTR const GetWindowTitle() const noexcept;
 
-            virtual bool InitializeDetail();
-            virtual bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure) const noexcept;
-                    void UnregisterWindowClass(PCTSTR const class_name) const noexcept;
-            virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title);
+    virtual bool InitializeDetail();
+    virtual bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure) const noexcept;
+            void UnregisterWindowClass(PCTSTR const class_name) const noexcept;
+    virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title);
 
-            virtual LRESULT CALLBACK OnEvent
-            (
-                UINT   message,
-                WPARAM wparam,
-                LPARAM lparam
-            );
+    virtual LRESULT CALLBACK OnEvent
+    (
+        UINT   message,
+        WPARAM wparam,
+        LPARAM lparam
+    );
 
-            static LRESULT CALLBACK ForwardWindowProcedure
-            (
-                HWND   window_handle,
-                UINT   message,
-                WPARAM wparam,
-                LPARAM lparam
-            );
+    static LRESULT CALLBACK ForwardWindowProcedure
+    (
+        HWND   window_handle,
+        UINT   message,
+        WPARAM wparam,
+        LPARAM lparam
+    );
 
-            static LRESULT CALLBACK AuxWindowProcedure
-            (
-                HWND   window_handle,
-                UINT   message,
-                WPARAM wparam,
-                LPARAM lparam
-            );
-        };
-    }
-}
+    static LRESULT CALLBACK AuxWindowProcedure
+    (
+        HWND   window_handle,
+        UINT   message,
+        WPARAM wparam,
+        LPARAM lparam
+    );
+};
+
+#include "_namespace/end"

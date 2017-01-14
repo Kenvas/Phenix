@@ -32,31 +32,29 @@
 
 #define KV_QuickAddEntry KV_AddEntry(std::get<1>(kv::entry::ExtractPathInfo(__FILE__)))
 
-namespace kv
-{
-    namespace entry
-    {
-        class EntryObject;
-        class EntryManager;
+#include "_namespace/begin"
 
-        using ObjectType   = EntryObject                                             ;
-        using StringType   = std::string                                             ;
-        using CommandArgs  = std::vector<StringType>                                 ;
-        using ActionType   = std::function<void(CommandArgs const &, EntryManager &)>;
-        using SharedType   = std::shared_ptr<ObjectType>                             ;
-        using SharedPtrs   = std::vector<SharedType>                                 ;
-        using PathInfoType = std::tuple<StringType, StringType>                      ;
+class EntryObject;
+class EntryManager;
+
+using ObjectType   = EntryObject                                             ;
+using StringType   = std::string                                             ;
+using CommandArgs  = std::vector<StringType>                                 ;
+using ActionType   = std::function<void(CommandArgs const &, EntryManager &)>;
+using SharedType   = std::shared_ptr<ObjectType>                             ;
+using SharedPtrs   = std::vector<SharedType>                                 ;
+using PathInfoType = std::tuple<StringType, StringType>                      ;
 
 
-        SharedType NewItem(StringType const & name);
-        SharedType NewContainer(StringType const & name);
+SharedType NewItem(StringType const & name);
+SharedType NewContainer(StringType const & name);
 
-        PathInfoType ExtractPathInfo(StringType const & fullpath);
+PathInfoType ExtractPathInfo(StringType const & fullpath);
 
-        SharedType operator+=(SharedType && entry, ActionType && action);
-        SharedType operator+=(SharedType && container, SharedType && entry);
-        SharedType operator*=(EntryManager & manager, SharedType && object);
+SharedType operator+=(SharedType && entry, ActionType && action);
+SharedType operator+=(SharedType && container, SharedType && entry);
+SharedType operator*=(EntryManager & manager, SharedType && object);
 
-        EntryManager & GetManager();
-    }
-}
+EntryManager & GetManager();
+
+#include "_namespace/end"

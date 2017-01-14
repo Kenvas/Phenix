@@ -1,7 +1,8 @@
 #include "PrecompiledHeader.hpp"
-#include "kv/entry/IncludeAll.hpp"
 
-#include "kv/predef/keyword/inline.hpp"
+#include "kv/entry/IncludeAll.hpp"
+#include "kv/predef/IncludeAll.hpp"
+
 
 kvinline(off) void foo(int x)
 {

@@ -2,50 +2,47 @@
 
 #include "kv/entry/EntryUtils.hpp"
 
-namespace kv
+#include "_namespace/begin"
+
+class EntryManager final
 {
-    namespace entry
-    {
-        class EntryManager final
-        {
-        private:
-            SharedType Root_;
-            SharedType Global_;
-            StringType BootPath_;
-            StringType Workspace_;
-            SharedPtrs CurrentNodes_;
-            size_t     ContextFlag_;
+private:
+    SharedType Root_;
+    SharedType Global_;
+    StringType BootPath_;
+    StringType Workspace_;
+    SharedPtrs CurrentNodes_;
+    size_t     ContextFlag_;
 
-        public:
-            EntryManager();
+public:
+    EntryManager();
 
-        public:
-            SharedType GetEntry(StringType const & path);
+public:
+    SharedType GetEntry(StringType const & path);
 
-            SharedType AddGlobalEntry(SharedType & entry);
+    SharedType AddGlobalEntry(SharedType & entry);
 
-            SharedType const & GetGlobal() const;
+    SharedType const & GetGlobal() const;
 
-            StringType const & GetBootPath() const;
+    StringType const & GetBootPath() const;
 
-            void SetBootPath(StringType const & path);
+    void SetBootPath(StringType const & path);
 
-            void SetWorkspace(StringType const & path);
+    void SetWorkspace(StringType const & path);
 
-            StringType const & GetWorkspace() const;
+    StringType const & GetWorkspace() const;
 
-            SharedType const & GetRoot() const;
+    SharedType const & GetRoot() const;
 
-            SharedType const & GetCurrent() const;
+    SharedType const & GetCurrent() const;
 
-            void SetCurrent(StringType const & path);
+    void SetCurrent(StringType const & path);
 
-            void SetCurrent(SharedType const & current);
+    void SetCurrent(SharedType const & current);
 
-            void Run();
+    void Run();
 
-            void Exit();
-        };
+    void Exit();
+};
 
-    }
-}
+#include "_namespace/end"

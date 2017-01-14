@@ -2,7 +2,6 @@
 #include "kv/entry/IncludeAll.hpp"
 #include "kv/native/windows/utils.hpp"
 
-
 #include "fmt/format.h"
 #include "fmt/time.h"
 
@@ -10,16 +9,10 @@
 #include <windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
-#include <ctime>
 #include <chrono>
 
 using namespace std;
 using namespace std::chrono;
-
-#define FNX_PRINT_MESSAGE(name, value) std::cout << "message: " \
-    << termcolor::cyan << name \
-    << termcolor::green << fmt::format("(0x{0:04x})", value) \
-    << termcolor::reset << std::endl
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam);
 bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure);
