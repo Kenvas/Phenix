@@ -9,8 +9,11 @@
 
 using namespace std;
 
-namespace kv {  namespace native { namespace windows { namespace wgl {
+#include "../_namespace/begin"
+namespace wgl
+{
 
+#include "extern_c/begin"
 static PFNWGLGETEXTENSIONSSTRINGARBPROC  __wglGetExtensionsStringARB  = nullptr;
 static PFNWGLCREATECONTEXTATTRIBSARBPROC __wglCreateContextAttribsARB = nullptr;
 static PFNWGLCHOOSEPIXELFORMATARBPROC    __wglChoosePixelFormatARB    = nullptr;
@@ -158,7 +161,7 @@ HGLRC WINAPI CreateContextAttribs(HDC hdc, HGLRC hShareContext, const int * attr
 BOOL WINAPI ChoosePixelFormat(HDC hdc, const int *piAttribIList, const float *pfAttribFList, int nMaxFormats, int *piFormats, int *nNumFormats)
 {
     return (__wglChoosePixelFormatARB == nullptr) ? false
-        : __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, (UINT *)nNumFormats);
+        : __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, reinterpret_cast<UINT *>(nNumFormats));
 }
 
 BOOL WINAPI SwapInterval(int interval)
@@ -187,5 +190,7 @@ BOOL WINAPI MakeCurrent(HDC hdc, HGLRC hglrc)
 {
     return wglMakeCurrent(hdc, hglrc);
 }
+#include "extern_c/end"
 
-} } } }
+}
+#include "../_namespace/end"

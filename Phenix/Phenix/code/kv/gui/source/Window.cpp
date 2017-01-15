@@ -23,6 +23,7 @@
 
 using namespace std;
 using namespace std::chrono;
+using namespace kv::native::windows;
 
 //#include "asmjit/asmjit.h"
 //using namespace asmjit;
@@ -76,7 +77,7 @@ LRESULT CALLBACK Window::ForwardWindowProcedure(HWND window_handle, UINT message
 {
     autox app = reinterpret_cast<Window * const>(window_handle);
     {
-        autox dt = high_resolution_clock::now().time_since_epoch();
+        autox dt = ClockType::now().time_since_epoch();
         autox us = (duration_cast<microseconds>(dt).count() % microseconds::period::den);
         autox t  = std::time(nullptr);
         autox tm = std::localtime(&t);
@@ -102,7 +103,7 @@ Window::Window(int width, int height) noexcept
 Window::~Window() noexcept
 {}
 
-Size const & Window::GetSize() const noexcept
+size2i const & Window::GetSize() const noexcept
 {
     return Size_;
 }
@@ -118,11 +119,10 @@ bool Window::Initialize()
         return true;
 
     autox class_name  = GetWindowClassName();
-    autox window_name = GetWindowTitle();
+    autox window_name = TEXT("WindowApp");
 
-    if (!RegisterWindowClass(class_name, Window::AuxWindowProcedure))
+    if (!utils::RegisterWindowClass(class_name, Window::AuxWindowProcedure))
     {
-        GetLastError();
         log::simple->error("error: register window class failed.");
         return false;
     }
@@ -131,7 +131,7 @@ bool Window::Initialize()
     WindowHandle_ = CreateWindowInstance(class_name, window_name);
     if (WindowHandle_ == nullptr)
     {
-        UnregisterWindowClass(class_name);
+        utils::UnregisterWindowClass(class_name);
         log::simple->error("error: create window instance failed.");
         return false;
     }
@@ -139,7 +139,7 @@ bool Window::Initialize()
 
     if (!InitializeDetail())
     {
-        UnregisterWindowClass(class_name);
+        utils::UnregisterWindowClass(class_name);
         return false;
     }
 
@@ -187,7 +187,7 @@ void Window::OnClose()
 {
 }
 
-void Window::OnResize(int width, int height)
+void Window::OnSize(int width, int height)
 {
 }
 
@@ -198,35 +198,7 @@ HWND const Window::GetWindowHandle() const noexcept
 
 PCTSTR const Window::GetWindowClassName() const noexcept
 {
-    return TEXT("PhenixWindownApp");
-}
-
-PCTSTR const Window::GetWindowTitle() const noexcept
-{
-    return TEXT("PhenixWindow");
-}
-
-bool Window::RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure) const noexcept
-{
-    autox wcex         = WNDCLASSEX();
-    wcex.cbSize        = sizeof(WNDCLASSEX);
-    wcex.style         = CS_VREDRAW | CS_HREDRAW | CS_OWNDC;
-    wcex.lpfnWndProc   = window_procdure;
-    wcex.cbClsExtra    = 0;
-    wcex.cbWndExtra    = 0;
-    wcex.hInstance     = GetModuleHandle(nullptr);
-    wcex.hIcon         = nullptr;
-    wcex.hCursor       = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = nullptr; // (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName  = nullptr;
-    wcex.lpszClassName = class_name;
-    wcex.hIconSm       = nullptr;
-    return (RegisterClassEx(&wcex) != NULL);
-}
-
-void Window::UnregisterWindowClass(PCTSTR const class_name) const noexcept
-{
-    UnregisterClass(class_name, GetModuleHandle(nullptr));
+    return TEXT("__kvWindowApp__");
 }
 
 HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title)
@@ -238,7 +210,7 @@ HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_t
         window_title,
         WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
         // 0, 0, CW_USEDEFAULT, CW_USEDEFAULT, // x, y, width, height
-        0, 0, Size_.Width, Size_.Height,
+        0, 0, Size_.width, Size_.height,
         nullptr, // parent
         nullptr, // menu
         GetModuleHandle(nullptr),
@@ -263,7 +235,7 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
         OnDestroy();
         break;
     case WM_SIZE:
-        OnResize(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+        OnSize(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
         break;
     case WM_CLOSE:
         OnClose();
@@ -280,7 +252,7 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
         {
             autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, -4/*GWL_WNDPROC*/));
             VirtualFree(thunk, 0, MEM_RELEASE);
-            UnregisterWindowClass(GetWindowClassName());
+            utils::UnregisterWindowClass(GetWindowClassName());
             PostQuitMessage(0);
         }
         break;

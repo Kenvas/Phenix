@@ -48,6 +48,7 @@
     <ClCompile Include="code\kv\entry\source\EntryUtils.cpp" />
     <ClCompile Include="code\kv\gui\source\Window.cpp" />
     <ClCompile Include="code\kv\log\source\LogWrap.cpp" />
+    <ClCompile Include="code\kv\native\windows\source\utils.cpp" />
     <ClCompile Include="code\kv\native\windows\source\wgl.cpp" />
     <ClCompile Include="code\PrecompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

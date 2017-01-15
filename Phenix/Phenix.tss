@@ -9,7 +9,7 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>E:\Workspace\Phenix\Phenix\Phenix\code\PrecompiledHeader.cpp</string>
-      <string>e:\Workspace\Phenix\Phenix\Phenix\code\PrecompiledHeader.hpp</string>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\PrecompiledHeader.hpp</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>E:\Workspace\Phenix\Phenix\Phenix\entry\experiment.cpp</string>
@@ -40,6 +40,30 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\native\windows\utils.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\gui\OpenGLWindow.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\common\Utility.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\common\Stopwatch.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\gui\Window.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>e:\Workspace\Phenix\Phenix\Phenix\code\kv\gui\source\Window.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\common\Size.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\code\kv\common\BaseType.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\Workspace\Phenix\Phenix\Phenix\entry\practice\opengl\glapp.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>
