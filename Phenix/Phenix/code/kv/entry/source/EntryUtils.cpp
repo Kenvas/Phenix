@@ -1,9 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
-#include "kv/entry/EntryUtils.hpp"
-#include "kv/entry/EntryManager.hpp"
-#include "kv/entry/EntryObject.hpp"
-#include "kv/entry/EntryType.hpp"
+#include "../IncludeAll.hpp"
 
 #include "../_namespace/begin"
 

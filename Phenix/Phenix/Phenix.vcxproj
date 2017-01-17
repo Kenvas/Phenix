@@ -48,6 +48,7 @@
     <ClCompile Include="code\kv\entry\source\EntryUtils.cpp" />
     <ClCompile Include="code\kv\gui\source\Window.cpp" />
     <ClCompile Include="code\kv\log\source\LogWrap.cpp" />
+    <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
     <ClCompile Include="code\kv\native\windows\source\utils.cpp" />
     <ClCompile Include="code\kv\native\windows\source\wgl.cpp" />
     <ClCompile Include="code\PrecompiledHeader.cpp">
@@ -72,6 +73,8 @@
     <ClInclude Include="code\kv\entry\EntryType.hpp" />
     <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\log\Logger.hpp" />
+    <ClInclude Include="code\kv\native\windows\IncludeAll.hpp" />
     <ClInclude Include="code\kv\native\windows\utils.hpp" />
     <ClInclude Include="code\kv\native\windows\wgl.hpp" />
     <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />

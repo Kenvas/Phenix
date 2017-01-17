@@ -1,17 +1,18 @@
 #include "PrecompiledHeader.hpp"
 #include "kv/entry/IncludeAll.hpp"
+#include "kv/log/IncludeAll.hpp"
 #include "kv/predef/IncludeAll.hpp"
 
-#include "fmt/format.h"
+using namespace kv;
 
-#define TestVersionDecMacro(macro, input, expected) cout << ((macro((input)) == (expected)) ? termcolor::green : termcolor::red); \
-    cout << fmt::format("{0:<46}: expected = {1:>10}, actual = {2:>10}\n", fmt::format("{0}({1})", #macro, (input)), (expected), macro((input))) << termcolor::reset;
-#define TestVersionHexMacro(macro, input, expected) cout << ((macro((input)) == (expected)) ? termcolor::green : termcolor::red); \
-    cout << fmt::format("{0:<46}: expected = {1:>10}, actual = {2:>10}\n", fmt::format("{0}(0x{1:x})", #macro, (input)), (expected), macro((input))) << termcolor::reset;
+#define TestVersionDecMacro(macro, input, expected) log::debug((macro((input)) == (expected)) ? log::color::green : log::color::red); \
+    log::debug("{0:<32}({1:<12}): ", #macro, (input))("expected = {0:>10}, actual = {1:>10}", (expected), macro((input)))();
+#define TestVersionHexMacro(macro, input, expected) log::debug((macro((input)) == (expected)) ? log::color::green : log::color::red); \
+    log::debug("{0:<32}(0x{1:<10x}): ", #macro, (input))("expected = {0:>10}, actual = {1:>10}", (expected), macro((input)))();
 
 #define __MacroInfo(module, member) KV_ ## module ## _ ## member
 #define PrintMacroInfo(module, member) \
-    cout << termcolor::cyan << fmt::format("{0:<24}: {1}\n", fmt::format("{0} {1}", #module, #member), __MacroInfo(module, member)) << termcolor::reset;
+    log::debug(log::color::cyan)("{0:<8} {1:<10}: ", #module, #member)("{0}", __MacroInfo(module, member))();
 
 KV_QuickAddEntry
 {

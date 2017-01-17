@@ -1,5 +1,6 @@
 #include "PrecompiledHeader.hpp"
-#include "kv/entry/EntryObject.hpp"
+
+#include "../EntryObject.hpp"
 
 using namespace std;
 

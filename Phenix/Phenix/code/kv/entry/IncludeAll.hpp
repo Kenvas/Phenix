@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EntryUtils.hpp"
 #include "EntryManager.hpp"
 #include "EntryObject.hpp"
+#include "EntryUtils.hpp"
 #include "EntryType.hpp"

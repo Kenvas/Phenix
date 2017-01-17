@@ -1,7 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
-#include "kv/entry/EntryManager.hpp"
-#include "kv/entry/EntryObject.hpp"
+#include "../IncludeAll.hpp"
 
 #include <iostream>
 

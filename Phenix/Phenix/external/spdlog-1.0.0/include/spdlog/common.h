@@ -67,6 +67,8 @@ namespace color
 {
     typedef enum
     {
+        grey        = 0,
+
         blue        = 1,
         green       = 2,
         cyan        = blue  | green,

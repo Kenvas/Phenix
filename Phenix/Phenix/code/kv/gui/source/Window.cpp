@@ -1,13 +1,10 @@
 #include "PrecompiledHeader.hpp"
 
-#include "kv/predef/Keyword.hpp"
+#include "../Window.hpp"
 #include "kv/native/windows/utils.hpp"
 #include "kv/native/windows/wgl.hpp"
-#include "kv/gui/Window.hpp"
 #include "kv/log/IncludeAll.hpp"
-
-#include "termcolor/termcolor.hpp"
-#include "fmt/time.h"
+#include "kv/predef/Keyword.hpp"
 
 #include <ctime>
 #include <chrono>
@@ -19,7 +16,6 @@
 
 #pragma comment(lib, "opengl32.lib")
 // importlib("opengl32.lib")
-
 
 using namespace std;
 using namespace std::chrono;
@@ -77,15 +73,10 @@ LRESULT CALLBACK Window::ForwardWindowProcedure(HWND window_handle, UINT message
 {
     autox app = reinterpret_cast<Window * const>(window_handle);
     {
-        autox dt = ClockType::now().time_since_epoch();
-        autox us = (duration_cast<microseconds>(dt).count() % microseconds::period::den);
-        autox t  = std::time(nullptr);
-        autox tm = std::localtime(&t);
-        std::cout << fmt::format("{0:%T}.{1:06d} ", *tm, us)
-            << termcolor::cyan    << fmt::format("{0:^20}", native::windows::utils::GetWindowMessageName(message))
-            << termcolor::green   << fmt::format("(0x{0:04x}) ", message)
-            << termcolor::magenta << fmt::format("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)
-            << termcolor::reset   << std::endl;
+        log::debug.time()
+            (log::color::cyan)("{0:^20} ", native::windows::utils::GetWindowMessageName(message))
+            (log::color::green)("(0x{0:04x}) ", message)
+            (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
     }
     return app->OnEvent(message, wparam, lparam);
 }
@@ -94,7 +85,7 @@ Window::Window() noexcept
     : Window(CW_USEDEFAULT, CW_USEDEFAULT)
 { }
 
-Window::Window(int width, int height) noexcept
+Window::Window(int const width, int const height) noexcept
     : Size_          (width, height)
     , WindowHandle_  (nullptr)
     , StartupTime_   (ClockType::now())
@@ -108,9 +99,10 @@ size2i const & Window::GetSize() const noexcept
     return Size_;
 }
 
-void Window::SetSize(int width, int height)
+void Window::SetSize(int const width, int const height) noexcept
 {
-    Size_ = { width, height };
+    Size_.width  = width;
+    Size_.height = height;
 }
 
 bool Window::Initialize()
@@ -123,19 +115,19 @@ bool Window::Initialize()
 
     if (!utils::RegisterWindowClass(class_name, Window::AuxWindowProcedure))
     {
-        log::simple->error("error: register window class failed.");
+        log::error("error: register window class failed.");
         return false;
     }
-    log::simple->info(log::color::green, "info: register window class success.");
+    log::info(log::color::green)("info: register window class success.")();
 
     WindowHandle_ = CreateWindowInstance(class_name, window_name);
     if (WindowHandle_ == nullptr)
     {
         utils::UnregisterWindowClass(class_name);
-        log::simple->error("error: create window instance failed.");
+        log::error("error: create window instance failed.");
         return false;
     }
-    log::simple->info(log::color::green, "info: create window instance success.");
+    log::info(log::color::green)("info: create window instance success.")();
 
     if (!InitializeDetail())
     {
@@ -149,30 +141,39 @@ bool Window::Initialize()
     return true;
 }
 
-int Window::Run() const
+int Window::Run()
 {
-    autox evtarg  = MSG();
-    autox running = true;
+    autox evtarg = MSG();
 
-    while (running)
+    while (true)
     {
         if (PeekMessage(&evtarg, nullptr, 0, 0, PM_REMOVE))
         {
-            running = (evtarg.message != WM_QUIT);
-            if (running)
-            {
-                TranslateMessage(&evtarg);
-                DispatchMessage(&evtarg);
-            }
+            if (evtarg.message == WM_QUIT) break;
+            TranslateMessage(&evtarg);
+            DispatchMessage(&evtarg);
         }
-        else
-        {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            SwapBuffers(GetDC(WindowHandle_));
-        }
+
+        OnInput();
+        OnUpdate();
+        OnRender();
     }
 
     return static_cast<int>(evtarg.wParam);
+}
+
+void Window::OnInput()
+{
+}
+
+void Window::OnUpdate()
+{
+}
+
+void Window::OnRender()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    SwapBuffers(GetDC(WindowHandle_));
 }
 
 void Window::OnCreate()
@@ -187,16 +188,16 @@ void Window::OnClose()
 {
 }
 
-void Window::OnSize(int width, int height)
+void Window::OnSize(int const width, int const height)
 {
 }
 
-HWND const Window::GetWindowHandle() const noexcept
+HWND Window::GetWindowHandle() const noexcept
 {
     return WindowHandle_;
 }
 
-PCTSTR const Window::GetWindowClassName() const noexcept
+PCTSTR Window::GetWindowClassName() const noexcept
 {
     return TEXT("__kvWindowApp__");
 }
@@ -294,7 +295,7 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
         break;
     }
     autox retval = DefWindowProc(WindowHandle_, message, wparam, lparam);
-    cout << fmt::format("(0x{0:04x}) {1}", message, retval) << endl;
+    log::debug("(0x{0:04x}) {1}", message, retval)();
     return retval;
 }
 

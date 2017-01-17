@@ -1,13 +1,8 @@
 #include "PrecompiledHeader.hpp"
+
 #include "../utils.hpp"
 #include "kv/predef/Keyword.hpp"
 #include "kv/log/IncludeAll.hpp"
-#include "termcolor/termcolor.hpp"
-#include <iostream>
-
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#undef WIN32_LEAN_AND_MEAN
 
 using namespace kv;
 
@@ -20,6 +15,7 @@ void PrintErrorInfo() noexcept
     using namespace std;
     autox message_buffer = LPSTR(nullptr);
     autox error = GetLastError();
+    if (error == ERROR_SUCCESS) return;
     FormatMessageA(
         FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
         nullptr,
@@ -29,7 +25,7 @@ void PrintErrorInfo() noexcept
         0,
         nullptr
     );
-    log::simple->error(fmt::format("error(0x{0:08x}): {1}", error, message_buffer));
+    log::error("error code(0x{0:08x}): {1}", error, message_buffer)();
     LocalFree(message_buffer);
 }
 
@@ -63,7 +59,7 @@ void UnregisterWindowClass(PCTSTR const class_name) noexcept
     UnregisterClass(class_name, GetModuleHandle(nullptr));
 }
 
-char const * const GetWindowMessageName(size_t const message) noexcept
+char const * GetWindowMessageName(size_t const message) noexcept
 {
     switch (message)
     {

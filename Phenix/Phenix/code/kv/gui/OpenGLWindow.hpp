@@ -50,18 +50,18 @@ protected:
         autox format_count = int{};
         if (!wgl::ChoosePixelFormat(DeviceContextHandle_, format_attributes, nullptr, 1, &format_index, &format_count))
         {
-            log::simple->error("error: wgl choose pixel format failed.");
+            log::error("error: wgl choose pixel format failed.")();
             return false;
         }
-        log::simple->info(log::color::green, "info: wgl choose pixel format success.");
+        log::info(log::color::green)("info: wgl choose pixel format success.")();
 
         autox pfd = PIXELFORMATDESCRIPTOR{};
         if (!SetPixelFormat(DeviceContextHandle_, format_index, &pfd))
         {
-            log::simple->error("error: set pixel format (index = {0}) failed.", format_index);
+            log::error("error: set pixel format (index = {0}) failed.", format_index)();
             return false;
         }
-        log::simple->info(log::color::green, "info: set pixel format (index = {0}) success.", format_index);
+        log::info(log::color::green)("info: set pixel format (index = {0}) success.", format_index)();
 
         return true;
     }
@@ -84,10 +84,10 @@ protected:
         autox errcode = glGetError();
         if (RenderingContextHandle_ == nullptr)
         {
-            log::simple->error("error: create rendering context (version {0}.{1}) failed.", major, minor);
+            log::error("error: create rendering context (version {0}.{1}) failed.", major, minor)();
             return false;
         }
-        log::simple->info(log::color::green, "info: create rendering context (version {0}.{1}) success.", major, minor);
+        log::info(log::color::green)("info: create rendering context (version {0}.{1}) success.", major, minor)();
 
         return true;
     }
@@ -103,7 +103,7 @@ protected:
         DeviceContextHandle_ = GetDC(window_handle);
         if (DeviceContextHandle_ == nullptr)
         {
-            log::simple->error("error: get device handle failed.");
+            log::error("error: get device handle failed.")();
             return false;
         }
 

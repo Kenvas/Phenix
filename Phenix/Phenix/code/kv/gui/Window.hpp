@@ -1,13 +1,12 @@
 #pragma once
 
+#include "kv/common/Size.hpp"
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
 #include <chrono>
-
-#include "kv/predef/Keyword.hpp"
-#include "kv/common/Size.hpp"
 
 #include "_namespace/begin"
 
@@ -25,27 +24,31 @@ private:
 public:
 
     Window() noexcept;
-    Window(int width, int height) noexcept;
+    Window(int const width, int const height) noexcept;
 
     virtual ~Window() noexcept;
 
     size2i const & GetSize() const noexcept;
-    void SetSize(int width, int height);
+    void SetSize(int const width, int const height) noexcept;
 
-    int Run() const;
+    int Run();
     bool Initialize();
 
 protected:
 
+    virtual void OnInput();
+    virtual void OnUpdate();
+    virtual void OnRender();
+
     virtual void OnCreate();
     virtual void OnDestroy();
     virtual void OnClose();
-    virtual void OnSize(int width, int height);
+    virtual void OnSize(int const width, int const height);
 
 
-    HWND const GetWindowHandle() const noexcept;
+    HWND GetWindowHandle() const noexcept;
 
-    virtual PCTSTR const GetWindowClassName() const noexcept;
+    virtual PCTSTR GetWindowClassName() const noexcept;
 
     virtual bool InitializeDetail();
     virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title);

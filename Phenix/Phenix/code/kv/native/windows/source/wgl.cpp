@@ -1,58 +1,87 @@
 #include "PrecompiledHeader.hpp"
 
-#include "kv/predef/Keyword.hpp"
-#include "kv/native/windows/wgl.hpp"
+#include "../wgl.hpp"
+#include "../utils.hpp"
 #include "kv/log/IncludeAll.hpp"
+#include "kv/predef/Keyword.hpp"
 
-#include "termcolor/termcolor.hpp"
-#include "fmt/format.h"
 
 using namespace std;
+using namespace kv::native::windows;
 
 #include "../_namespace/begin"
 namespace wgl
 {
 
+static void PrintWglFunctionLoadInfo(void * value, LPCSTR const extName)
+{
+    if (value == nullptr)
+    {
+        log::debug(log::color::magenta)("    {0:<26}", extName)(log::color::red)(" failed.")();
+        utils::PrintErrorInfo();
+    }
+    else
+    {
+        log::debug(log::color::magenta)("    {0:<26}", extName)(log::color::green)(" success.")();
+    }
+}
+
+template <class _FunctionType>
+struct FunctionProxy;
+
+template <class _ReturnType, class ... _ArgsType>
+struct FunctionProxy<_ReturnType(WINAPI *)(_ArgsType ...)>
+{
+private:
+    using function_t = _ReturnType(WINAPI *)(_ArgsType ...);
+    function_t value;
+public:
+    FunctionProxy() : value(function_t(-1)) {}
+    inline bool load(LPCSTR const extName) noexcept
+    {
+        if (value == function_t(-1))
+        {
+            value = reinterpret_cast<function_t>(wglGetProcAddress(extName));
+            PrintWglFunctionLoadInfo(value, extName);
+        }
+        return (value != nullptr);
+    }
+    inline _ReturnType operator()(_ArgsType ... args) const
+    {
+        return (value != nullptr) ? value(args ...) : _ReturnType();
+    }
+};
+
+static auto __wglGetExtensionsStringARB  = FunctionProxy<PFNWGLGETEXTENSIONSSTRINGARBPROC>();
+static auto __wglCreateContextAttribsARB = FunctionProxy<PFNWGLCREATECONTEXTATTRIBSARBPROC>();
+static auto __wglChoosePixelFormatARB    = FunctionProxy<PFNWGLCHOOSEPIXELFORMATARBPROC>();
+static auto __wglSwapIntervalEXT         = FunctionProxy<PFNWGLSWAPINTERVALEXTPROC>();
+static auto __wglGetSwapIntervalEXT      = FunctionProxy<PFNWGLGETSWAPINTERVALEXTPROC>();
+
 #include "extern_c/begin"
-static PFNWGLGETEXTENSIONSSTRINGARBPROC  __wglGetExtensionsStringARB  = nullptr;
-static PFNWGLCREATECONTEXTATTRIBSARBPROC __wglCreateContextAttribsARB = nullptr;
-static PFNWGLCHOOSEPIXELFORMATARBPROC    __wglChoosePixelFormatARB    = nullptr;
-static PFNWGLSWAPINTERVALEXTPROC         __wglSwapIntervalEXT         = nullptr;
-static PFNWGLGETSWAPINTERVALEXTPROC      __wglGetSwapIntervalEXT      = nullptr;
 
 BOOL WINAPI _LoadExtensions()
 {
-    autox retval = TRUE;
-    cout << termcolor::green << "info: load wgl extensions" << endl;
-#define __KV_GET_PROC_ADDR(func_proto, ext_name)                                \
-    __##ext_name = (func_proto)wglGetProcAddress(#ext_name);                    \
-    do                                                                          \
-    {                                                                           \
-        if (__##ext_name == nullptr)                                            \
-        {                                                                       \
-            cout << termcolor::magenta << fmt::format("    {0:<26}", #ext_name) \
-                 << termcolor::red << " failed."                                \
-                 << termcolor::reset << endl;                                   \
-            retval = FALSE;                                                     \
-        }                                                                       \
-        else                                                                    \
-        {                                                                       \
-            cout << termcolor::magenta << fmt::format("    {0:<26}", #ext_name) \
-                 << termcolor::green << " success."                             \
-                 << termcolor::reset << endl;                                   \
-        }                                                                       \
-    } while (0)
-    __KV_GET_PROC_ADDR(PFNWGLGETEXTENSIONSSTRINGARBPROC , wglGetExtensionsStringARB );
-    __KV_GET_PROC_ADDR(PFNWGLCREATECONTEXTATTRIBSARBPROC, wglCreateContextAttribsARB);
-    __KV_GET_PROC_ADDR(PFNWGLCHOOSEPIXELFORMATARBPROC   , wglChoosePixelFormatARB   );
-    __KV_GET_PROC_ADDR(PFNWGLSWAPINTERVALEXTPROC        , wglSwapIntervalEXT        );
-    __KV_GET_PROC_ADDR(PFNWGLGETSWAPINTERVALEXTPROC     , wglGetSwapIntervalEXT     );
+    autox retval = true;
+    log::debug(log::color::green)("info: load wgl extensions")();
+#define __KV_GET_PROC_ADDR(extName)  do { retval &= __##extName.load(#extName); } while(0)
+    __KV_GET_PROC_ADDR(wglGetExtensionsStringARB );
+    __KV_GET_PROC_ADDR(wglCreateContextAttribsARB);
+    __KV_GET_PROC_ADDR(wglChoosePixelFormatARB   );
+    __KV_GET_PROC_ADDR(wglSwapIntervalEXT        );
+    __KV_GET_PROC_ADDR(wglGetSwapIntervalEXT);
 #undef __KV_GET_PROC_ADDR
     return retval;
 }
 
 static LRESULT WINAPI OnEvent(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
+#if 1
+    log::debug.time()
+        (log::color::cyan)("{0:^20} ", utils::GetWindowMessageName(message))
+        (log::color::green)("(0x{0:04x}) ", message)
+        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
+#endif
     return DefWindowProc(hwnd, message, wparam, lparam);
 }
 
@@ -75,7 +104,7 @@ BOOL WINAPI LoadExtensions()
         }
     };
 
-    TCHAR class_name[] = TEXT("PhenixTemporaryWindowWGL");
+    TCHAR class_name[] = TEXT("__kvTemporaryWindowWGL__");
     autox instance     = GetModuleHandle(nullptr);
     autox wcex         = WNDCLASSEX{ 0 };
     wcex.cbSize        = sizeof(wcex);
@@ -85,7 +114,7 @@ BOOL WINAPI LoadExtensions()
 
     if (!RegisterClassEx(&wcex))
     {
-        log::simple->error("error: register window class failed.");
+        log::error("error: register window class failed.")();
         dispsose(0, nullptr, nullptr, nullptr, nullptr, nullptr);
         return FALSE;
     }
@@ -94,7 +123,7 @@ BOOL WINAPI LoadExtensions()
         0, 0, 0, 0, nullptr, nullptr, instance, nullptr);
     if (hwnd == nullptr)
     {
-        log::simple->error("error: create window instance failed");
+        log::error("error: create window instance failed")();
         dispsose(1, class_name, instance, nullptr, nullptr, nullptr);
         return FALSE;
     }
@@ -102,7 +131,7 @@ BOOL WINAPI LoadExtensions()
     autox hdc = GetDC(hwnd);
     if (hdc == nullptr)
     {
-        log::simple->error("error: get device handle failed.");
+        log::error("error: get device handle failed.")();
         dispsose(2, class_name, instance, hwnd, nullptr, nullptr);
         return FALSE;
     }
@@ -110,7 +139,7 @@ BOOL WINAPI LoadExtensions()
     autox pfd = PIXELFORMATDESCRIPTOR{ 0 };
     if (!SetPixelFormat(hdc, 1, &pfd))
     {
-        log::simple->error("error: set pixel format failed.");
+        log::error("error: set pixel format failed.")();
         dispsose(3, class_name, instance, hwnd, hdc, nullptr);
         return FALSE;
     }
@@ -118,14 +147,14 @@ BOOL WINAPI LoadExtensions()
     autox hglrc = wgl::CreateContext(hdc);
     if (hglrc == nullptr)
     {
-        log::simple->error("error: create rendering context failed.");
+        log::error("error: create rendering context failed.")();
         dispsose(3, class_name, instance, hwnd, hdc, nullptr);
         return FALSE;
     }
 
     if (!wgl::MakeCurrent(hdc, hglrc))
     {
-        log::simple->error("error: make current context failed.");
+        log::error("error: make current context failed.")();
         dispsose(4, class_name, instance, hwnd, hdc, hglrc);
         return FALSE;
     }
@@ -140,40 +169,35 @@ BOOL WINAPI LoadExtensions()
 
 BOOL WINAPI IsExtensionSupported(HDC hdc, LPCSTR extName)
 {
-    auto extensions = GetExtensionsString(hdc);
-    auto position   = strstr(extensions, extName);
-    auto supported  = (position != nullptr);
+    autox extensions = GetExtensionsString(hdc);
+    autox position   = strstr(extensions, extName);
+    autox supported  = (position != nullptr);
     return supported;
 }
 
 LPCSTR WINAPI GetExtensionsString(HDC hdc)
 {
-    return (__wglGetExtensionsStringARB == nullptr) ? nullptr
-        : __wglGetExtensionsStringARB(hdc);
+    return __wglGetExtensionsStringARB(hdc);
 }
 
 HGLRC WINAPI CreateContextAttribs(HDC hdc, HGLRC hShareContext, const int * attribList)
 {
-    return (__wglCreateContextAttribsARB == nullptr) ? nullptr
-        : __wglCreateContextAttribsARB(hdc, hShareContext, attribList);
+    return __wglCreateContextAttribsARB(hdc, hShareContext, attribList);
 }
 
 BOOL WINAPI ChoosePixelFormat(HDC hdc, const int *piAttribIList, const float *pfAttribFList, int nMaxFormats, int *piFormats, int *nNumFormats)
 {
-    return (__wglChoosePixelFormatARB == nullptr) ? false
-        : __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, reinterpret_cast<UINT *>(nNumFormats));
+    return __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, reinterpret_cast<UINT *>(nNumFormats));
 }
 
 BOOL WINAPI SwapInterval(int interval)
 {
-    return (__wglSwapIntervalEXT == nullptr) ? false
-        : __wglSwapIntervalEXT(interval);
+    return __wglSwapIntervalEXT(interval);
 }
 
 int WINAPI GetSwapInterval(void)
 {
-    return (__wglGetSwapIntervalEXT == nullptr) ? 0
-        : __wglGetSwapIntervalEXT();
+    return __wglGetSwapIntervalEXT();
 }
 
 HGLRC WINAPI CreateContext(HDC hdc)

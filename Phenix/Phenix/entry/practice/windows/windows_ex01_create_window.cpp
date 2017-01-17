@@ -1,18 +1,17 @@
 #include "PrecompiledHeader.hpp"
 #include "kv/entry/IncludeAll.hpp"
+#include "kv/log/IncludeAll.hpp"
 #include "kv/native/windows/utils.hpp"
-
-#include "fmt/format.h"
-#include "fmt/time.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
-#include <chrono>
-
 using namespace std;
 using namespace std::chrono;
+
+using namespace kv;
+using namespace kv::native::windows;
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam);
 bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure);
@@ -46,16 +45,10 @@ KV_QuickAddEntry
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
 {
-    autox duration = high_resolution_clock::now().time_since_epoch();
-    autox micros   = (duration_cast<std::chrono::microseconds>(duration).count() % 1000000);
-    autox t        = std::time(nullptr);
-    autox tm       = std::localtime(&t);
-    std::cout << fmt::format("{0:%T}.{1:06d} ", *tm, micros)
-    //std::cout << "message: "
-        << termcolor::cyan      << fmt::format("{0:^20}", kv::native::windows::utils::GetWindowMessageName(message))
-        << termcolor::green     << fmt::format("(0x{0:04x}) ", message)
-        << termcolor::magenta   << fmt::format("wp: 0x{0:016x} lp: 0x{1:016x} ", wparam, lparam)
-        << termcolor::reset     << std::endl;
+    log::debug.time()
+        (log::color::cyan)("{0:^20} ", utils::GetWindowMessageName(message))
+        (log::color::green)("(0x{0:04x}) ", message)
+        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
     switch (message)
     {
     case WM_DESTROY:

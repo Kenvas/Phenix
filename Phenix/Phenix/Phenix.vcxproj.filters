@@ -60,6 +60,12 @@
     <ClCompile Include="code\PrecompiledHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="code\kv\native\windows\source\utils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\log\source\kvLogger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\kv\common\ArrayView.hpp">
@@ -111,6 +117,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="code\PrecompiledHeader.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\native\windows\IncludeAll.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\log\Logger.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
