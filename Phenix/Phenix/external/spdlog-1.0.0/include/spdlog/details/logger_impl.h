@@ -57,15 +57,15 @@ inline void spdlog::logger::set_pattern(const std::string& pattern)
     _set_pattern(pattern);
 }
 
+
 template <typename... Args>
-inline void spdlog::logger::log(color::color_enum clr, level::level_enum lvl, const char* fmt, const Args&... args)
+inline void spdlog::logger::log(level::level_enum lvl, const char* fmt, const Args&... args)
 {
     if (!should_log(lvl)) return;
 
     try
     {
         details::log_msg log_msg(&_name, lvl);
-        log_msg.color = clr;
         log_msg.raw.write(fmt, args...);
         _sink_it(log_msg);
     }
@@ -80,47 +80,12 @@ inline void spdlog::logger::log(color::color_enum clr, level::level_enum lvl, co
 }
 
 template <typename... Args>
-inline void spdlog::logger::log(level::level_enum lvl, const char* fmt, const Args&... args)
-{
-    return log(color::use_level, lvl, fmt, args...);
-}
-
-template <typename... Args>
-inline void spdlog::logger::log(color::color_enum clr, level::level_enum lvl, const char* msg)
-{
-    if (!should_log(lvl)) return;
-    try
-    {
-        details::log_msg log_msg(&_name, lvl);
-        log_msg.color = clr;
-        log_msg.raw << msg;
-        _sink_it(log_msg);
-    }
-    catch (const std::exception &ex)
-    {
-        _err_handler(ex.what());
-    }
-    catch (...)
-    {
-        _err_handler("Unknown exception");
-    }
-
-}
-
-template <typename... Args>
 inline void spdlog::logger::log(level::level_enum lvl, const char* msg)
 {
-    return log(color::use_level, lvl, msg);
-}
-
-template<typename T>
-inline void spdlog::logger::log(color::color_enum clr, level::level_enum lvl, const T& msg)
-{
     if (!should_log(lvl)) return;
     try
     {
         details::log_msg log_msg(&_name, lvl);
-        log_msg.color = clr;
         log_msg.raw << msg;
         _sink_it(log_msg);
     }
@@ -132,12 +97,27 @@ inline void spdlog::logger::log(color::color_enum clr, level::level_enum lvl, co
     {
         _err_handler("Unknown exception");
     }
+
 }
 
 template<typename T>
 inline void spdlog::logger::log(level::level_enum lvl, const T& msg)
 {
-    return log(color::use_level, lvl, msg);
+    if (!should_log(lvl)) return;
+    try
+    {
+        details::log_msg log_msg(&_name, lvl);
+        log_msg.raw << msg;
+        _sink_it(log_msg);
+    }
+    catch (const std::exception &ex)
+    {
+        _err_handler(ex.what());
+    }
+    catch (...)
+    {
+        _err_handler("Unknown exception");
+    }
 }
 
 
@@ -159,11 +139,6 @@ inline void spdlog::logger::info(const char* fmt, const Args&... args)
     log(level::info, fmt, args...);
 }
 
-template <typename... Args>
-inline void spdlog::logger::info(color::color_enum clr, const char* fmt, const Args&... args)
-{
-    log(clr, level::info, fmt, args...);
-}
 
 template <typename... Args>
 inline void spdlog::logger::warn(const char* fmt, const Args&... args)
@@ -196,11 +171,6 @@ inline void spdlog::logger::debug(const T& msg)
     log(level::debug, msg);
 }
 
-template<typename T>
-inline void spdlog::logger::info(color::color_enum clr, const T& msg)
-{
-    log(clr, level::info, msg);
-}
 
 template<typename T>
 inline void spdlog::logger::info(const T& msg)

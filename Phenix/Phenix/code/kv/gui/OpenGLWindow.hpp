@@ -81,7 +81,6 @@ protected:
         };
 
         RenderingContextHandle_ = wgl::CreateContextAttribs(DeviceContextHandle_, nullptr, context_attributes);
-        autox errcode = glGetError();
         if (RenderingContextHandle_ == nullptr)
         {
             log::error("error: create rendering context (version {0}.{1}) failed.", major, minor)();

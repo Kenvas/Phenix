@@ -35,23 +35,18 @@ public:
     logger& operator=(const logger&) = delete;
 
 
-    template <typename... Args> void log(color::color_enum clr, level::level_enum lvl, const char* fmt, const Args&... args);
     template <typename... Args> void log(level::level_enum lvl, const char* fmt, const Args&... args);
-    template <typename... Args> void log(color::color_enum clr, level::level_enum lvl, const char* msg);
     template <typename... Args> void log(level::level_enum lvl, const char* msg);
     template <typename... Args> void trace(const char* fmt, const Args&... args);
     template <typename... Args> void debug(const char* fmt, const Args&... args);
-    template <typename... Args> void info(color::color_enum clr, const char* fmt, const Args&... args);
     template <typename... Args> void info(const char* fmt, const Args&... args);
     template <typename... Args> void warn(const char* fmt, const Args&... args);
     template <typename... Args> void error(const char* fmt, const Args&... args);
     template <typename... Args> void critical(const char* fmt, const Args&... args);
 
-    template <typename T> void log(color::color_enum clr, level::level_enum lvl, const T&);
     template <typename T> void log(level::level_enum lvl, const T&);
     template <typename T> void trace(const T&);
     template <typename T> void debug(const T&);
-    template <typename T> void info(color::color_enum clr, const T&);
     template <typename T> void info(const T&);
     template <typename T> void warn(const T&);
     template <typename T> void error(const T&);

@@ -42,7 +42,7 @@ public:
         if (value == function_t(-1))
         {
             value = reinterpret_cast<function_t>(wglGetProcAddress(extName));
-            PrintWglFunctionLoadInfo(value, extName);
+            PrintWglFunctionLoadInfo(reinterpret_cast<void *>(value), extName);
         }
         return (value != nullptr);
     }
@@ -57,8 +57,6 @@ static auto __wglCreateContextAttribsARB = FunctionProxy<PFNWGLCREATECONTEXTATTR
 static auto __wglChoosePixelFormatARB    = FunctionProxy<PFNWGLCHOOSEPIXELFORMATARBPROC>();
 static auto __wglSwapIntervalEXT         = FunctionProxy<PFNWGLSWAPINTERVALEXTPROC>();
 static auto __wglGetSwapIntervalEXT      = FunctionProxy<PFNWGLGETSWAPINTERVALEXTPROC>();
-
-#include "extern_c/begin"
 
 BOOL WINAPI _LoadExtensions()
 {
@@ -214,7 +212,6 @@ BOOL WINAPI MakeCurrent(HDC hdc, HGLRC hglrc)
 {
     return wglMakeCurrent(hdc, hglrc);
 }
-#include "extern_c/end"
 
 }
 #include "../_namespace/end"

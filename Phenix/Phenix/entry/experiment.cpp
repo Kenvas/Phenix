@@ -9,6 +9,8 @@
 #include "kv/log/IncludeAll.hpp"
 #include "kv/log/Logger.hpp"
 
+#include "spdlog/spdlog.h"
+
 using namespace kv;
 
 KV_QuickAddEntry
@@ -20,6 +22,7 @@ KV_QuickAddEntry
     log::debug("hello world")();
     log::debug("{0}", "hello world")();
     log::debug(log::color::red, log::color::on_blue)("{0}", "hello world")();
+
 
     return 0;
 };

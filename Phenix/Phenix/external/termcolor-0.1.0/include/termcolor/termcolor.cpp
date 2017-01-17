@@ -76,13 +76,13 @@ namespace termcolor
 
     #if defined(TERMCOLOR_OS_WINDOWS)
 
-        int & lightfore()
+        int & boldfore()
         {
             static int value = 0;
             return value;
         }
 
-        int & lightback()
+        int & boldback()
         {
             static int value = 0;
             return value;
@@ -104,8 +104,8 @@ namespace termcolor
         //! parameter is `-1` then attribute won't changed.
         void win_change_attributes(std::ostream& stream, int foreground, int background = -1)
         {
-            foreground |= _internal::lightfore();
-            background |= _internal::lightback();
+            foreground |= _internal::boldfore();
+            background |= _internal::boldback();
             foreground |= _internal::underscore();
 
             // yeah, i know.. it's ugly, it's windows.
@@ -200,8 +200,8 @@ namespace termcolor
         #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
             stream << "\033[00m";
         #elif defined(TERMCOLOR_OS_WINDOWS)
-            _internal::lightfore() = 0;
-            _internal::lightback() = 0;
+            _internal::boldfore() = 0;
+            _internal::boldback() = 0;
             _internal::win_change_attributes(stream, -1, -1);
         #endif
         }
@@ -281,25 +281,25 @@ namespace termcolor
         return stream;
     }
 
-    std::ostream& lightfore(std::ostream& stream)
+    std::ostream& boldfore(std::ostream& stream)
     {
         if (_internal::is_atty(stream))
         {
         #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
         #elif defined(TERMCOLOR_OS_WINDOWS)
-            _internal::lightfore() = FOREGROUND_INTENSITY;
+            _internal::boldfore() = FOREGROUND_INTENSITY;
         #endif
         }
         return stream;
     }
 
-    std::ostream& lightback(std::ostream& stream)
+    std::ostream& boldback(std::ostream& stream)
     {
         if (_internal::is_atty(stream))
         {
         #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
         #elif defined(TERMCOLOR_OS_WINDOWS)
-            _internal::lightback() = FOREGROUND_INTENSITY;
+            _internal::boldback() = FOREGROUND_INTENSITY;
         #endif
         }
         return stream;
@@ -311,7 +311,7 @@ namespace termcolor
         {
         #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
         #elif defined(TERMCOLOR_OS_WINDOWS)
-            _internal::lightfore() = 0;
+            _internal::boldfore() = 0;
         #endif
         }
         return stream;
@@ -323,7 +323,7 @@ namespace termcolor
         {
         #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
         #elif defined(TERMCOLOR_OS_WINDOWS)
-            _internal::lightback() = 0;
+            _internal::boldback() = 0;
         #endif
         }
         return stream;

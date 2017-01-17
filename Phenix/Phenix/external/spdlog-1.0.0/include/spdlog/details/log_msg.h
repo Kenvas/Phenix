@@ -37,7 +37,6 @@ struct log_msg
 
     const std::string *logger_name;
     level::level_enum level;
-    color::color_enum color;
     log_clock::time_point time;
     size_t thread_id;
     fmt::MemoryWriter raw;

@@ -20,8 +20,8 @@ namespace termcolor
     std::ostream& reverse   (std::ostream& stream);
     std::ostream& concealed (std::ostream& stream);
 
-    std::ostream& lightfore (std::ostream& stream);
-    std::ostream& lightback (std::ostream& stream);
+    std::ostream& boldfore  (std::ostream& stream);
+    std::ostream& boldback  (std::ostream& stream);
 
     std::ostream& darkfore  (std::ostream& stream);
     std::ostream& darkback  (std::ostream& stream);
@@ -43,7 +43,6 @@ namespace termcolor
     std::ostream& on_magenta(std::ostream& stream);
     std::ostream& on_cyan   (std::ostream& stream);
     std::ostream& on_white  (std::ostream& stream);
-
 
 } // namespace termcolor
 

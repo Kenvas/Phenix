@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.hpp"
 
 #include "../Logger.hpp"
-#include "../LogWrap.hpp"
+#include "../LogColor.hpp"
 #include "kv/predef/Keyword.hpp"
 
 #include "termcolor/termcolor.hpp"

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "kv/predef/Type.hpp"
 #include <iostream>
 
 #include "_namespace/begin"
@@ -14,7 +15,7 @@ extern Logger const warn;
 extern Logger const error;
 extern Logger const critical;
 
-struct BasicLogger abstract
+struct BasicLogger
 {
 public:
     using ConstLoggerRef = Logger const &;

@@ -25,21 +25,21 @@ template<class Mutex>
 class wincolor_sink: public  base_sink<Mutex>
 {
 public:
-    //const WORD BOLD = FOREGROUND_INTENSITY;
-    //const WORD RED = FOREGROUND_RED;
-    //const WORD CYAN = FOREGROUND_GREEN | FOREGROUND_BLUE;
-    //const WORD WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-    //const WORD YELLOW = FOREGROUND_RED | FOREGROUND_GREEN;
+    const WORD BOLD = FOREGROUND_INTENSITY;
+    const WORD RED = FOREGROUND_RED;
+    const WORD CYAN = FOREGROUND_GREEN | FOREGROUND_BLUE;
+    const WORD WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+    const WORD YELLOW = FOREGROUND_RED | FOREGROUND_GREEN;
 
     wincolor_sink(HANDLE std_handle): out_handle_(std_handle)
     {
-        colors_[level::trace]    = color::cyan;
-        colors_[level::debug]    = color::cyan;
-        colors_[level::info]     = color::white;
-        colors_[level::warn]     = color::yellow;
-        colors_[level::err]      = color::red; // red bold
-        colors_[level::critical] = color::ON_RED | color::white; // white bold on red background
-        colors_[level::off]      = 0;
+        colors_[level::trace] = CYAN;
+        colors_[level::debug] = CYAN;
+        colors_[level::info] = WHITE | BOLD;
+        colors_[level::warn] = YELLOW | BOLD;
+        colors_[level::err] = RED | BOLD; // red bold
+        colors_[level::critical] = BACKGROUND_RED | WHITE | BOLD; // white bold on red background
+        colors_[level::off] = 0;
     }
 
     virtual ~wincolor_sink()
@@ -52,7 +52,7 @@ public:
 
     virtual void _sink_it(const details::log_msg& msg) override
     {
-        auto color = (msg.color == color::use_level) ? colors_[msg.level] : msg.color;
+        auto color = colors_[msg.level];
         auto orig_attribs = set_console_attribs(color);
         WriteConsoleA(out_handle_, msg.formatted.data(), static_cast<DWORD>(msg.formatted.size()), nullptr, nullptr);
         SetConsoleTextAttribute(out_handle_, orig_attribs); //reset to orig colors
