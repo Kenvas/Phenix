@@ -24,7 +24,6 @@ private:
 public:
 
     Window() noexcept;
-    Window(int const width, int const height) noexcept;
 
     virtual ~Window() noexcept;
 
@@ -40,41 +39,18 @@ protected:
     virtual void OnUpdate();
     virtual void OnRender();
 
-    virtual void OnCreate();
+    virtual bool OnCreate();
     virtual void OnDestroy();
     virtual void OnClose();
     virtual void OnSize(int const width, int const height);
-
 
     HWND GetWindowHandle() const noexcept;
 
     virtual PCTSTR GetWindowClassName() const noexcept;
 
-    virtual bool InitializeDetail();
     virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title);
 
-    virtual LRESULT CALLBACK OnEvent
-    (
-        UINT   message,
-        WPARAM wparam,
-        LPARAM lparam
-    );
-
-    static LRESULT CALLBACK ForwardWindowProcedure
-    (
-        HWND   window_handle,
-        UINT   message,
-        WPARAM wparam,
-        LPARAM lparam
-    );
-
-    static LRESULT CALLBACK AuxWindowProcedure
-    (
-        HWND   window_handle,
-        UINT   message,
-        WPARAM wparam,
-        LPARAM lparam
-    );
+    virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam);
 };
 
 #include "_namespace/end"

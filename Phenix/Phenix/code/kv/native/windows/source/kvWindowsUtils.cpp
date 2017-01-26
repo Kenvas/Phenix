@@ -10,23 +10,24 @@ using namespace kv;
 namespace utils
 {
 
-void PrintErrorInfo() noexcept
+bool PrintErrorMessageInfo() noexcept
 {
     using namespace std;
-    autox message_buffer = LPSTR(nullptr);
-    autox error = GetLastError();
-    if (error == ERROR_SUCCESS) return;
+    autox buffer = LPSTR(nullptr);
+    autox error  = GetLastError();
+    if (error == ERROR_SUCCESS) return false;
     FormatMessageA(
         FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
         nullptr,
         error,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        reinterpret_cast<decltype(message_buffer)>(&message_buffer),
+        reinterpret_cast<decltype(buffer)>(&buffer),
         0,
         nullptr
     );
-    log::error("error code(0x{0:08x}): {1}", error, message_buffer)();
-    LocalFree(message_buffer);
+    log::error(log::color::red)("error(0x{0:08x}): {1}", error, buffer)(log::color::reset);
+    LocalFree(buffer);
+    return true;
 }
 
 bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure) noexcept
@@ -48,7 +49,7 @@ bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure)
 
     if (!retval)
     {
-        PrintErrorInfo();
+        PrintErrorMessageInfo();
     }
 
     return retval;
@@ -56,7 +57,10 @@ bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure)
 
 void UnregisterWindowClass(PCTSTR const class_name) noexcept
 {
-    UnregisterClass(class_name, GetModuleHandle(nullptr));
+    autox handle = GetModuleHandle(nullptr);
+    autox retval = UnregisterClass(class_name, handle);
+    if (retval == TRUE) SetLastError(ERROR_SUCCESS);
+    PrintErrorMessageInfo();
 }
 
 char const * GetWindowMessageName(size_t const message) noexcept
@@ -283,6 +287,16 @@ char const * GetWindowMessageName(size_t const message) noexcept
     default    : return "";
     }
 }
+
+void PrintWindowMessageInfo(HWND handle, UINT message, WPARAM wparam, LPARAM lparam) noexcept
+{
+    log::debug.WriteTime()
+        (log::color::cyan)("{0:^20} ", GetWindowMessageName(message))
+        (log::color::green)("(0x{0:04x}) ", message)
+        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)
+        (log::color::yellow)("[handle:0x{0:08x}] ", size_t(handle))();
+}
+
 
 }
 #include "../_namespace/end"

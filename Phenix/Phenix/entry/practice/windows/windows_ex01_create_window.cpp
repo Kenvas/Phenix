@@ -37,7 +37,6 @@ KV_QuickAddEntry
         DispatchMessage(&evtarg);
     }
 
-    DestroyWindow(WindowHandle_);
     UnregisterWindowClass(class_name);
 
     return 0;
@@ -45,13 +44,10 @@ KV_QuickAddEntry
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
 {
-    log::debug.time()
-        (log::color::cyan)("{0:^20} ", utils::GetWindowMessageName(message))
-        (log::color::green)("(0x{0:04x}) ", message)
-        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
+    // utils::PrintWindowMessageInfo(window_handle, message, wparam, lparam);
     switch (message)
     {
-    case WM_DESTROY:
+    case WM_NCDESTROY:
         PostQuitMessage(0);
         break;
     }
@@ -78,7 +74,8 @@ bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure)
 
 void UnregisterWindowClass(PCTSTR const class_name)
 {
-    UnregisterClass(class_name, GetModuleHandle(nullptr));
+    autox handle = GetModuleHandle(nullptr);
+    UnregisterClass(class_name, handle);
 }
 
 HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_name)

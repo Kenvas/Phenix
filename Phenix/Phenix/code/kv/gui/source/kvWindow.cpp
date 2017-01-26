@@ -26,70 +26,37 @@ using namespace kv::native::windows;
 
 #include "../_namespace/begin"
 
-namespace
-{
-    align_push(1)
-    struct alignas(1) Thunk
-    {
-        struct mov_reg_imm
-        {
-            uint16_t opcode;
-            size_t   value;
-        };
-        mov_reg_imm mov_rcx_imm;
-        mov_reg_imm mov_rax_imm;
-        uint16_t    jmp_rax;
+thread_local static void * ThreadLocalData = nullptr;
 
-        void Build(size_t this_ptr, size_t func_ptr)
-        {
-            mov_rcx_imm = { 0xB948, this_ptr };
-            mov_rax_imm = { 0xB848, func_ptr };
-            jmp_rax     = { 0xE0FF };
-            FlushInstructionCache(GetCurrentProcess(), this, sizeof(*this));
-        }
+
+align_push(1)
+struct alignas(1) kvWindowProcedureThunk
+{
+    struct mov_reg_imm
+    {
+        uint16_t opcode;
+        size_t   value;
     };
-    align_pop()
-}
+    mov_reg_imm mov_rcx_imm;
+    mov_reg_imm mov_rax_imm;
+    uint16_t    jmp_rax;
 
-
-LRESULT CALLBACK Window::AuxWindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
-{
-    if (message == WM_NCCREATE)
+    void Build(size_t this_ptr, size_t func_ptr)
     {
-        autox pcs   = reinterpret_cast<LPCREATESTRUCT>(lparam);
-        autox app   = static_cast<Window * const>(pcs->lpCreateParams);
-        autox thunk = static_cast<Thunk * const>(VirtualAlloc(nullptr, sizeof(Thunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE));
-        autox proc  = reinterpret_cast<WNDPROC>(thunk);
-        thunk->Build(reinterpret_cast<size_t>(app), reinterpret_cast<size_t>(&Window::ForwardWindowProcedure));
-        if (app->WindowHandle_ == nullptr)
-            app->WindowHandle_ = window_handle;
-        SetWindowLongPtr(window_handle, -4/*GWL_WNDPROC*/, (LONG_PTR)proc);
-        return proc(window_handle, message, wparam, lparam);
+        mov_rcx_imm = { 0xB948, this_ptr };
+        mov_rax_imm = { 0xB848, func_ptr };
+        jmp_rax     = { 0xE0FF };
+        FlushInstructionCache(GetCurrentProcess(), this, sizeof(*this));
     }
-    return DefWindowProc(window_handle, message, wparam, lparam);
-}
+};
+align_pop()
 
-LRESULT CALLBACK Window::ForwardWindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
-{
-    autox app = reinterpret_cast<Window * const>(window_handle);
-    {
-        log::debug.time()
-            (log::color::cyan)("{0:^20} ", native::windows::utils::GetWindowMessageName(message))
-            (log::color::green)("(0x{0:04x}) ", message)
-            (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
-    }
-    return app->OnEvent(message, wparam, lparam);
-}
 
 Window::Window() noexcept
-    : Window(CW_USEDEFAULT, CW_USEDEFAULT)
-{ }
-
-Window::Window(int const width, int const height) noexcept
-    : Size_          (width, height)
+    : Size_          (CW_USEDEFAULT, CW_USEDEFAULT)
     , WindowHandle_  (nullptr)
     , StartupTime_   (ClockType::now())
-{ }
+{}
 
 Window::~Window() noexcept
 {}
@@ -111,29 +78,31 @@ bool Window::Initialize()
         return true;
 
     autox class_name  = GetWindowClassName();
-    autox window_name = TEXT("WindowApp");
+    autox window_name = TEXT("Window");
 
-    if (!utils::RegisterWindowClass(class_name, Window::AuxWindowProcedure))
+    autox procedure = [](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
     {
-        log::error("error: register window class failed.");
+        autox app = static_cast<Window * const>(ThreadLocalData);
+        app->WindowHandle_ = window_handle;
+        return app->OnEvent(message, wparam, lparam);
+    };
+
+    if (!utils::RegisterWindowClass(class_name, procedure))
+    {
+        log::error(log::color::red)("error: register window class failed.")();
         return false;
     }
     log::info(log::color::green)("info: register window class success.")();
 
-    WindowHandle_ = CreateWindowInstance(class_name, window_name);
+    ThreadLocalData = static_cast<void *>(this);
+    WindowHandle_   = CreateWindowInstance(class_name, window_name);
     if (WindowHandle_ == nullptr)
     {
         utils::UnregisterWindowClass(class_name);
-        log::error("error: create window instance failed.");
+        log::error(log::color::red)("error: create window instance failed.")();
         return false;
     }
     log::info(log::color::green)("info: create window instance success.")();
-
-    if (!InitializeDetail())
-    {
-        utils::UnregisterWindowClass(class_name);
-        return false;
-    }
 
     ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
@@ -159,6 +128,8 @@ int Window::Run()
         OnRender();
     }
 
+    utils::UnregisterWindowClass(GetWindowClassName());
+
     return static_cast<int>(evtarg.wParam);
 }
 
@@ -172,12 +143,11 @@ void Window::OnUpdate()
 
 void Window::OnRender()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    SwapBuffers(GetDC(WindowHandle_));
 }
 
-void Window::OnCreate()
+bool Window::OnCreate()
 {
+    return true;
 }
 
 void Window::OnDestroy()
@@ -186,6 +156,7 @@ void Window::OnDestroy()
 
 void Window::OnClose()
 {
+    DefWindowProc(WindowHandle_, WM_CLOSE, 0, 0);
 }
 
 void Window::OnSize(int const width, int const height)
@@ -199,7 +170,7 @@ HWND Window::GetWindowHandle() const noexcept
 
 PCTSTR Window::GetWindowClassName() const noexcept
 {
-    return TEXT("__kvWindowApp__");
+    return TEXT("__kvWindow_1_0_0__");
 }
 
 HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title)
@@ -221,42 +192,46 @@ HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_t
     return retval;
 }
 
-bool Window::InitializeDetail()
-{
-    return true;
-}
-
 LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
 {
+    utils::PrintWindowMessageInfo(WindowHandle_, message, wparam, lparam);
+
     switch (message)
     {
     case WM_CREATE:
-        break;
+        return (OnCreate() ? 0 : -1);
     case WM_DESTROY:
-        OnDestroy();
-        break;
+        return (OnDestroy(), 0);
     case WM_SIZE:
-        OnSize(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
-        break;
+        return (OnSize(LOWORD(lparam), HIWORD(lparam)), 0);
     case WM_CLOSE:
-        OnClose();
-        break;
+        return (OnClose(), 0);
     case WM_PAINT:
         break;
     case WM_SETCURSOR:
         break;
     case WM_GETMINMAXINFO:
         break;
-    case WM_NCCREATE:
-        break;
+    case WM_NCCREATE: // non client create
+        {
+            autox function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+            autox thunk     = static_cast<kvWindowProcedureThunk * const>(function);
+            autox procedure = static_cast<WNDPROC>([](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
+            {
+                autox app = reinterpret_cast<Window * const>(window_handle);
+                return app->OnEvent(message, wparam, lparam);
+            });
+            thunk->Build(reinterpret_cast<size_t>(this), reinterpret_cast<size_t>(procedure));
+            SetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4, LONG_PTR(function));
+        }
+        return TRUE;
     case WM_NCDESTROY:   // non client destroy
         {
-            autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, -4/*GWL_WNDPROC*/));
+            autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
             VirtualFree(thunk, 0, MEM_RELEASE);
-            utils::UnregisterWindowClass(GetWindowClassName());
             PostQuitMessage(0);
         }
-        break;
+        return 0;
     case WM_NCCALCSIZE:
         break;
     case WM_NCHITTEST:   // non client hit test

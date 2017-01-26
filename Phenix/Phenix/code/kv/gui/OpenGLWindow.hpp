@@ -28,7 +28,7 @@ public:
 
 protected:
 
-    bool const SetupPixelFormat()
+    bool SetupPixelFormat()
     {
         int const format_attributes[] =
         {
@@ -66,7 +66,7 @@ protected:
         return true;
     }
 
-    bool const CreateRenderingContext(int const major, int const minor)
+    bool CreateRenderingContext(int const major, int const minor)
     {
         int const context_attributes[] =
         {
@@ -91,7 +91,7 @@ protected:
         return true;
     }
 
-    virtual bool InitializeDetail() override
+    virtual bool OnCreate() override
     {
         if (!wgl::LoadExtensions())
         {
@@ -159,6 +159,12 @@ protected:
     virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
     {
         return Window::OnEvent(message, wparam, lparam);
+    }
+
+    virtual void OnRender() override
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        SwapBuffers(GetDC(GetWindowHandle()));
     }
 };
 

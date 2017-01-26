@@ -6,13 +6,13 @@
 using namespace kv;
 
 #define TestVersionDecMacro(macro, input, expected) log::debug((macro((input)) == (expected)) ? log::color::green : log::color::red); \
-    log::debug("{0:<32}({1:<12}): ", #macro, (input))("expected = {0:>10}, actual = {1:>10}", (expected), macro((input)))();
+    log::debug("{0:<32}({1:<12}): expected = {2:>10}, actual = {3:>10}", #macro, (input), (expected), macro((input)))();
 #define TestVersionHexMacro(macro, input, expected) log::debug((macro((input)) == (expected)) ? log::color::green : log::color::red); \
-    log::debug("{0:<32}(0x{1:<10x}): ", #macro, (input))("expected = {0:>10}, actual = {1:>10}", (expected), macro((input)))();
+    log::debug("{0:<32}(0x{1:<10x}): expected = {2:>10}, actual = {3:>10}", #macro, (input), (expected), macro((input)))();
 
 #define __MacroInfo(module, member) KV_ ## module ## _ ## member
 #define PrintMacroInfo(module, member) \
-    log::debug(log::color::cyan)("{0:<8} {1:<10}: ", #module, #member)("{0}", __MacroInfo(module, member))();
+    log::debug(log::color::cyan)("{0:<8} {1:<10}: {2}", #module, #member, __MacroInfo(module, member))();
 
 KV_QuickAddEntry
 {

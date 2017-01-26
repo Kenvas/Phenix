@@ -35,6 +35,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="code\kv\common\source\kvRandom.cpp" />
+    <ClCompile Include="code\kv\entry\source\kvEntryManager.cpp" />
+    <ClCompile Include="code\kv\entry\source\kvEntryObject.cpp" />
+    <ClCompile Include="code\kv\entry\source\kvEntryUtils.cpp" />
+    <ClCompile Include="code\kv\gui\source\kvWindow.cpp" />
+    <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
+    <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp" />
+    <ClCompile Include="code\kv\native\windows\source\kvWindowsUtils.cpp" />
     <ClCompile Include="entry\main.cpp" />
     <ClCompile Include="entry\experiment.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
@@ -43,14 +51,6 @@
     <ClCompile Include="entry\practice\windows\windows_console.cpp" />
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
     <ClCompile Include="entry\test\macro\test_macro.cpp" />
-    <ClCompile Include="code\kv\entry\source\EntryManager.cpp" />
-    <ClCompile Include="code\kv\entry\source\EntryObject.cpp" />
-    <ClCompile Include="code\kv\entry\source\EntryUtils.cpp" />
-    <ClCompile Include="code\kv\gui\source\Window.cpp" />
-    <ClCompile Include="code\kv\log\source\LogWrap.cpp" />
-    <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
-    <ClCompile Include="code\kv\native\windows\source\utils.cpp" />
-    <ClCompile Include="code\kv\native\windows\source\wgl.cpp" />
     <ClCompile Include="code\PrecompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -65,6 +65,7 @@
   <ItemGroup>
     <ClInclude Include="code\kv\common\ArrayView.hpp" />
     <ClInclude Include="code\kv\common\Delegate.hpp" />
+    <ClInclude Include="code\kv\common\Random.hpp" />
     <ClInclude Include="code\kv\common\Size.hpp" />
     <ClInclude Include="code\kv\common\Stopwatch.hpp" />
     <ClInclude Include="code\kv\common\Utility.hpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="code\kv\entry\EntryType.hpp" />
     <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\log\LogColor.hpp" />
     <ClInclude Include="code\kv\log\Logger.hpp" />
     <ClInclude Include="code\kv\native\windows\IncludeAll.hpp" />
     <ClInclude Include="code\kv\native\windows\utils.hpp" />

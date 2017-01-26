@@ -39,31 +39,31 @@
     <ClCompile Include="entry\test\macro\test_macro.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\entry\source\EntryManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\entry\source\EntryObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\entry\source\EntryUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\native\windows\source\wgl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\gui\source\Window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\log\source\LogWrap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="code\PrecompiledHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\native\windows\source\utils.cpp">
+    <ClCompile Include="code\kv\log\source\kvLogger.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\log\source\kvLogger.cpp">
+    <ClCompile Include="code\kv\entry\source\kvEntryManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\entry\source\kvEntryObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\entry\source\kvEntryUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\gui\source\kvWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\native\windows\source\kvWindowsUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\common\source\Random.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,6 +123,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="code\kv\log\Logger.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\log\LogColor.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\common\Random.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

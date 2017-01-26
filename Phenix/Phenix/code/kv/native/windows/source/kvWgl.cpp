@@ -18,7 +18,7 @@ static void PrintWglFunctionLoadInfo(void * value, LPCSTR const extName)
     if (value == nullptr)
     {
         log::debug(log::color::magenta)("    {0:<26}", extName)(log::color::red)(" failed.")();
-        utils::PrintErrorInfo();
+        utils::PrintErrorMessageInfo();
     }
     else
     {
@@ -75,10 +75,7 @@ BOOL WINAPI _LoadExtensions()
 static LRESULT WINAPI OnEvent(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 #if 1
-    log::debug.time()
-        (log::color::cyan)("{0:^20} ", utils::GetWindowMessageName(message))
-        (log::color::green)("(0x{0:04x}) ", message)
-        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)();
+    utils::PrintWindowMessageInfo(hwnd, message, wparam, lparam);
 #endif
     return DefWindowProc(hwnd, message, wparam, lparam);
 }
