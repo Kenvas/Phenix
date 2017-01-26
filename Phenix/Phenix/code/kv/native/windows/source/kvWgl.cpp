@@ -72,7 +72,7 @@ BOOL WINAPI _LoadExtensions()
     return retval;
 }
 
-static LRESULT WINAPI OnEvent(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
+static LRESULT WINAPI OnWindowProcedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 #if 1
     utils::PrintWindowMessageInfo(hwnd, message, wparam, lparam);
@@ -104,8 +104,10 @@ BOOL WINAPI LoadExtensions()
     autox wcex         = WNDCLASSEX{ 0 };
     wcex.cbSize        = sizeof(wcex);
     wcex.hInstance     = instance;
-    wcex.lpfnWndProc   = &OnEvent;
+    wcex.lpfnWndProc   = &OnWindowProcedure;
     wcex.lpszClassName = class_name;
+
+    log::debug()("********** temporary window begin **********")();
 
     if (!RegisterClassEx(&wcex))
     {
@@ -156,6 +158,8 @@ BOOL WINAPI LoadExtensions()
 
     _LoadExtensions();
     dispsose(5, class_name, instance, hwnd, hdc, hglrc);
+
+    log::debug("********** temporary window end **********")()();
 
     init = TRUE;
 

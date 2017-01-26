@@ -93,7 +93,11 @@ protected:
 
     virtual bool OnCreate() override
     {
-        if (!wgl::LoadExtensions())
+        autox precondition = true
+            && Window::OnCreate()
+            && wgl::LoadExtensions();
+
+        if (!precondition)
         {
             return false;
         }

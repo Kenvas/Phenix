@@ -147,11 +147,23 @@ void Window::OnRender()
 
 bool Window::OnCreate()
 {
+    autox function = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    autox thunk = static_cast<kvWindowProcedureThunk * const>(function);
+    autox procedure = static_cast<WNDPROC>([](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
+    {
+        autox app = reinterpret_cast<Window * const>(window_handle);
+        return app->OnEvent(message, wparam, lparam);
+    });
+    thunk->Build(reinterpret_cast<size_t>(this), reinterpret_cast<size_t>(procedure));
+    SetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4, LONG_PTR(function));
     return true;
 }
 
 void Window::OnDestroy()
 {
+    autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
+    VirtualFree(thunk, 0, MEM_RELEASE);
+    PostQuitMessage(0);
 }
 
 void Window::OnClose()
@@ -213,25 +225,9 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
     case WM_GETMINMAXINFO:
         break;
     case WM_NCCREATE: // non client create
-        {
-            autox function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-            autox thunk     = static_cast<kvWindowProcedureThunk * const>(function);
-            autox procedure = static_cast<WNDPROC>([](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
-            {
-                autox app = reinterpret_cast<Window * const>(window_handle);
-                return app->OnEvent(message, wparam, lparam);
-            });
-            thunk->Build(reinterpret_cast<size_t>(this), reinterpret_cast<size_t>(procedure));
-            SetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4, LONG_PTR(function));
-        }
-        return TRUE;
+        break;
     case WM_NCDESTROY:   // non client destroy
-        {
-            autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
-            VirtualFree(thunk, 0, MEM_RELEASE);
-            PostQuitMessage(0);
-        }
-        return 0;
+        break;
     case WM_NCCALCSIZE:
         break;
     case WM_NCHITTEST:   // non client hit test
