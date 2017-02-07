@@ -30,8 +30,8 @@ public:
     size2i const & GetSize() const noexcept;
     void SetSize(int const width, int const height) noexcept;
 
-    int Run();
     bool Initialize();
+    int Run();
 
 protected:
 

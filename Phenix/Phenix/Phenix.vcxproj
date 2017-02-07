@@ -42,13 +42,15 @@
     <ClCompile Include="code\kv\gui\source\kvWindow.cpp" />
     <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
     <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp" />
-    <ClCompile Include="code\kv\native\windows\source\kvWindowsUtils.cpp" />
+    <ClCompile Include="code\kv\native\windows\source\kvUtilsWindows.cpp" />
     <ClCompile Include="entry\main.cpp" />
     <ClCompile Include="entry\experiment.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_server.cpp" />
     <ClCompile Include="entry\practice\opengl\glapp.cpp" />
     <ClCompile Include="entry\practice\windows\windows_console.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_keyview.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_sysmets.cpp" />
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
     <ClCompile Include="entry\test\macro\test_macro.cpp" />
     <ClCompile Include="code\PrecompiledHeader.cpp">
@@ -74,15 +76,14 @@
     <ClInclude Include="code\kv\entry\EntryType.hpp" />
     <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />
+    <ClInclude Include="code\kv\gui\Window.hpp" />
+    <ClInclude Include="code\kv\log\IncludeAll.hpp" />
     <ClInclude Include="code\kv\log\LogColor.hpp" />
     <ClInclude Include="code\kv\log\Logger.hpp" />
     <ClInclude Include="code\kv\native\windows\IncludeAll.hpp" />
     <ClInclude Include="code\kv\native\windows\utils.hpp" />
     <ClInclude Include="code\kv\native\windows\wgl.hpp" />
-    <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />
-    <ClInclude Include="code\kv\gui\Window.hpp" />
-    <ClInclude Include="code\kv\log\IncludeAll.hpp" />
-    <ClInclude Include="code\kv\log\LogWrap.hpp" />
     <ClInclude Include="code\PrecompiledHeader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

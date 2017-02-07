@@ -16,49 +16,68 @@
 
 Logger const trace   {};
 Logger const debug   {};
-Logger const info    {};
-Logger const warn    {};
-Logger const error   {};
-Logger const critical{};
+Logger const info    { color::white , color::grey , 3 };
+Logger const warn    { color::yellow, color::grey , 4 };
+Logger const error   { color::red   , color::grey , 5 };
+Logger const critical{ color::white , color::red  , 6 };
 
-BasicLogger::ConstLoggerRef BasicLogger::EndLine() const noexcept
+inline BasicLogger::RefType const logger_cast(BasicLogger const * const value) noexcept
 {
-    std::cout << termcolor::reset << std::endl;
-    return static_cast<ConstLoggerRef>(*this);
+    return static_cast<BasicLogger::RefType>(const_cast<BasicLogger &>(*value));
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()() const noexcept
+BasicLogger::BasicLogger() noexcept
+    : BasicLogger(color::white, color::grey, 0)
+{}
+
+BasicLogger::BasicLogger(
+    color    fore_color,
+    color    back_color,
+    uint32_t priority
+    ) noexcept
+    : ForeColor(fore_color)
+    , BackColor(back_color)
+    , Priority(priority)
+{}
+
+BasicLogger::RefType BasicLogger::EndLine() const noexcept
+{
+    std::cout << std::endl;
+    return SetColor(color::reset);
+}
+
+BasicLogger::RefType BasicLogger::operator()() const noexcept
 {
     return EndLine();
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::WriteTime() const noexcept
+BasicLogger::RefType BasicLogger::WriteTime() const noexcept
 {
     using namespace std::chrono;
     autox dt = high_resolution_clock::now().time_since_epoch();
     autox us = (duration_cast<microseconds>(dt).count() % microseconds::period::den);
-    autox t  = std::time(nullptr);
-    autox tm = std::localtime(&t);
-    std::cout << fmt::format("{0:%T}.{1:06d} ", *tm, us);
-    return static_cast<ConstLoggerRef>(*this);
+    autox tm = std::time(nullptr);
+    autox lt = std::localtime(&tm);
+    std::cout << fmt::format("{0:%T}.{1:06d} ", *lt, us);
+    return logger_cast(this);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::SetColor(color const fore) const noexcept
+BasicLogger::RefType BasicLogger::SetColor(color const fore) const noexcept
 {
     if (fore == color::reset)
     {
         std::cout << termcolor::reset;
-        return static_cast<ConstLoggerRef>(*this);
+        return logger_cast(this);
     }
     return SetColor(fore, color::grey);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(color const fore) const noexcept
+BasicLogger::RefType BasicLogger::operator()(color const fore) const noexcept
 {
     return SetColor(fore);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::SetColor(color const fore, color const back) const noexcept
+BasicLogger::RefType BasicLogger::SetColor(color const fore, color const back) const noexcept
 {
     cout << (((int(fore) & 0x8) != 0) ? termcolor::boldfore : termcolor::darkfore);
     switch (int(fore) & 0x7)
@@ -88,72 +107,72 @@ BasicLogger::ConstLoggerRef BasicLogger::SetColor(color const fore, color const 
     case int(color::white  ): cout << termcolor::on_white  ; break;
     }
 
-    return static_cast<ConstLoggerRef>(*this);
+    return logger_cast(this);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(color const fore, color const back) const noexcept
+BasicLogger::RefType BasicLogger::operator()(color const fore, color const back) const noexcept
 {
     return SetColor(fore, back);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::Write(char const * const content) const noexcept
+BasicLogger::RefType BasicLogger::Write(char const * const content) const noexcept
 {
     std::cout << content;
-    return static_cast<ConstLoggerRef>(*this);
+    return logger_cast(this);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::WriteLine(char const * const content) const noexcept
+BasicLogger::RefType BasicLogger::WriteLine(char const * const content) const noexcept
 {
     return Write(content).EndLine();
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(char const * const content) const noexcept
+BasicLogger::RefType BasicLogger::operator()(char const * const content) const noexcept
 {
     return Write(content);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::Write(wchar_t const * const content) const noexcept
+BasicLogger::RefType BasicLogger::Write(wchar_t const * const content) const noexcept
 {
     std::wcout << content;
-    return static_cast<ConstLoggerRef>(*this);
+    return logger_cast(this);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::WriteLine(wchar_t const * const content) const noexcept
+BasicLogger::RefType BasicLogger::WriteLine(wchar_t const * const content) const noexcept
 {
     return Write(content).EndLine();
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(wchar_t const * const content) const noexcept
+BasicLogger::RefType BasicLogger::operator()(wchar_t const * const content) const noexcept
 {
     return Write(content);
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::Write(std::string const & content) const noexcept
+BasicLogger::RefType BasicLogger::Write(std::string const & content) const noexcept
 {
     return Write(content.c_str());
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::WriteLine(std::string const & content) const noexcept
+BasicLogger::RefType BasicLogger::WriteLine(std::string const & content) const noexcept
 {
     return WriteLine(content.c_str());
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(std::string const & content) const noexcept
+BasicLogger::RefType BasicLogger::operator()(std::string const & content) const noexcept
 {
     return Write(content.c_str());
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::Write(std::wstring const & content) const noexcept
+BasicLogger::RefType BasicLogger::Write(std::wstring const & content) const noexcept
 {
     return Write(content.c_str());
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::WriteLine(std::wstring const & content) const noexcept
+BasicLogger::RefType BasicLogger::WriteLine(std::wstring const & content) const noexcept
 {
     return WriteLine(content.c_str());
 }
 
-BasicLogger::ConstLoggerRef BasicLogger::operator()(std::wstring const & content) const noexcept
+BasicLogger::RefType BasicLogger::operator()(std::wstring const & content) const noexcept
 {
     return Write(content.c_str());
 }

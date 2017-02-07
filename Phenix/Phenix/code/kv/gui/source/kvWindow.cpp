@@ -194,7 +194,7 @@ HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_t
         window_title,
         WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
         // 0, 0, CW_USEDEFAULT, CW_USEDEFAULT, // x, y, width, height
-        0, 0, Size_.width, Size_.height,
+        CW_USEDEFAULT, CW_USEDEFAULT, Size_.width, Size_.height,
         nullptr, // parent
         nullptr, // menu
         GetModuleHandle(nullptr),
@@ -239,8 +239,6 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
     case WM_KEYDOWN:
         break;
     case WM_CHAR:
-        break;
-    case WM_MOUSEMOVE:
         break;
     case WM_LBUTTONDOWN:
         break;

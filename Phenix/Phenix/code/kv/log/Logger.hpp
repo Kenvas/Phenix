@@ -19,34 +19,37 @@ extern Logger const critical;
 struct BasicLogger
 {
 public:
-    using ConstLoggerRef = Logger const &;
+    using RefType = Logger &;
 
-    color fore_color;
-    color back_color;
-    uint32_t level;
+    color ForeColor;
+    color BackColor;
+    uint32_t Priority;
 
-    ConstLoggerRef EndLine   () const noexcept;
-    ConstLoggerRef operator()() const noexcept;
+    BasicLogger() noexcept;
+    BasicLogger(color fore_color, color back_color, uint32_t priority) noexcept;
 
-    ConstLoggerRef WriteTime() const noexcept;
+    RefType EndLine   () const noexcept;
+    RefType operator()() const noexcept;
 
-    ConstLoggerRef SetColor  (color const fore) const noexcept;
-    ConstLoggerRef operator()(color const fore) const noexcept;
-    ConstLoggerRef SetColor  (color const fore, color const back) const noexcept;
-    ConstLoggerRef operator()(color const fore, color const back) const noexcept;
+    RefType WriteTime() const noexcept;
 
-    ConstLoggerRef Write     (char         const * const content) const noexcept;
-    ConstLoggerRef WriteLine (char         const * const content) const noexcept;
-    ConstLoggerRef operator()(char         const * const content) const noexcept;
-    ConstLoggerRef Write     (wchar_t      const * const content) const noexcept;
-    ConstLoggerRef WriteLine (wchar_t      const * const content) const noexcept;
-    ConstLoggerRef operator()(wchar_t      const * const content) const noexcept;
-    ConstLoggerRef Write     (std::string  const &       content) const noexcept;
-    ConstLoggerRef WriteLine (std::string  const &       content) const noexcept;
-    ConstLoggerRef operator()(std::string  const &       content) const noexcept;
-    ConstLoggerRef Write     (std::wstring const &       content) const noexcept;
-    ConstLoggerRef WriteLine (std::wstring const &       content) const noexcept;
-    ConstLoggerRef operator()(std::wstring const &       content) const noexcept;
+    RefType SetColor  (color const fore) const noexcept;
+    RefType operator()(color const fore) const noexcept;
+    RefType SetColor  (color const fore, color const back) const noexcept;
+    RefType operator()(color const fore, color const back) const noexcept;
+
+    RefType Write     (char         const * const content) const noexcept;
+    RefType WriteLine (char         const * const content) const noexcept;
+    RefType operator()(char         const * const content) const noexcept;
+    RefType Write     (wchar_t      const * const content) const noexcept;
+    RefType WriteLine (wchar_t      const * const content) const noexcept;
+    RefType operator()(wchar_t      const * const content) const noexcept;
+    RefType Write     (std::string  const &       content) const noexcept;
+    RefType WriteLine (std::string  const &       content) const noexcept;
+    RefType operator()(std::string  const &       content) const noexcept;
+    RefType Write     (std::wstring const &       content) const noexcept;
+    RefType WriteLine (std::wstring const &       content) const noexcept;
+    RefType operator()(std::wstring const &       content) const noexcept;
 };
 
 struct Logger : public BasicLogger
@@ -55,23 +58,23 @@ struct Logger : public BasicLogger
     using BasicLogger::operator();
 
     template <class _CharType, class ... _ArgsType>
-    inline ConstLoggerRef Write(_CharType const * const format, _ArgsType && ... args) const noexcept
+    inline RefType Write(_CharType const * const format, _ArgsType && ... args) const noexcept
     {
         return (sizeof...(_ArgsType) > 0)
-            ? static_cast<Logger const &>(BasicLogger::Write(fmt::format(format, std::forward<_ArgsType>(args) ...)))
-            : static_cast<Logger const &>(BasicLogger::Write(format));
+            ? static_cast<RefType>(BasicLogger::Write(fmt::format(format, std::forward<_ArgsType>(args) ...)))
+            : static_cast<RefType>(BasicLogger::Write(format));
     }
 
     template <class _CharType, class ... _ArgsType>
-    inline ConstLoggerRef WriteLine(_CharType const * const format, _ArgsType && ... args) const noexcept
+    inline RefType WriteLine(_CharType const * const format, _ArgsType && ... args) const noexcept
     {
         return (sizeof...(_ArgsType) > 0)
-            ? static_cast<Logger const &>(BasicLogger::WriteLine(fmt::format(format, std::forward<_ArgsType>(args) ...)))
-            : static_cast<Logger const &>(BasicLogger::WriteLine(format));
+            ? static_cast<RefType>(BasicLogger::WriteLine(fmt::format(format, std::forward<_ArgsType>(args) ...)))
+            : static_cast<RefType>(BasicLogger::WriteLine(format));
     }
 
     template <class _CharType, class ... _ArgsType>
-    inline ConstLoggerRef operator()(_CharType const * const format, _ArgsType && ... args) const noexcept
+    inline RefType operator()(_CharType const * const format, _ArgsType && ... args) const noexcept
     {
         return Write(format, std::forward<_ArgsType>(args) ...);
     }

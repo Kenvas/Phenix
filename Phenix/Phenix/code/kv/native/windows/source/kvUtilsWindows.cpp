@@ -41,7 +41,7 @@ bool RegisterWindowClass(PCTSTR const class_name, WNDPROC const window_procdure)
     wcex.hInstance     = GetModuleHandle(nullptr);
     wcex.hIcon         = nullptr;
     wcex.hCursor       = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = nullptr; // (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName  = nullptr;
     wcex.lpszClassName = class_name;
     wcex.hIconSm       = nullptr;
@@ -293,7 +293,7 @@ void PrintWindowMessageInfo(HWND handle, UINT message, WPARAM wparam, LPARAM lpa
     log::debug.WriteTime()
         (log::color::cyan)("{0:^20} ", GetWindowMessageName(message))
         (log::color::green)("(0x{0:04x}) ", message)
-        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", wparam, lparam)
+        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", size_t(wparam), size_t(lparam))
         (log::color::yellow)("[handle:0x{0:08x}] ", size_t(handle))();
 }
 

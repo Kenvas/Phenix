@@ -7,11 +7,11 @@
 #include <windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
-using namespace std;
-using namespace std::chrono;
-
 using namespace kv;
 using namespace kv::native::windows;
+
+namespace
+{
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam);
 bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure);
@@ -20,11 +20,11 @@ HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_name);
 
 KV_QuickAddEntry
 {
-    PCTSTR const class_name = TEXT("PhenixAppExample");
+    PCTSTR const class_name = TEXT("__kvWindowExample__");
 
     RegisterWindowClass(class_name, WindowProcedure);
 
-    autox WindowHandle_ = CreateWindowInstance(class_name, TEXT("example"));
+    autox WindowHandle_ = CreateWindowInstance(class_name, TEXT("window example"));
 
     ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
@@ -95,4 +95,6 @@ HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_name)
     );
 
     return retval;
+}
+
 }

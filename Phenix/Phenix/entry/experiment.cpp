@@ -58,6 +58,7 @@ struct StaticVar
     }
 };
 
+
 KV_QuickAddEntry
 {
     //log::debug.Write("���ã�����");
@@ -74,6 +75,5 @@ KV_QuickAddEntry
 
     StaticVar<TestStatic>::Create("in func 2");
     StaticVar<TestStatic>::Destroy();
-
     return 0;
 };
