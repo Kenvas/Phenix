@@ -1,16 +1,6 @@
 #include "PrecompiledHeader.hpp"
-#include "kv/entry/IncludeAll.hpp"
-#include "kv/log/IncludeAll.hpp"
-#include "kv/native/windows/utils.hpp"
 
-#include "kv/gui/Window.hpp"
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#undef WIN32_LEAN_AND_MEAN
-
-using namespace kv;
-using namespace kv::native::windows;
+#include "begin"
 
 class KeyViewWindow : public gui::Window
 {
@@ -141,6 +131,7 @@ protected:
             EndPaint(hwnd, &ps);
             return 0;
         case WM_NCDESTROY:
+            if (pmsg) free(pmsg);
             PostQuitMessage(0);
             return 0;
         }
@@ -161,3 +152,5 @@ KV_QuickAddEntry
 
     return 0;
 };
+
+#include "end"
