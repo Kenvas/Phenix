@@ -78,7 +78,6 @@ bool Window::Initialize()
         return true;
 
     autox class_name  = GetWindowClassName();
-    autox window_name = TEXT("Window");
 
     autox procedure = [](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
     {
@@ -95,7 +94,7 @@ bool Window::Initialize()
     log::info(log::color::green)("info: register window class success.")();
 
     ThreadLocalData = static_cast<void *>(this);
-    WindowHandle_   = CreateWindowInstance(class_name, window_name);
+    WindowHandle_   = CreateWindowInstance();
     if (WindowHandle_ == nullptr)
     {
         utils::UnregisterWindowClass(class_name);
@@ -104,7 +103,19 @@ bool Window::Initialize()
     }
     log::info(log::color::green)("info: create window instance success.")();
 
-    ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
+    if (Size_.width == CW_USEDEFAULT || Size_.height == CW_USEDEFAULT)
+    {
+        autox client = RECT{};
+        GetClientRect(WindowHandle_, &client);
+        Size_.width  = client.right - client.left;
+        Size_.height = client.bottom - client.top;
+    }
+
+    autox screen = size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
+    SetWindowPos(WindowHandle_, HWND_TOP
+        , (screen.width - Size_.width) / 2, (screen.height - Size_.height) / 2
+        , Size_.width, Size_.height, SWP_SHOWWINDOW);
+    //ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
 
     return true;
@@ -147,8 +158,8 @@ void Window::OnRender()
 
 bool Window::OnCreate()
 {
-    autox function = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    autox thunk = static_cast<kvWindowProcedureThunk * const>(function);
+    autox function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    autox thunk     = static_cast<kvWindowProcedureThunk * const>(function);
     autox procedure = static_cast<WNDPROC>([](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
     {
         autox app = reinterpret_cast<Window * const>(window_handle);
@@ -161,8 +172,8 @@ bool Window::OnCreate()
 
 void Window::OnDestroy()
 {
-    autox thunk = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
-    VirtualFree(thunk, 0, MEM_RELEASE);
+    autox function = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
+    VirtualFree(function, 0, MEM_RELEASE);
     PostQuitMessage(0);
 }
 
@@ -185,13 +196,13 @@ PCTSTR Window::GetWindowClassName() const noexcept
     return TEXT("__kvWindow_1_0_0__");
 }
 
-HWND Window::CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title)
+HWND Window::CreateWindowInstance()
 {
     autox retval = CreateWindowEx
     (
         WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,
-        class_name,
-        window_title,
+        GetWindowClassName(),
+        TEXT("Window"),
         WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
         // 0, 0, CW_USEDEFAULT, CW_USEDEFAULT, // x, y, width, height
         CW_USEDEFAULT, CW_USEDEFAULT, Size_.width, Size_.height,

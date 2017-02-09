@@ -48,7 +48,7 @@ protected:
 
     virtual PCTSTR GetWindowClassName() const noexcept;
 
-    virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title);
+    virtual HWND CreateWindowInstance();
 
     virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam);
 };

@@ -1,31 +1,39 @@
 #include "PrecompiledHeader.hpp"
 
+#define KV_KEYVIEW_VERSION 2
+
 #include "begin"
 
 class KeyViewWindow : public gui::Window
 {
+private:
+
+    DWORD dwCharSet = DEFAULT_CHARSET;
+    int cxClientMax, cxClient, cxChar;
+    int cyClientMax, cyClient, cyChar;
+    int cLinesMax, cLines;
+    PMSG pmsg;
+    RECT rectScroll;
+    HFONT hfont;
+    TCHAR * const szTop = TEXT("Message        Key       Char      Repeat Scan Ext ALT Prev Tran");
+    TCHAR * const szUnd = TEXT("_______        ___       ____      ______ ____ ___ ___ ____ ____");
+    TCHAR * const szFormat[2] =
+    {
+        TEXT("%-13s %3d %-15s%c%6u %4d %3s %3s %4s %4s"),
+        TEXT("%-13s            0x%04X%1s%c %6u %4d %3s %3s %4s %4s"),
+    };
+    TCHAR * const szYes  = TEXT("Yes");
+    TCHAR * const szNo   = TEXT("No");
+    TCHAR * const szDown = TEXT("Down");
+    TCHAR * const szUp   = TEXT("Up");
+
 protected:
 
     virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
     {
-        static int cxClientMax, cxClient, cxChar;
-        static int cyClientMax, cyClient, cyChar;
-        static int cLinesMax, cLines;
-        static PMSG pmsg;
-        static RECT rectScroll;
-        static TCHAR szTop[] = TEXT("Message        Key       Char     Repeat Scan Ext ALT Prev Tran");
-        static TCHAR szUnd[] = TEXT("_______        ___       ____     ______ ____ ___ ___ ____ ____");
-        static TCHAR * szFormat[2] =
-        {
-            TEXT("%-13s %3d %-15s%c%6u %4d %3s %3s %4s %4s"),
-            TEXT("%-13s            0x%04X%1s%c %6u %4d %3s %3s %4s %4s"),
-        };
-        static TCHAR szYes[]  = TEXT("Yes");
-        static TCHAR szNo[]   = TEXT("No");
-        static TCHAR szDown[] = TEXT("Down");
-        static TCHAR szUp[]   = TEXT("Up");
+        autox hwnd = GetWindowHandle();
 
-        static TCHAR * szMessage[] =
+        TCHAR * const szMessage[] =
         {
             TEXT("WM_KEYDOWN"),
             TEXT("WM_KEYUP"),
@@ -37,22 +45,31 @@ protected:
             TEXT("WM_SYSDEADCHAR"),
         };
 
-        HDC hdc;
-        int i, iType;
-        PAINTSTRUCT ps;
+        autox hdc = HDC();
+        autox ps = PAINTSTRUCT();
+        autox tm = TEXTMETRIC();
         TCHAR szBuffer[128], szKeyName[32];
-        TEXTMETRIC tm;
-
-        autox hwnd = GetWindowHandle();
 
         switch (message)
         {
+#if KV_KEYVIEW_VERSION >= 2
+        case WM_INPUTLANGCHANGE:
+            dwCharSet = static_cast<DWORD>(wparam);
+            // fall through
+#endif
         case WM_CREATE:
         case WM_DISPLAYCHANGE:
             cxClientMax = GetSystemMetrics(SM_CXMAXIMIZED);
             cyClientMax = GetSystemMetrics(SM_CYMAXIMIZED);
             hdc         = GetDC(hwnd);
+#if KV_KEYVIEW_VERSION >= 2
+            if (hfont != nullptr) DeleteObject(hfont);
+            hfont = CreateFont(0, 0, 0, 0, 0, 0, 0, 0
+                , dwCharSet, 0, 0, 0, FIXED_PITCH, nullptr);
+            SelectObject(hdc, hfont);
+#else
             SelectObject(hdc, GetStockObject(SYSTEM_FIXED_FONT));
+#endif
             GetTextMetrics(hdc, &tm);
             cxChar = tm.tmAveCharWidth;
             cyChar = tm.tmHeight;
@@ -83,7 +100,7 @@ protected:
         case WM_SYSCHAR:
         case WM_SYSDEADCHAR:
             // rearrange storage array
-            for (i = cLinesMax - 1; i > 0; i--)
+            for (int i = cLinesMax - 1; i > 0; i--)
             {
                 pmsg[i] = pmsg[i - 1];
             }
@@ -103,10 +120,10 @@ protected:
             SetBkMode(hdc, TRANSPARENT);
             TextOut(hdc, 0, 0, szTop, lstrlen(szTop));
             TextOut(hdc, 0, 0, szUnd, lstrlen(szUnd));
-            for (i = 0; i < min(cLines, cyClient / cyChar - 1); i++)
+            for (int i = 0; i < min(cLines, cyClient / cyChar - 1); i++)
             {
                 autox m = pmsg[i].message;
-                iType = false
+                int iType = false
                     || (m == WM_CHAR)
                     || (m == WM_SYSCHAR)
                     || (m == WM_DEADCHAR)
@@ -132,6 +149,7 @@ protected:
             return 0;
         case WM_NCDESTROY:
             if (pmsg) free(pmsg);
+            if (hfont != nullptr) DeleteObject(hfont);
             PostQuitMessage(0);
             return 0;
         }

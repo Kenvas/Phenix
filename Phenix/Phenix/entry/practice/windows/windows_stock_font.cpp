@@ -4,16 +4,22 @@
 
 class StockFontWindow : public gui::Window
 {
+private:
+
+    int iFont;
+    int cxGrid, cyGrid;
+    int wheel_delta;
+
 protected:
 
-    virtual HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_title) override
+    virtual HWND CreateWindowInstance() override
     {
         autox size   = GetSize();
         autox retval = CreateWindowEx
         (
             WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,
-            class_name,
-            window_title,
+            GetWindowClassName(),
+            TEXT("Window"),
             WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VSCROLL,
             // 0, 0, CW_USEDEFAULT, CW_USEDEFAULT, // x, y, width, height
             CW_USEDEFAULT, CW_USEDEFAULT, size.width, size.height,
@@ -26,17 +32,16 @@ protected:
         return retval;
     }
 
-
     virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
     {
         autox hwnd = GetWindowHandle();
 
-        static struct
+        struct StockFontData
         {
             int idStockFont;
-            TCHAR * szStockFont;
-        }
-        stockfont[] =
+            TCHAR * const szStockFont;
+        };
+        StockFontData stockfont[] =
         {
             OEM_FIXED_FONT     , TEXT("OEM_FIXED_FONT"     ),
             ANSI_FIXED_FONT    , TEXT("ANSI_FIXED_FONT"    ),
@@ -47,13 +52,11 @@ protected:
             DEFAULT_GUI_FONT   , TEXT("DEFAULT_GUI_FONT"   ),
         };
 
-        static int iFont, cFonts = sizeof stockfont / sizeof stockfont[0];
-        HDC hdc;
-        int i, x, y , cxGrid, cyGrid;
-        PAINTSTRUCT ps;
+        autox cFonts = int(sizeof stockfont / sizeof stockfont[0]);
+        autox hdc = HDC();
+        autox ps = PAINTSTRUCT();
+        autox tm = TEXTMETRIC();
         TCHAR szFaceName[LF_FACESIZE], szBuffer[LF_FACESIZE + 64];
-        TEXTMETRIC tm;
-
 
         switch (message)
         {
@@ -91,6 +94,13 @@ protected:
             case VK_DOWN : SendMessage(hwnd, WM_VSCROLL, SB_LINEDOWN, 0); break;
             }
             return 0;
+        case WM_MOUSEWHEEL:
+            wheel_delta = (short)HIWORD(wparam);
+            if (wheel_delta < 0)
+                SendMessage(hwnd, WM_VSCROLL, SB_LINEDOWN, 0);
+            else
+                SendMessage(hwnd, WM_VSCROLL, SB_LINEUP, 0);
+            return 0;
         case WM_PAINT:
             hdc = BeginPaint(hwnd, &ps);
             SelectObject(hdc, GetStockObject(stockfont[iFont].idStockFont));
@@ -107,7 +117,7 @@ protected:
             ));
             SetTextAlign(hdc, TA_TOP | TA_CENTER);
 
-            for (i = 0; i < 17; i++)
+            for (int i = 0; i < 17; i++)
             {
                 MoveToEx(hdc, (i + 2) * cxGrid,  2 * cyGrid, nullptr);
                 LineTo  (hdc, (i + 2) * cxGrid, 19 * cyGrid);
@@ -116,7 +126,7 @@ protected:
                 LineTo  (hdc, 18 * cxGrid, (i + 3) * cyGrid);
             }
 
-            for (i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i++)
             {
                 TextOut(hdc, (2 * i + 5) * cxGrid / 2, 2 * cyGrid + 2, szBuffer, wsprintf(
                     szBuffer,
@@ -130,9 +140,9 @@ protected:
                 ));
             }
 
-            for (y = 0; y < 16; y++)
+            for (int y = 0; y < 16; y++)
             {
-                for (x = 0; x < 16; x++)
+                for (int x = 0; x < 16; x++)
                 {
                     TextOut(hdc, (2 * x + 5) * cxGrid / 2, (y + 3) * cyGrid + 2, szBuffer, wsprintf(
                         szBuffer,
@@ -141,6 +151,7 @@ protected:
                     ));
                 }
             }
+
             EndPaint(hwnd, &ps);
             return 0;
         case WM_NCDESTROY:
