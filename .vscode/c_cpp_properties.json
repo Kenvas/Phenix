@@ -22,11 +22,11 @@
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.14393.0/um/",
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.14393.0/shared/",
                 "D:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.10.24629/include/",
-                "${workspaceRoot}/Phenix/Phenix/include/",
-                "${workspaceRoot}/Phenix/Phenix/external/fmt-3.0.1/",
-                "${workspaceRoot}/Phenix/Phenix/external/spdlog-1.0.0/include/",
-                "${workspaceRoot}/Phenix/Phenix/external/termcolor-0.1.0/include/",
-                "${workspaceRoot}/Phenix/Phenix/external/asmjit/src/"
+                "${workspaceRoot}/Kpp/Athena/include/",
+                "${workspaceRoot}/Kpp/Athena/external/fmt-3.0.1/",
+                "${workspaceRoot}/Kpp/Athena/external/spdlog-1.0.0/include/",
+                "${workspaceRoot}/Kpp/Athena/external/termcolor-0.1.0/include/",
+                "${workspaceRoot}/Kpp/Athena/external/asmjit/src/"
             ],
             "browse" : {
                 "limitSymbolsToIncludedHeaders" : true,
