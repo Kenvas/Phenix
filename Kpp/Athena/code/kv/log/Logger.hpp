@@ -4,6 +4,7 @@
 #include "LogColor.hpp"
 #include <iostream>
 
+
 #include "_namespace/begin"
 
 struct BasicLogger;

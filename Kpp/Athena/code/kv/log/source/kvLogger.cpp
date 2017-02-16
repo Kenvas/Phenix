@@ -16,10 +16,10 @@
 
 Logger const trace   {};
 Logger const debug   {};
-Logger const info    { color::white , color::grey , 3 };
-Logger const warn    { color::yellow, color::grey , 4 };
-Logger const error   { color::red   , color::grey , 5 };
-Logger const critical{ color::white , color::red  , 6 };
+Logger const info    { color::white , color::grey, 3 };
+Logger const warn    { color::yellow, color::grey, 4 };
+Logger const error   { color::red   , color::grey, 5 };
+Logger const critical{ color::white , color::red , 6 };
 
 inline BasicLogger::RefType const logger_cast(BasicLogger const * const value) noexcept
 {
@@ -79,32 +79,32 @@ BasicLogger::RefType BasicLogger::operator()(color const fore) const noexcept
 
 BasicLogger::RefType BasicLogger::SetColor(color const fore, color const back) const noexcept
 {
-    cout << (((int(fore) & 0x8) != 0) ? termcolor::boldfore : termcolor::darkfore);
+    std::cout << (((int(fore) & 0x8) != 0) ? termcolor::boldfore : termcolor::darkfore);
     switch (int(fore) & 0x7)
     {
-    default                 :                             break;
-    case int(color::grey   ): cout << termcolor::grey   ; break;
-    case int(color::blue   ): cout << termcolor::blue   ; break;
-    case int(color::green  ): cout << termcolor::green  ; break;
-    case int(color::cyan   ): cout << termcolor::cyan   ; break;
-    case int(color::red    ): cout << termcolor::red    ; break;
-    case int(color::magenta): cout << termcolor::magenta; break;
-    case int(color::yellow ): cout << termcolor::yellow ; break;
-    case int(color::white  ): cout << termcolor::white  ; break;
+    default                 :                                  break;
+    case int(color::grey   ): std::cout << termcolor::grey   ; break;
+    case int(color::blue   ): std::cout << termcolor::blue   ; break;
+    case int(color::green  ): std::cout << termcolor::green  ; break;
+    case int(color::cyan   ): std::cout << termcolor::cyan   ; break;
+    case int(color::red    ): std::cout << termcolor::red    ; break;
+    case int(color::magenta): std::cout << termcolor::magenta; break;
+    case int(color::yellow ): std::cout << termcolor::yellow ; break;
+    case int(color::white  ): std::cout << termcolor::white  ; break;
     }
 
-    cout << (((int(back) & 0x8) != 0) ? termcolor::boldback : termcolor::darkback);
+    std::cout << (((int(back) & 0x8) != 0) ? termcolor::boldback : termcolor::darkback);
     switch (int(back) & 0x7)
     {
-    default                 :                                break;
-    case int(color::grey   ): cout << termcolor::on_grey   ; break;
-    case int(color::blue   ): cout << termcolor::on_blue   ; break;
-    case int(color::green  ): cout << termcolor::on_green  ; break;
-    case int(color::cyan   ): cout << termcolor::on_cyan   ; break;
-    case int(color::red    ): cout << termcolor::on_red    ; break;
-    case int(color::magenta): cout << termcolor::on_magenta; break;
-    case int(color::yellow ): cout << termcolor::on_yellow ; break;
-    case int(color::white  ): cout << termcolor::on_white  ; break;
+    default                 :                                     break;
+    case int(color::grey   ): std::cout << termcolor::on_grey   ; break;
+    case int(color::blue   ): std::cout << termcolor::on_blue   ; break;
+    case int(color::green  ): std::cout << termcolor::on_green  ; break;
+    case int(color::cyan   ): std::cout << termcolor::on_cyan   ; break;
+    case int(color::red    ): std::cout << termcolor::on_red    ; break;
+    case int(color::magenta): std::cout << termcolor::on_magenta; break;
+    case int(color::yellow ): std::cout << termcolor::on_yellow ; break;
+    case int(color::white  ): std::cout << termcolor::on_white  ; break;
     }
 
     return logger_cast(this);

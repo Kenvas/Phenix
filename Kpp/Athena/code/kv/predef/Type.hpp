@@ -3,8 +3,6 @@
 // #include <stdint.h>
 // #include <float.h>
 
-using char8_t   = char              ;
-
 using int8_t    = signed char       ;
 using int16_t   = signed short      ;
 using int32_t   = signed int        ;

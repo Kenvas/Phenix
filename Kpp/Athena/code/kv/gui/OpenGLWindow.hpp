@@ -165,7 +165,7 @@ protected:
         return Window::OnEvent(message, wparam, lparam);
     }
 
-    virtual void OnRender() override
+    virtual void DoRender() override
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         SwapBuffers(GetDC(GetWindowHandle()));

@@ -29,6 +29,12 @@ private:
 
 protected:
 
+    virtual void OnDestroy() override
+    {
+        if (pmsg) free(pmsg);
+        if (hfont != nullptr) DeleteObject(hfont);
+    }
+
     virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
     {
         autox hwnd = GetWindowHandle();
@@ -147,14 +153,9 @@ protected:
             }
             EndPaint(hwnd, &ps);
             return 0;
-        case WM_NCDESTROY:
-            if (pmsg) free(pmsg);
-            if (hfont != nullptr) DeleteObject(hfont);
-            PostQuitMessage(0);
-            return 0;
         }
 
-        return DefWindowProc(hwnd, message, wparam, lparam);
+        return Window::OnEvent(message, wparam, lparam);
     }
 
 };

@@ -12,8 +12,8 @@ union TSize2 final
         : values { width, height }
     {}
 };
-using size2i = TSize2<int>;
-using size2f = TSize2<float>;
+using Size2i = TSize2<int>;
+using Size2f = TSize2<float>;
 
 
 template <class _ValueType>
@@ -26,7 +26,7 @@ union TSize3 final
         : values { width, height, depth }
     {}
 };
-using size3i = TSize3<int>;
-using size3f = TSize3<float>;
+using Size3i = TSize3<int>;
+using Size3f = TSize3<float>;
 
 #include "_namespace/end"

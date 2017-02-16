@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iterator>
-#include "kv/common/Utility.hpp"
 
 namespace kv
 {

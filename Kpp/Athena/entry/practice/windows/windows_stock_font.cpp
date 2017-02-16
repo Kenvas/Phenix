@@ -154,12 +154,9 @@ protected:
 
             EndPaint(hwnd, &ps);
             return 0;
-        case WM_NCDESTROY:
-            PostQuitMessage(0);
-            return 0;
         }
 
-        return DefWindowProc(hwnd, message, wparam, lparam);
+        return Window::OnEvent(message, wparam, lparam);
     }
 
 };

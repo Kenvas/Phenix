@@ -48,6 +48,10 @@
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_server.cpp" />
     <ClCompile Include="entry\practice\opengl\glapp.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_beeper.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_checker.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_connect.cpp" />
+    <ClCompile Include="entry\practice\windows\windows_digital_clock.cpp" />
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp" />
     <ClCompile Include="entry\practice\windows\windows_key_view.cpp" />
     <ClCompile Include="entry\practice\windows\windows_stock_font.cpp" />
@@ -71,7 +75,7 @@
     <ClInclude Include="code\kv\common\Random.hpp" />
     <ClInclude Include="code\kv\common\Size.hpp" />
     <ClInclude Include="code\kv\common\Stopwatch.hpp" />
-    <ClInclude Include="code\kv\common\Utility.hpp" />
+    <ClInclude Include="code\kv\common\Utils.hpp" />
     <ClInclude Include="code\kv\entry\EntryManager.hpp" />
     <ClInclude Include="code\kv\entry\EntryObject.hpp" />
     <ClInclude Include="code\kv\entry\EntryType.hpp" />
@@ -79,19 +83,16 @@
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
     <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />
     <ClInclude Include="code\kv\gui\Window.hpp" />
-    <ClInclude Include="code\kv\log\IncludeAll.hpp" />
-    <ClInclude Include="code\kv\log\LogColor.hpp" />
-    <ClInclude Include="code\kv\log\Logger.hpp" />
     <ClInclude Include="code\kv\native\windows\IncludeAll.hpp" />
-    <ClInclude Include="code\kv\native\windows\utils.hpp" />
+    <ClInclude Include="code\kv\native\windows\Utils.hpp" />
     <ClInclude Include="code\kv\native\windows\wgl.hpp" />
     <ClInclude Include="code\PrecompiledHeader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B53BB9E6-286B-4897-9866-6395682C4D50}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Athena</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <RootNamespace>Kpp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

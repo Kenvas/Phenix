@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.hpp"
 
 #include "../wgl.hpp"
-#include "../utils.hpp"
+#include "../Utils.hpp"
 #include "kv/log/IncludeAll.hpp"
 #include "kv/predef/Keyword.hpp"
 
@@ -67,7 +67,7 @@ BOOL WINAPI _LoadExtensions()
     __KV_GET_PROC_ADDR(wglCreateContextAttribsARB);
     __KV_GET_PROC_ADDR(wglChoosePixelFormatARB   );
     __KV_GET_PROC_ADDR(wglSwapIntervalEXT        );
-    __KV_GET_PROC_ADDR(wglGetSwapIntervalEXT);
+    __KV_GET_PROC_ADDR(wglGetSwapIntervalEXT     );
 #undef __KV_GET_PROC_ADDR
     return retval;
 }

@@ -17,7 +17,7 @@ private:
     using ClockType = std::chrono::high_resolution_clock;
     using TimePoint = ClockType::time_point;
 
-    size2i    Size_;
+    Size2i    Size_;
     HWND      WindowHandle_;
     TimePoint StartupTime_;
 
@@ -27,22 +27,22 @@ public:
 
     virtual ~Window() noexcept;
 
-    size2i const & GetSize() const noexcept;
-    void SetSize(int const width, int const height) noexcept;
+    Size2i const & GetSize() const noexcept;
+    void SetSize(int width, int height) noexcept;
 
     bool Initialize();
     int Run();
 
 protected:
 
-    virtual void OnInput();
-    virtual void OnUpdate();
-    virtual void OnRender();
+    virtual void DoUpdate();
+    virtual void DoRender();
 
     virtual bool OnCreate();
     virtual void OnDestroy();
     virtual void OnClose();
-    virtual void OnSize(int const width, int const height);
+    virtual void OnFocus(bool enable);
+    virtual void OnSize(int width, int height);
 
     HWND GetWindowHandle() const noexcept;
 

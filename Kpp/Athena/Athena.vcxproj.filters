@@ -27,9 +27,6 @@
     <ClCompile Include="entry\practice\windows\windows_ex01_create_window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="entry\practice\windows\windows_console.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -60,27 +57,54 @@
     <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\native\windows\source\kvWindowsUtils.cpp">
+    <ClCompile Include="code\kv\common\source\kvRandom.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\common\source\Random.cpp">
+    <ClCompile Include="code\kv\native\windows\source\kvUtilsWindows.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_key_view.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_stock_font.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_system_metrics.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_typer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_beeper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_checker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_connect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="entry\practice\windows\windows_digital_clock.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="code\kv\common\ArrayView.hpp">
+    <ClInclude Include="code\PrecompiledHeader.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\Delegate.hpp">
+    <ClInclude Include="code\kv\gui\OpenGLWindow.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\Size.hpp">
+    <ClInclude Include="code\kv\gui\Window.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\Stopwatch.hpp">
+    <ClInclude Include="code\kv\native\windows\IncludeAll.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\Utility.hpp">
+    <ClInclude Include="code\kv\native\windows\wgl.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\native\windows\Utils.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="code\kv\entry\EntryManager.hpp">
@@ -98,37 +122,22 @@
     <ClInclude Include="code\kv\entry\IncludeAll.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\native\windows\utils.hpp">
+    <ClInclude Include="code\kv\common\ArrayView.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\native\windows\wgl.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\gui\OpenGLWindow.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\gui\Window.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\log\IncludeAll.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\log\LogWrap.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\PrecompiledHeader.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\native\windows\IncludeAll.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\log\Logger.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\log\LogColor.hpp">
+    <ClInclude Include="code\kv\common\Delegate.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="code\kv\common\Random.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\common\Size.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\common\Stopwatch.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\common\Utils.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

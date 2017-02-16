@@ -10,7 +10,6 @@ private:
 
     DWORD dwCharSet = DEFAULT_CHARSET;
     int cxChar, cyChar;
-    int cxClient, cyClient;
     int cxBuffer, cyBuffer;
     int xCaret, yCaret;
     TCHAR *pBuffer = nullptr;
@@ -18,66 +17,84 @@ private:
 
 protected:
 
-    virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
+    virtual bool OnCreate() override
+    {
+        autox hwnd = GetWindowHandle();
+        autox hdc  = HDC();
+        autox tm   = TEXTMETRIC();
+
+        hdc = GetDC(hwnd);
+        hfont = CreateFont(0, 0, 0, 0, 0, 0, 0, 0, dwCharSet, 0, 0, 0, FIXED_PITCH, TEXT("Consolas"));
+        SelectObject(hdc, hfont);
+        GetTextMetrics(hdc, &tm);
+        cxChar = tm.tmAveCharWidth;
+        cyChar = tm.tmHeight;
+
+        DeleteObject(SelectObject(hdc, GetStockObject(SYSTEM_FONT)));
+        ReleaseDC(hwnd, hdc);
+
+        OnSize(0, 0);
+
+        return true;
+    }
+
+    virtual void OnDestroy() override
+    {
+        if (pBuffer != nullptr) free(pBuffer);
+    }
+
+    virtual void OnSize(int width, int height) override
     {
         autox hwnd = GetWindowHandle();
 
-        autox hdc = HDC();
-        autox ps  = PAINTSTRUCT();
-        autox tm  = TEXTMETRIC();
+        cxBuffer = max(1, width / cxChar);
+        cyBuffer = max(1, height/ cyChar);
+
+        if (pBuffer != nullptr) free(pBuffer);
+
+        pBuffer = (TCHAR *)malloc(sizeof(TCHAR) * cxBuffer * cyBuffer);
+
+        for (int y = 0; y < cyBuffer; y++)
+            for (int x = 0; x < cxBuffer; x++)
+                BUFFER(x, y) = ' ';
+
+        xCaret = 0;
+        yCaret = 0;
+
+        if (hwnd == GetFocus())
+            SetCaretPos(xCaret * cxChar, yCaret * cyChar);
+
+        InvalidateRect(hwnd, nullptr, TRUE);
+    }
+
+    virtual void OnFocus(bool enable) override
+    {
+        autox hwnd = GetWindowHandle();
+
+        if (enable)
+        {
+            CreateCaret(hwnd, nullptr, 2, cyChar);
+            SetCaretPos(xCaret * cxChar, yCaret * cyChar);
+            ShowCaret(hwnd);
+        }
+        else
+        {
+            HideCaret(hwnd);
+            DestroyCaret();
+        }
+    }
+
+    virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
+    {
+        autox hwnd = GetWindowHandle();
+        autox hdc  = HDC();
+        autox ps   = PAINTSTRUCT();
 
         switch (message)
         {
         case WM_INPUTLANGCHANGE:
             dwCharSet = (DWORD)wparam;
-
-        case WM_CREATE:
-            hdc   = GetDC(hwnd);
-            hfont = CreateFont(0, 0, 0, 0, 0, 0, 0, 0, dwCharSet, 0, 0, 0, FIXED_PITCH, TEXT("Consolas"));
-            SelectObject(hdc, hfont);
-            GetTextMetrics(hdc, &tm);
-            cxChar = tm.tmAveCharWidth;
-            cyChar = tm.tmHeight;
-
-            DeleteObject(SelectObject(hdc, GetStockObject(SYSTEM_FONT)));
-            ReleaseDC(hwnd, hdc);
-
-        case WM_SIZE:
-            if (message == WM_SIZE)
-            {
-                cxClient = LOWORD(lparam);
-                cyClient = HIWORD(lparam);
-            }
-
-            cxBuffer = max(1, cxClient / cxChar);
-            cyBuffer = max(1, cyClient / cyChar);
-
-            if (pBuffer != nullptr) free(pBuffer);
-
-            pBuffer = (TCHAR *)malloc(sizeof(TCHAR) * cxBuffer * cyBuffer);
-
-            for (int y = 0; y < cyBuffer; y++)
-                for (int x = 0; x < cxBuffer; x++)
-                    BUFFER(x, y) = ' ';
-
-            xCaret = 0;
-            yCaret = 0;
-
-            if (hwnd == GetFocus())
-                SetCaretPos(xCaret * cxChar, yCaret * cyChar);
-
-            InvalidateRect(hwnd, nullptr, TRUE);
-            return 0;
-
-        case WM_SETFOCUS:
-            CreateCaret(hwnd, nullptr, 2, cyChar);
-            SetCaretPos(xCaret * cxChar, yCaret * cyChar);
-            ShowCaret(hwnd);
-            return 0;
-
-        case WM_KILLFOCUS:
-            HideCaret(hwnd);
-            DestroyCaret();
+            OnCreate();
             return 0;
 
         case WM_KEYDOWN:
@@ -194,14 +211,9 @@ protected:
 
             EndPaint(hwnd, &ps);
             return 0;
-
-        case WM_DESTROY:
-            if (pBuffer != nullptr) free(pBuffer);
-            PostQuitMessage(0);
-            return 0;
         }
 
-        return DefWindowProc(hwnd, message, wparam, lparam);
+        return Window::OnEvent(message, wparam, lparam);
     }
 
 };

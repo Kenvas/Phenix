@@ -19,22 +19,5 @@
         "Kpp/Athena/external/termcolor*/docs": true,
         "Kpp/Athena/external/termcolor*/test": true,
         "Kpp/Athena/external/termcolor*/*.*" : true
-    },
-    "files.associations": {
-        "chrono": "cpp",
-        "*hfunctional": "cpp",
-        "tuple": "cpp",
-        "*h*hxutility": "cpp",
-        "*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*h*hregex": "cpp",
-        "regex": "cpp",
-        "*h*h*h*h*h*h*h*h*h*h*h*h*h*h*CPPfunctional": "cpp",
-        "functional": "cpp",
-        "*h*h*h*h*hxfunctional": "cpp",
-        "xfunctional": "cpp",
-        "xlocmon": "cpp",
-        "array": "cpp",
-        "vector": "cpp",
-        "xstring": "cpp",
-        "list": "cpp"
     }
 }

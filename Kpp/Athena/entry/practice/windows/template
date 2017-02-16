@@ -1,0 +1,38 @@
+#include "PrecompiledHeader.hpp"
+
+#include "begin"
+
+class TemplateWindow : public gui::Window
+{
+private:
+
+
+protected:
+
+    virtual LRESULT CALLBACK OnEvent(UINT message, WPARAM wparam, LPARAM lparam) override
+    {
+        autox hwnd = GetWindowHandle();
+
+        switch (message)
+        {
+        default: break;
+        }
+
+        return Window::OnEvent(message, wparam, lparam);
+    }
+
+};
+
+KV_QuickAddEntry
+{
+    autox app = make_shared<TemplateWindow>();
+
+    if (app->Initialize())
+    {
+        app->Run();
+    }
+
+    return 0;
+};
+
+#include "end"

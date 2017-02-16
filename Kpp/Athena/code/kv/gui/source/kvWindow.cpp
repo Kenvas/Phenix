@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.hpp"
 
 #include "../Window.hpp"
-#include "kv/native/windows/utils.hpp"
+#include "kv/native/windows/Utils.hpp"
 #include "kv/native/windows/wgl.hpp"
 #include "kv/log/IncludeAll.hpp"
 #include "kv/predef/Keyword.hpp"
@@ -61,12 +61,12 @@ Window::Window() noexcept
 Window::~Window() noexcept
 {}
 
-size2i const & Window::GetSize() const noexcept
+Size2i const & Window::GetSize() const noexcept
 {
     return Size_;
 }
 
-void Window::SetSize(int const width, int const height) noexcept
+void Window::SetSize(int width, int height) noexcept
 {
     Size_.width  = width;
     Size_.height = height;
@@ -81,9 +81,29 @@ bool Window::Initialize()
 
     autox procedure = [](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
     {
-        autox app = static_cast<Window * const>(ThreadLocalData);
-        app->WindowHandle_ = window_handle;
-        return app->OnEvent(message, wparam, lparam);
+        auto _procedure = static_cast<WNDPROC>(
+        [](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
+        {
+            auto window = reinterpret_cast<Window * const>(window_handle);
+            utils::PrintWindowMessageInfo(window->GetWindowHandle(), message, wparam, lparam);
+            if (message == WM_NCDESTROY)
+            {
+                auto pointer = GetWindowLongPtr(window->GetWindowHandle(), /*GWL_WNDPROC*/-4);
+                VirtualFree(reinterpret_cast<LPVOID>(pointer), 0, MEM_RELEASE);
+                utils::PrintErrorMessageInfo();
+                PostQuitMessage(0);
+            }
+            return window->OnEvent(message, wparam, lparam);
+        });
+        auto _function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk)
+            , MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+        auto _thunk     = static_cast<kvWindowProcedureThunk * const>(_function);
+        auto _window    = static_cast<Window * const>(ThreadLocalData);
+        utils::PrintErrorMessageInfo();
+        _thunk->Build(reinterpret_cast<size_t>(_window), reinterpret_cast<size_t>(_procedure));
+        SetWindowLongPtr(window_handle, /*GWL_WNDPROC*/-4, reinterpret_cast<LONG_PTR>(_function));
+        _window->WindowHandle_ = window_handle;
+        return _window->OnEvent(message, wparam, lparam);
     };
 
     if (!utils::RegisterWindowClass(class_name, procedure))
@@ -111,7 +131,7 @@ bool Window::Initialize()
         Size_.height = client.bottom - client.top;
     }
 
-    autox screen = size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
+    autox screen = Size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
     SetWindowPos(WindowHandle_, HWND_TOP
         , (screen.width - Size_.width) / 2, (screen.height - Size_.height) / 2
         , Size_.width, Size_.height, SWP_SHOWWINDOW);
@@ -134,9 +154,8 @@ int Window::Run()
             DispatchMessage(&evtarg);
         }
 
-        OnInput();
-        OnUpdate();
-        OnRender();
+        DoUpdate();
+        DoRender();
     }
 
     utils::UnregisterWindowClass(GetWindowClassName());
@@ -144,37 +163,21 @@ int Window::Run()
     return static_cast<int>(evtarg.wParam);
 }
 
-void Window::OnInput()
+void Window::DoUpdate()
 {
 }
 
-void Window::OnUpdate()
-{
-}
-
-void Window::OnRender()
+void Window::DoRender()
 {
 }
 
 bool Window::OnCreate()
 {
-    autox function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    autox thunk     = static_cast<kvWindowProcedureThunk * const>(function);
-    autox procedure = static_cast<WNDPROC>([](HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam)
-    {
-        autox app = reinterpret_cast<Window * const>(window_handle);
-        return app->OnEvent(message, wparam, lparam);
-    });
-    thunk->Build(reinterpret_cast<size_t>(this), reinterpret_cast<size_t>(procedure));
-    SetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4, LONG_PTR(function));
     return true;
 }
 
 void Window::OnDestroy()
 {
-    autox function = reinterpret_cast<LPVOID>(GetWindowLongPtr(WindowHandle_, /*GWL_WNDPROC*/-4));
-    VirtualFree(function, 0, MEM_RELEASE);
-    PostQuitMessage(0);
 }
 
 void Window::OnClose()
@@ -182,7 +185,11 @@ void Window::OnClose()
     DefWindowProc(WindowHandle_, WM_CLOSE, 0, 0);
 }
 
-void Window::OnSize(int const width, int const height)
+void Window::OnFocus(bool enable)
+{
+}
+
+void Window::OnSize(int width, int height)
 {
 }
 
@@ -217,8 +224,6 @@ HWND Window::CreateWindowInstance()
 
 LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
 {
-    utils::PrintWindowMessageInfo(WindowHandle_, message, wparam, lparam);
-
     switch (message)
     {
     case WM_CREATE:
@@ -226,30 +231,31 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
     case WM_DESTROY:
         return (OnDestroy(), 0);
     case WM_SIZE:
+        SetSize(LOWORD(lparam), HIWORD(lparam));
         return (OnSize(LOWORD(lparam), HIWORD(lparam)), 0);
+    case WM_SETFOCUS:
+        return (OnFocus(true), 0);
+    case WM_KILLFOCUS:
+        return (OnFocus(false), 0);
     case WM_CLOSE:
         return (OnClose(), 0);
     case WM_PAINT:
-        break;
-    case WM_SETCURSOR:
-        break;
-    case WM_GETMINMAXINFO:
         break;
     case WM_NCCREATE: // non client create
         break;
     case WM_NCDESTROY:   // non client destroy
         break;
-    case WM_NCCALCSIZE:
-        break;
     case WM_NCHITTEST:   // non client hit test
-        break;
-    case WM_NCMOUSEMOVE: // non client mouse mouse
-        break;
-    case WM_KEYUP:
         break;
     case WM_KEYDOWN:
         break;
+    case WM_KEYUP:
+        break;
     case WM_CHAR:
+        break;
+    case WM_TIMER:
+        break;
+    case WM_MOUSEMOVE:
         break;
     case WM_LBUTTONDOWN:
         break;
@@ -269,7 +275,15 @@ LRESULT CALLBACK Window::OnEvent(UINT message, WPARAM wparam, LPARAM lparam)
         break;
     case WM_MBUTTONDBLCLK:
         break;
+    case WM_XBUTTONDOWN:
+        break;
+    case WM_XBUTTONUP:
+        break;
+    case WM_XBUTTONDBLCLK:
+        break;
     case WM_MOUSEWHEEL:
+        break;
+    case WM_MOUSEHWHEEL:
         break;
     default:
         break;
