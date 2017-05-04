@@ -1,7 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
-#include "../Logger.hpp"
-#include "../LogColor.hpp"
+#include "../IncludeAll.hpp"
 #include "kv/predef/Keyword.hpp"
 
 #include "termcolor/termcolor.hpp"
@@ -20,6 +19,7 @@ Logger const info    { color::white , color::grey, 3 };
 Logger const warn    { color::yellow, color::grey, 4 };
 Logger const error   { color::red   , color::grey, 5 };
 Logger const critical{ color::white , color::red , 6 };
+TimeTag time;
 
 inline BasicLogger::RefType const logger_cast(BasicLogger const * const value) noexcept
 {
@@ -60,6 +60,11 @@ BasicLogger::RefType BasicLogger::WriteTime() const noexcept
     autox lt = std::localtime(&tm);
     std::cout << fmt::format("{0:%T}.{1:06d} ", *lt, us);
     return logger_cast(this);
+}
+
+BasicLogger::RefType BasicLogger::operator()(TimeTag unused) const noexcept
+{
+    return WriteTime();
 }
 
 BasicLogger::RefType BasicLogger::SetColor(color const fore) const noexcept
@@ -149,32 +154,32 @@ BasicLogger::RefType BasicLogger::operator()(wchar_t const * const content) cons
 
 BasicLogger::RefType BasicLogger::Write(std::string const & content) const noexcept
 {
-    return Write(content.c_str());
+    return Write(content.data());
 }
 
 BasicLogger::RefType BasicLogger::WriteLine(std::string const & content) const noexcept
 {
-    return WriteLine(content.c_str());
+    return WriteLine(content.data());
 }
 
 BasicLogger::RefType BasicLogger::operator()(std::string const & content) const noexcept
 {
-    return Write(content.c_str());
+    return Write(content.data());
 }
 
 BasicLogger::RefType BasicLogger::Write(std::wstring const & content) const noexcept
 {
-    return Write(content.c_str());
+    return Write(content.data());
 }
 
 BasicLogger::RefType BasicLogger::WriteLine(std::wstring const & content) const noexcept
 {
-    return WriteLine(content.c_str());
+    return WriteLine(content.data());
 }
 
 BasicLogger::RefType BasicLogger::operator()(std::wstring const & content) const noexcept
 {
-    return Write(content.c_str());
+    return Write(content.data());
 }
 
 #include "../_namespace/end"

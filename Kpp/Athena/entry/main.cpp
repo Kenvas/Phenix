@@ -11,6 +11,7 @@ int main(int argc, char ** argv)
     autox manager = GetManager();
     autox path    = ExtractPathInfo(argv[0]);
 
+    //SetCurrentDirectoryA(get<0>(path).data());
     set_title(get<1>(path));
 
     manager.SetWorkspace(__FILE__);

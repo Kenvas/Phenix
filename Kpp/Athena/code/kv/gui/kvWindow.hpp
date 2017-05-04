@@ -1,12 +1,9 @@
 #pragma once
 
-#include "kv/common/Size.hpp"
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#undef WIN32_LEAN_AND_MEAN
-
 #include <chrono>
+#include <minwindef.h>
+
+#include "kv/common/kvSize.hpp"
 
 #include "_namespace/begin"
 

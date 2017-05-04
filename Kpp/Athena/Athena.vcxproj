@@ -39,6 +39,7 @@
     <ClCompile Include="code\kv\entry\source\kvEntryManager.cpp" />
     <ClCompile Include="code\kv\entry\source\kvEntryObject.cpp" />
     <ClCompile Include="code\kv\entry\source\kvEntryUtils.cpp" />
+    <ClCompile Include="code\kv\gui\source\kvOpenGLWindow.cpp" />
     <ClCompile Include="code\kv\gui\source\kvWindow.cpp" />
     <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
     <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp" />
@@ -72,7 +73,9 @@
   <ItemGroup>
     <ClInclude Include="code\kv\common\ArrayView.hpp" />
     <ClInclude Include="code\kv\common\Delegate.hpp" />
-    <ClInclude Include="code\kv\common\Random.hpp" />
+    <ClInclude Include="code\kv\common\kvGLEW.hpp" />
+    <ClInclude Include="code\kv\common\kvRandom.hpp" />
+    <ClInclude Include="code\kv\common\kvSize.hpp" />
     <ClInclude Include="code\kv\common\Size.hpp" />
     <ClInclude Include="code\kv\common\Stopwatch.hpp" />
     <ClInclude Include="code\kv\common\Utils.hpp" />
@@ -81,9 +84,24 @@
     <ClInclude Include="code\kv\entry\EntryType.hpp" />
     <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\entry\kvEntryManager.hpp" />
+    <ClInclude Include="code\kv\entry\kvEntryObject.hpp" />
+    <ClInclude Include="code\kv\entry\kvEntryType.hpp" />
+    <ClInclude Include="code\kv\entry\kvEntryUtils.hpp" />
+    <ClInclude Include="code\kv\gui\kvOpenGLWindow.hpp" />
+    <ClInclude Include="code\kv\gui\kvWindow.hpp" />
     <ClInclude Include="code\kv\gui\OpenGLWindow.hpp" />
     <ClInclude Include="code\kv\gui\Window.hpp" />
+    <ClInclude Include="code\kv\input\Device.hpp" />
+    <ClInclude Include="code\kv\input\Keyboard.hpp" />
+    <ClInclude Include="code\kv\input\Mouse.hpp" />
+    <ClInclude Include="code\kv\log\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\log\kvLogColor.hpp" />
+    <ClInclude Include="code\kv\log\kvLogger.hpp" />
     <ClInclude Include="code\kv\native\windows\IncludeAll.hpp" />
+    <ClInclude Include="code\kv\native\windows\kvUtils.hpp" />
+    <ClInclude Include="code\kv\native\windows\kvUtilsWindows.hpp" />
+    <ClInclude Include="code\kv\native\windows\kvWgl.hpp" />
     <ClInclude Include="code\kv\native\windows\Utils.hpp" />
     <ClInclude Include="code\kv\native\windows\wgl.hpp" />
     <ClInclude Include="code\PrecompiledHeader.hpp" />
@@ -92,7 +110,7 @@
     <ProjectGuid>{B53BB9E6-286B-4897-9866-6395682C4D50}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Kpp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -124,26 +142,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-llvm|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-llvm|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -241,7 +259,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -266,7 +284,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/asmjit/src/;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -288,7 +306,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -304,7 +322,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -315,7 +333,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -332,7 +350,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -348,7 +366,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -376,7 +394,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -404,7 +422,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -416,7 +434,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -432,7 +450,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/asmjit/src;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/spdlog-1.0.0/include;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glbinding-2.1.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -444,7 +462,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glbinding-2.1.1/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>

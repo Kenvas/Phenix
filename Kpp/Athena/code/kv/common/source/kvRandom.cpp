@@ -1,6 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
-#include "../Random.hpp"
+#include "../kvRandom.hpp"
 #include "kv/predef/Keyword.hpp"
 
 #include <array>
@@ -10,23 +10,23 @@ using namespace kv;
 
 #include "../_namespace/begin"
 
-Random const Random::Shared = Random::Random(CreateEngine());
-
-Random::EnginePtrType Random::CreateEngine() noexcept
+Random::EnginePtrType CreateEngine() noexcept
 {
 #if 0
     char seeds[] = "make world full of love & peace";
-    return make_shared<EngineType>(seed_seq(seeds, seeds + sizeof(seeds)));
+    return make_shared<Random::EngineType>(seed_seq(seeds, seeds + sizeof(seeds)));
 #else
     using EngineType = Random::EngineType;
     using DataType   = EngineType::result_type;
     using ArrayType  = array<DataType, EngineType::state_size>;
-    autox states = ArrayType();
-    generate_n(states.data(), EngineType::state_size, Generate);
+    autox states = ArrayType{ Random::Generate(), Random::Generate() };
+    //generate_n(states.data(), EngineType::state_size, Random::Generate);
     seed_seq seq(states.begin(), states.end());
     return make_shared<EngineType>(seq);
 #endif
 }
+
+Random const Random::Shared = Random::Random(CreateEngine());
 
 Random::DeviceType::result_type Random::Generate() noexcept
 {

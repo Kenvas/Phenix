@@ -33,4 +33,6 @@
 #include "kv/entry/IncludeAll.hpp"
 #include "kv/log/IncludeAll.hpp"
 
+#include "kv/common/kvGLEW.hpp"
+
 #endif

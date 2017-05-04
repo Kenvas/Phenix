@@ -1,4 +1,4 @@
 #pragma once
 
-#include "LogColor.hpp"
-#include "Logger.hpp"
+#include "kvLogColor.hpp"
+#include "kvLogger.hpp"

@@ -1,17 +1,6 @@
 #include "PrecompiledHeader.hpp"
-#include "kv/entry/IncludeAll.hpp"
-#include "kv/log/IncludeAll.hpp"
-#include "kv/native/windows/utils.hpp"
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#undef WIN32_LEAN_AND_MEAN
-
-using namespace kv;
-using namespace kv::native::windows;
-
-namespace
-{
+#include "begin"
 
 LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM wparam, LPARAM lparam);
 bool RegisterWindowClass(PCTSTR const class_name, WNDPROC window_procdure);
@@ -97,4 +86,4 @@ HWND CreateWindowInstance(PCTSTR const class_name, PCTSTR const window_name)
     return retval;
 }
 
-}
+#include "end"

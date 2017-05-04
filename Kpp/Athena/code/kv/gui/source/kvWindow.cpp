@@ -1,21 +1,16 @@
 #include "PrecompiledHeader.hpp"
 
-#include "../Window.hpp"
-#include "kv/native/windows/Utils.hpp"
-#include "kv/native/windows/wgl.hpp"
-#include "kv/log/IncludeAll.hpp"
-#include "kv/predef/Keyword.hpp"
-
 #include <ctime>
-#include <chrono>
 #include <iostream>
 #include <unordered_map>
 
 #include <windowsx.h>
-#include <gl/GL.h>
 
-#pragma comment(lib, "opengl32.lib")
-// importlib("opengl32.lib")
+#include "../kvWindow.hpp"
+#include "kv/native/windows/kvUtils.hpp"
+#include "kv/native/windows/kvWgl.hpp"
+#include "kv/log/IncludeAll.hpp"
+#include "kv/predef/Keyword.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -123,18 +118,19 @@ bool Window::Initialize()
     }
     log::info(log::color::green)("info: create window instance success.")();
 
-    if (Size_.width == CW_USEDEFAULT || Size_.height == CW_USEDEFAULT)
+    auto& size = Size_;
+    if (size.width == CW_USEDEFAULT || size.height == CW_USEDEFAULT)
     {
         autox client = RECT{};
         GetClientRect(WindowHandle_, &client);
-        Size_.width  = client.right - client.left;
-        Size_.height = client.bottom - client.top;
+        size.width  = client.right - client.left;
+        size.height = client.bottom - client.top;
     }
 
     autox screen = Size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
     SetWindowPos(WindowHandle_, HWND_TOP
-        , (screen.width - Size_.width) / 2, (screen.height - Size_.height) / 2
-        , Size_.width, Size_.height, SWP_SHOWWINDOW);
+        , (screen.width - size.width) / 2, (screen.height - size.height) / 2
+        , size.width, size.height, SWP_SHOWWINDOW);
     //ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
 

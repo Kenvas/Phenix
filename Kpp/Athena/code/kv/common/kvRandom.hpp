@@ -24,17 +24,15 @@ private:
 
     EnginePtrType EnginePtr_;
 
-public:
+    Random(EnginePtrType const engine_ptr) noexcept;
 
-    static Random::EnginePtrType CreateEngine() noexcept;
+public:
 
     static DeviceType::result_type Generate() noexcept;
 
 public:
 
     Random() noexcept;
-
-    Random(EnginePtrType const engine_ptr) noexcept;
 
     IntegralType UniformI(IntegralType const n) const noexcept;
     IntegralType UniformI(IntegralType const min, IntegralType const max) const noexcept;

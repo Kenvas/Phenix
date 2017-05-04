@@ -1,6 +1,6 @@
 #include "PrecompiledHeader.hpp"
 
-#include "../Utils.hpp"
+#include "../kvUtils.hpp"
 #include "kv/predef/Keyword.hpp"
 #include "kv/log/IncludeAll.hpp"
 
@@ -63,7 +63,16 @@ void UnregisterWindowClass(PCTSTR const class_name) noexcept
     PrintErrorMessageInfo();
 }
 
-char const * GetWindowMessageName(size_t const message) noexcept
+void PrintWindowMessageInfo(HWND handle, UINT message, WPARAM wparam, LPARAM lparam) noexcept
+{
+    log::debug(log::time)
+        (log::color::cyan)("{0:^20} ", GetWindowMessageName(message))
+        (log::color::green)("(0x{0:04x}) ", message)
+        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", size_t(wparam), size_t(lparam))
+        (log::color::yellow)("[handle:0x{0:08x}] ", size_t(handle))();
+}
+
+cchar8s GetWindowMessageName(size_t const message) noexcept
 {
     switch (message)
     {
@@ -287,16 +296,6 @@ char const * GetWindowMessageName(size_t const message) noexcept
     default    : return "";
     }
 }
-
-void PrintWindowMessageInfo(HWND handle, UINT message, WPARAM wparam, LPARAM lparam) noexcept
-{
-    log::debug.WriteTime()
-        (log::color::cyan)("{0:^20} ", GetWindowMessageName(message))
-        (log::color::green)("(0x{0:04x}) ", message)
-        (log::color::magenta)("wp:0x{0:016x} lp:0x{1:016x} ", size_t(wparam), size_t(lparam))
-        (log::color::yellow)("[handle:0x{0:08x}] ", size_t(handle))();
-}
-
 
 }
 #include "../_namespace/end"

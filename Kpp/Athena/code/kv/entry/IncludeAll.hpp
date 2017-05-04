@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EntryManager.hpp"
-#include "EntryObject.hpp"
-#include "EntryUtils.hpp"
-#include "EntryType.hpp"
+#include "kvEntryManager.hpp"
+#include "kvEntryObject.hpp"
+#include "kvEntryUtils.hpp"
+#include "kvEntryType.hpp"
