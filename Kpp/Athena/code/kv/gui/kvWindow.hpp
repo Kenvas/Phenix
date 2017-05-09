@@ -1,6 +1,5 @@
 #pragma once
 
-#include <chrono>
 #include <minwindef.h>
 
 #include "kv/common/kvSize.hpp"
@@ -11,12 +10,9 @@ class Window
 {
 private:
 
-    using ClockType = std::chrono::high_resolution_clock;
-    using TimePoint = ClockType::time_point;
-
-    Size2i    Size_;
-    HWND      WindowHandle_;
-    TimePoint StartupTime_;
+    Size2i  Size_;
+    HWND    WindowHandle_;
+    int64_t StartupTime_;
 
 public:
 
@@ -26,6 +22,8 @@ public:
 
     Size2i const & GetSize() const noexcept;
     void SetSize(int width, int height) noexcept;
+
+    float GetTimeSinceStartup() const noexcept;
 
     bool Initialize();
     int Run();
@@ -39,7 +37,7 @@ protected:
     virtual void OnDestroy();
     virtual void OnClose();
     virtual void OnFocus(bool enable);
-    virtual void OnSize(int width, int height);
+    virtual void OnResize(int width, int height);
 
     HWND GetWindowHandle() const noexcept;
 

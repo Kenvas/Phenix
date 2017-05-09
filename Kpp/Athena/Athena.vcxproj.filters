@@ -15,30 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\kv\common\source\kvRandom.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\entry\source\kvEntryManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\entry\source\kvEntryObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\entry\source\kvEntryUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\gui\source\kvWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\log\source\kvLogger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="code\kv\native\windows\source\kvUtilsWindows.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -87,7 +63,31 @@
     <ClCompile Include="code\PrecompiledHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="code\kv\gui\source\kvOpenGLWindow.cpp">
+    <ClCompile Include="code\kv\common\_source\kvRandom.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\entry\_source\kvEntryManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\entry\_source\kvEntryObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\entry\_source\kvEntryUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\gui\_source\kvOpenGLWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\gui\_source\kvWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\log\_source\kvLogger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\native\windows\_source\kvUtilsWindows.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\native\windows\_source\kvWgl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

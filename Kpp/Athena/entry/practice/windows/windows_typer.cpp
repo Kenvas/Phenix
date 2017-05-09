@@ -33,7 +33,7 @@ protected:
         DeleteObject(SelectObject(hdc, GetStockObject(SYSTEM_FONT)));
         ReleaseDC(hwnd, hdc);
 
-        OnSize(0, 0);
+        OnResize(0, 0);
 
         return true;
     }
@@ -43,7 +43,7 @@ protected:
         if (pBuffer != nullptr) free(pBuffer);
     }
 
-    virtual void OnSize(int width, int height) override
+    virtual void OnResize(int width, int height) override
     {
         autox hwnd = GetWindowHandle();
 

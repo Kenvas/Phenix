@@ -19,5 +19,10 @@
         "Kpp/Athena/external/termcolor*/docs": true,
         "Kpp/Athena/external/termcolor*/test": true,
         "Kpp/Athena/external/termcolor*/*.*" : true
+    },
+    "files.associations": {
+        "functional": "cpp",
+        "tuple": "cpp",
+        "xutility": "cpp"
     }
 }

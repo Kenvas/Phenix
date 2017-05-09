@@ -20,7 +20,7 @@ private:
 
 protected:
 
-    virtual void OnSize(int width, int height) override
+    virtual void OnResize(int width, int height) override
     {
         cxBlock = width / ColumnCount();
         cyBlock = height / RowCount();

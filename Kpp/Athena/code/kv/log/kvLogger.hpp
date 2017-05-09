@@ -2,14 +2,13 @@
 
 #include "kv/predef/Type.hpp"
 #include "kvLogColor.hpp"
-#include <iostream>
 
+#include <iostream>
 
 #include "_namespace/begin"
 
 struct BasicLogger;
 struct Logger;
-
 
 extern Logger const trace;
 extern Logger const debug;
@@ -18,13 +17,14 @@ extern Logger const warn;
 extern Logger const error;
 extern Logger const critical;
 
-struct TimeTag{};
-extern TimeTag time;
+struct time{};
 
 struct BasicLogger
 {
 public:
     using RefType = Logger &;
+
+    static bool CustomColorUsed;
 
     color ForeColor;
     color BackColor;
@@ -37,7 +37,7 @@ public:
     RefType operator()() const noexcept;
 
     RefType WriteTime () const noexcept;
-    RefType operator()(TimeTag unused) const noexcept;
+    RefType operator()(time unused) const noexcept;
 
     RefType SetColor  (color const fore) const noexcept;
     RefType operator()(color const fore) const noexcept;

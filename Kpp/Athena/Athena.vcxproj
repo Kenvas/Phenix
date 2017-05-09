@@ -35,15 +35,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\kv\common\source\kvRandom.cpp" />
-    <ClCompile Include="code\kv\entry\source\kvEntryManager.cpp" />
-    <ClCompile Include="code\kv\entry\source\kvEntryObject.cpp" />
-    <ClCompile Include="code\kv\entry\source\kvEntryUtils.cpp" />
-    <ClCompile Include="code\kv\gui\source\kvOpenGLWindow.cpp" />
-    <ClCompile Include="code\kv\gui\source\kvWindow.cpp" />
-    <ClCompile Include="code\kv\log\source\kvLogger.cpp" />
-    <ClCompile Include="code\kv\native\windows\source\kvWgl.cpp" />
-    <ClCompile Include="code\kv\native\windows\source\kvUtilsWindows.cpp" />
+    <ClCompile Include="code\kv\common\_source\kvRandom.cpp" />
+    <ClCompile Include="code\kv\entry\_source\kvEntryManager.cpp" />
+    <ClCompile Include="code\kv\entry\_source\kvEntryObject.cpp" />
+    <ClCompile Include="code\kv\entry\_source\kvEntryUtils.cpp" />
+    <ClCompile Include="code\kv\gui\_source\kvOpenGLWindow.cpp" />
+    <ClCompile Include="code\kv\gui\_source\kvWindow.cpp" />
+    <ClCompile Include="code\kv\log\_source\kvLogger.cpp" />
+    <ClCompile Include="code\kv\native\windows\_source\kvWgl.cpp" />
+    <ClCompile Include="code\kv\native\windows\_source\kvUtilsWindows.cpp" />
     <ClCompile Include="entry\main.cpp" />
     <ClCompile Include="entry\experiment.cpp" />
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp" />
@@ -259,7 +259,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -284,7 +284,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -306,7 +306,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -322,7 +322,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;$(ProjectDir)external/FreeImage-3.17.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -333,7 +333,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>true</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -350,7 +350,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;$(ProjectDir)external/FreeImage-3.17.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -366,7 +366,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -394,7 +394,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -422,7 +422,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -434,7 +434,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;$(ProjectDir)external/FreeImage-3.17.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -450,7 +450,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)code;$(ProjectDir)code/kv/preprocessor;$(ProjectDir)external/opengl;$(ProjectDir)external/fmt-3.0.1;$(ProjectDir)external/termcolor-0.1.0/include;$(ProjectDir)external/glew-2.0.0/include;$(ProjectDir)external/FreeImage-3.17.0/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <MSCompatibility>false</MSCompatibility>
       <MSExtensions>true</MSExtensions>
@@ -462,7 +462,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external/glew-2.0.0/lib/x64/;$(ProjectDir)external/FreeImage-3.17.0/lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
