@@ -8,33 +8,30 @@
 #include <algorithm>
 #include <windows.h>
 
+#include "Eigen/Geometry"
+#include "kv/math/IncludeAll.hpp"
+
 using namespace kv;
 using namespace std;
+using namespace kv::math;
 
 KV_QuickAddEntry
 {
-    auto count  = 100;
-    auto rate   = 0.8f;
-    auto data   = vector<int>(count);
-    auto avgval = 0.0f;
-    auto weight = 0.0f;
-    auto limwgt = 1.0f / (1.0f - rate);
 
-    for (auto i = 0; i < count; i++)
-    {
-        auto val = data[i];
-        weight = weight * rate + 1.0f;
-        avgval = (avgval * rate + val);
-        auto accu = avgval / weight;
-        auto prox = avgval / limwgt;
-        log::debug("{0:<5}({1:<10}, {2:<10}) ", val, accu, prox)();
-    }
+    auto x = Vector3f(1, 2, 3);
+    auto y = Vector3f(1, 2, 3);
 
+    auto q = Vector3f::Identity();
 
-    log::debug("mouse enable: {0}", GetSystemMetrics(SM_MOUSEPRESENT))();
-    log::debug("mouse wheel enable: {0}", GetSystemMetrics(SM_MOUSEWHEELPRESENT))();
-    log::debug("mouse button count: {0}", GetSystemMetrics(SM_CMOUSEBUTTONS))();
-    log::debug("mouse button swapped: {0}", GetSystemMetrics(SM_SWAPBUTTON))();
+    Eigen::Affine3f t;
+    t = Eigen::AngleAxisf(45.0f * 3.14f / 180, Vector3f::Zero());
+
+    auto xx = t * x.homogeneous();
+
+    cout << sizeof(Eigen::Affine3f) << endl;
+    cout << t.matrix() << endl;
+    cout << x << endl;
+    cout << xx << endl;
 
     return 0;
 };

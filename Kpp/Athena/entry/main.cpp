@@ -25,7 +25,7 @@ int main(int argc, char ** argv)
     {
     default:
     case 1:
-        manager.SetCurrent(get<0>(ExtractPathInfo(__FILE__)));
+        manager.SetCurrent(get<0>(ExtractPathInfo(__FILE__)) + "/../");
         break;
     case 2:
         manager.SetCurrent(argv[1]);

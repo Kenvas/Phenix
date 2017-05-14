@@ -8,6 +8,8 @@
 #include "kv/common/kvRandom.hpp"
 
 #include "FreeImage/FreeImagePlus.h"
+#include "Eigen/Core"
+#include "Eigen/Geometry"
 
 #include <fstream>
 #include <sstream>
@@ -17,6 +19,8 @@
 using namespace std;
 using namespace kv;
 using namespace kv::gui;
+
+using namespace Eigen;
 
 class glShader
 {
@@ -190,7 +194,12 @@ private:
     vector<GLuint> IndexData;
     GLint UnilocTime;
     GLint UnilocTex[2];
+    GLint UnilocModelMatrix;
+    GLint UnilocViewMatrix;
+    GLint UnilocProjMatrix;
     fipImage TexImage[2];
+
+    vector<Vector3f> LocationData;
 
 public:
 
@@ -210,9 +219,9 @@ private:
         if (!OpenGLWindow::OnCreate())
             return false;
 
-        autox client = GetSize();
-        OnResize(client.width, client.height);
 
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
         glClearDepth(1.0f);
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -220,28 +229,85 @@ private:
         //glCullFace(GL_BACK); // cull back face
         //glFrontFace(GL_CW); // GL_CCW for counter clock-wise
 
+        auto a = 0.75f;
+
         VertextData = vector<GLfloat>
         {
-             0.75f,  0.75f, 0.0f, 1.0f, 1.0f,
-             0.75f, -0.75f, 0.0f, 1.0f, 0.0f,
-            -0.75f, -0.75f, 0.0f, 0.0f, 0.0f,
-            -0.75f,  0.75f, 0.0f, 0.0f, 1.0f,
+             -a, -a,  a, 0.0f, 0.0f,
+              a, -a,  a, 1.0f, 0.0f,
+              a,  a,  a, 1.0f, 1.0f,
+             -a,  a,  a, 0.0f, 1.0f,
+
+              a, -a,  a, 0.0f, 0.0f,
+              a, -a, -a, 1.0f, 0.0f,
+              a,  a, -a, 1.0f, 1.0f,
+              a,  a,  a, 0.0f, 1.0f,
+
+             -a,  a,  a, 0.0f, 0.0f,
+              a,  a,  a, 1.0f, 0.0f,
+              a,  a, -a, 1.0f, 1.0f,
+             -a,  a, -a, 0.0f, 1.0f,
+
+             -a, -a,  a, 0.0f, 0.0f,
+             -a, -a, -a, 1.0f, 0.0f,
+             -a,  a, -a, 1.0f, 1.0f,
+             -a,  a,  a, 0.0f, 1.0f,
+
+             -a, -a,  a, 0.0f, 0.0f,
+              a, -a,  a, 1.0f, 0.0f,
+              a, -a, -a, 1.0f, 1.0f,
+             -a, -a, -a, 0.0f, 1.0f,
+
+             -a, -a,  -a, 0.0f, 0.0f,
+              a, -a,  -a, 1.0f, 0.0f,
+              a,  a,  -a, 1.0f, 1.0f,
+             -a,  a,  -a, 0.0f, 1.0f,
         };
 
         IndexData = vector<GLuint>
         {
-            0, 1, 3,
-            1, 2, 3,
+            0, 1, 2,
+            0, 2, 3,
+
+            0 + 4, 1 + 4, 2 + 4,
+            0 + 4, 2 + 4, 3 + 4,
+
+            0 + 8, 1 + 8, 2 + 8,
+            0 + 8, 2 + 8, 3 + 8,
+
+            0 + 12, 1 + 12, 2 + 12,
+            0 + 12, 2 + 12, 3 + 12,
+
+            0 + 16, 1 + 16, 2 + 16,
+            0 + 16, 2 + 16, 3 + 16,
+
+            0 + 20, 1 + 20, 2 + 20,
+            0 + 20, 2 + 20, 3 + 20,
         };
+
+        LocationData = vector<Vector3f>
+        {
+            { 0.0f,  0.0f,  0.0f },
+            { 2.0f,  5.0f, -15.0f},
+            {-1.5f, -2.2f, -2.5f },
+            {-3.8f, -2.0f, -12.3f},
+            { 2.4f, -0.4f, -3.5f },
+            {-1.7f,  3.0f, -7.5f },
+            { 1.3f, -2.0f, -2.5f },
+            { 1.5f,  2.0f, -2.5f },
+            { 1.5f,  0.2f, -1.5f },
+            {-1.3f,  1.0f, -1.5f }
+        };
+
 
         glGenBuffers(sizeof(bo)/sizeof(GLuint), bo);
         glGenVertexArrays(sizeof(vao)/sizeof(GLuint), vao);
         glBindVertexArray(vao[0]);
             glBindBuffer(GL_ARRAY_BUFFER, bo[0]);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * VertextData.size(), VertextData.data(), GL_STATIC_DRAW);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo[1]);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * IndexData.size(),IndexData.data(), GL_STATIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * VertextData.size(), VertextData.data(), GL_STATIC_DRAW);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void *)(0));
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo[1]);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * IndexData.size(),IndexData.data(), GL_STATIC_DRAW);
             glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
             glEnableVertexAttribArray(0);
             glEnableVertexAttribArray(1);
@@ -256,9 +322,13 @@ private:
             .Attach(render_fs);
         prog.Link();
         prog.Use();
-        UnilocTime = glGetUniformLocation(prog, "time");
-        UnilocTex[0] = glGetUniformLocation(prog, "texImage0");
-        UnilocTex[1] = glGetUniformLocation(prog, "texImage1");
+
+        UnilocTime        = glGetUniformLocation(prog, "time");
+        UnilocTex[0]      = glGetUniformLocation(prog, "texImage0");
+        UnilocTex[1]      = glGetUniformLocation(prog, "texImage1");
+        UnilocModelMatrix = glGetUniformLocation(prog, "modelMat");
+        UnilocViewMatrix  = glGetUniformLocation(prog, "viewMat");
+        UnilocProjMatrix  = glGetUniformLocation(prog, "projMat");
 
         TexImage[0].load("test.png");
         TexImage[1].load("face.png");
@@ -303,6 +373,9 @@ private:
             glBindTexture(GL_TEXTURE_2D, 0);
         }
 
+        autox client = GetSize();
+        OnResize(client.width, client.height);
+
         return true;
     }
 
@@ -329,13 +402,22 @@ private:
         glBindTexture(GL_TEXTURE_2D, tex[0]);
         glActiveTexture(GL_TEXTURE0 + 1);
         glBindTexture(GL_TEXTURE_2D, tex[1]);
+
         glBindVertexArray(vao[0]);
-        //glDrawArrays(GL_TRIANGLES, 0, IndexData.size());
-        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo[1]);
-        auto time = GetTimeSinceStartup();
-        glUniform1f(UnilocTime, time);
-        glDrawElements(GL_TRIANGLES, GLsizei(IndexData.size()), GL_UNSIGNED_INT, nullptr);
-        //glDrawElements(GL_TRIANGLES, IndexData.size(), GL_UNSIGNED_INT, IndexData.data());
+        auto count = LocationData.size();
+        for (auto i = 0; i < count; i++)
+        {
+            auto time = GetTimeSinceStartup();
+            glUniform1f(UnilocTime, time + i * i);
+            auto location = LocationData[i];
+            auto modelMat = Affine3f(UniformScaling<float>(1))
+                .translate(!location.isZero() ? location.normalized() : Vector3f(0.5, 0.5, 0))
+                .rotate(AngleAxisf(0.25f * 3.1415926f * time * (i+1), (Vector3f(1, 2, 3) + location).normalized()))
+                .scale(0.2f)
+                ;
+            glUniformMatrix4fv(UnilocModelMatrix, 1, GL_FALSE, modelMat.data());
+            glDrawElements(GL_TRIANGLES, GLsizei(IndexData.size()), GL_UNSIGNED_INT, nullptr);
+        }
         glBindVertexArray(0);
 
         SwapBuffers();

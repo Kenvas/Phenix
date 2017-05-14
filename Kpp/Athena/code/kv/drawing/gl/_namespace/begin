@@ -1,0 +1,2 @@
+#include "../../_namespace/begin"
+namespace gl  {

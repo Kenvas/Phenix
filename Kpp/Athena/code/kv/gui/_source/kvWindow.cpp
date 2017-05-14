@@ -128,7 +128,7 @@ bool Window::Initialize()
     SetWindowPos(WindowHandle_, HWND_TOP
         , (screen.width - client.width) / 2, (screen.height - client.height) / 2
         , client.width, client.height, SWP_SHOWWINDOW);
-    //ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
+    ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
 
     return true;

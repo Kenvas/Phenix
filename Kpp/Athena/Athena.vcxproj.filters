@@ -18,9 +18,6 @@
     <ClCompile Include="entry\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="entry\experiment.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="entry\practice\network\ex01_echo\network_ex01_echo_client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -90,6 +87,18 @@
     <ClCompile Include="code\kv\native\windows\_source\kvWgl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="entry\experiment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\math\_source\kvVector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\math\_source\kvMatrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="code\kv\math\_source\kvQuaternion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\kv\common\ArrayView.hpp">
@@ -152,9 +161,6 @@
     <ClInclude Include="code\kv\native\windows\kvWgl.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\kvGLEW.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="code\kv\common\kvSize.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -192,6 +198,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="code\kv\log\kvLogger.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\drawing\gl\kvGLEW.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\math\kvVector.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\math\kvMatrix.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\math\IncludeAll.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="code\kv\math\kvQuaternion.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

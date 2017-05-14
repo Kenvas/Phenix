@@ -24,8 +24,12 @@
 
 // external begin
 #include "termcolor/termcolor.hpp"
+
 #include "fmt/format.h"
 #include "fmt/time.h"
+
+#include "Eigen/Core"
+#include "Eigen/Geometry"
 // external end
 
 
@@ -33,6 +37,7 @@
 #include "kv/entry/IncludeAll.hpp"
 #include "kv/log/IncludeAll.hpp"
 
-#include "kv/common/kvGLEW.hpp"
+#include "kv/drawing/gl/kvGLEW.hpp"
+
 
 #endif
