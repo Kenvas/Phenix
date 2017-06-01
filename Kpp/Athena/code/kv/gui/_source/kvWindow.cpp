@@ -93,6 +93,7 @@ bool Window::Initialize()
             }
             return window->OnEvent(message, wparam, lparam);
         });
+
         auto _function  = VirtualAlloc(nullptr, sizeof(kvWindowProcedureThunk)
             , MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
         auto _thunk     = static_cast<kvWindowProcedureThunk * const>(_function);
@@ -101,6 +102,8 @@ bool Window::Initialize()
         _thunk->Build(reinterpret_cast<size_t>(_window), reinterpret_cast<size_t>(_procedure));
         SetWindowLongPtr(window_handle, /*GWL_WNDPROC*/-4, reinterpret_cast<LONG_PTR>(_function));
         _window->WindowHandle_ = window_handle;
+
+
         return _window->OnEvent(message, wparam, lparam);
     };
 
@@ -123,12 +126,16 @@ bool Window::Initialize()
     }
     log::info(log::color::green)("info: create window instance success.")();
 
-    auto& client = GetSize();
+    auto rect = RECT{};
+    GetClientRect(WindowHandle_, &rect);
+
+    auto client_width  = (rect.right - rect.left);
+    auto client_height = (rect.bottom - rect.top);
     auto screen = Size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
     SetWindowPos(WindowHandle_, HWND_TOP
-        , (screen.width - client.width) / 2, (screen.height - client.height) / 2
-        , client.width, client.height, SWP_SHOWWINDOW);
-    ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
+        , (screen.width - client_width) / 2, (screen.height - client_height) / 2
+        , client_width, client_height, SWP_SHOWWINDOW);
+    //ShowWindow(WindowHandle_, SW_SHOWDEFAULT);
     UpdateWindow(WindowHandle_);
 
     return true;
@@ -166,20 +173,6 @@ void Window::DoRender()
 
 bool Window::OnCreate()
 {
-    //auto window = RECT{};
-    auto client = RECT{};
-    //auto expected = GetSize();
-    //auto screen = Size2i{ GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
-    auto handle = GetWindowHandle();
-    //GetWindowRect(handle, &window);
-    GetClientRect(handle, &client);
-    auto client_width = (client.right - client.left);
-    auto client_height = (client.bottom - client.top);
-    SetSize(client_width, client_height);
-    //auto dw = (window.right - window.left) - (client.right - client.left);
-    //auto dh = (window.bottom - window.top) - (client.bottom - client.top);
-    //MoveWindow(handle, (screen.width - expected.width) / 2, (screen.height - expected.height) / 2,
-    //expected.width + dw, expected.height + dh, TRUE);
     return true;
 }
 

@@ -79,13 +79,8 @@
     <ClInclude Include="code\kv\drawing\gl\kvGLEW.hpp" />
     <ClInclude Include="code\kv\common\kvRandom.hpp" />
     <ClInclude Include="code\kv\common\kvSize.hpp" />
-    <ClInclude Include="code\kv\common\Size.hpp" />
     <ClInclude Include="code\kv\common\Stopwatch.hpp" />
     <ClInclude Include="code\kv\common\Utils.hpp" />
-    <ClInclude Include="code\kv\entry\EntryManager.hpp" />
-    <ClInclude Include="code\kv\entry\EntryObject.hpp" />
-    <ClInclude Include="code\kv\entry\EntryType.hpp" />
-    <ClInclude Include="code\kv\entry\EntryUtils.hpp" />
     <ClInclude Include="code\kv\entry\IncludeAll.hpp" />
     <ClInclude Include="code\kv\entry\kvEntryManager.hpp" />
     <ClInclude Include="code\kv\entry\kvEntryObject.hpp" />

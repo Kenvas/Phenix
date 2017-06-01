@@ -122,21 +122,6 @@
     <ClInclude Include="code\PrecompiledHeader.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="code\kv\common\Size.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\entry\EntryManager.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\entry\EntryObject.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\entry\EntryType.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="code\kv\entry\EntryUtils.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="code\kv\gui\OpenGLWindow.hpp">
       <Filter>头文件</Filter>
     </ClInclude>

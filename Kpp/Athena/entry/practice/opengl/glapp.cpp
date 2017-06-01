@@ -301,13 +301,18 @@ private:
 
 
         glGenBuffers(sizeof(bo)/sizeof(GLuint), bo);
+        glBindBuffer(GL_ARRAY_BUFFER, bo[0]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * VertextData.size(), VertextData.data(), GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo[1]);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * IndexData.size(),IndexData.data(), GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
         glGenVertexArrays(sizeof(vao)/sizeof(GLuint), vao);
         glBindVertexArray(vao[0]);
             glBindBuffer(GL_ARRAY_BUFFER, bo[0]);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * VertextData.size(), VertextData.data(), GL_STATIC_DRAW);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void *)(0));
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo[1]);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(decltype(VertextData)::value_type) * IndexData.size(),IndexData.data(), GL_STATIC_DRAW);
             glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
             glEnableVertexAttribArray(0);
             glEnableVertexAttribArray(1);
@@ -372,9 +377,6 @@ private:
             glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
             glBindTexture(GL_TEXTURE_2D, 0);
         }
-
-        autox client = GetSize();
-        OnResize(client.width, client.height);
 
         return true;
     }
